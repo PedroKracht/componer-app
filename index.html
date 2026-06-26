@@ -1,0 +1,2233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Componer</title>
+<meta name="theme-color" content="#f3efe6">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Componer">
+<link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjogIkNvbXBvbmVyIiwgInNob3J0X25hbWUiOiAiQ29tcG9uZXIiLCAiZGVzY3JpcHRpb24iOiAiRGVsIGRlc2NhcmdvIGEgbGEgY2FuY2lcdTAwZjNuIiwgInN0YXJ0X3VybCI6ICIuIiwgInNjb3BlIjogIi4iLCAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwgIm9yaWVudGF0aW9uIjogInBvcnRyYWl0IiwgImJhY2tncm91bmRfY29sb3IiOiAiI2YzZWZlNiIsICJ0aGVtZV9jb2xvciI6ICIjZjNlZmU2IiwgImljb25zIjogW3sic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjRiV3h1Y3owaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIWnBaWGRDYjNnOUlqQWdNQ0ExTVRJZ05URXlJajRLSUNBOGNtVmpkQ0IzYVdSMGFEMGlOVEV5SWlCb1pXbG5hSFE5SWpVeE1pSWdjbmc5SWpFeE1pSWdabWxzYkQwaUkyWXpaV1psTmlJdlBnb2dJRHdoTFMwZ2NHVnVkR0ZuY21GdFlTQjBaVzUxWlNBdExUNEtJQ0E4WnlCemRISnZhMlU5SWlOa09XUXlZek1pSUhOMGNtOXJaUzEzYVdSMGFEMGlOeUkrQ2lBZ0lDQThiR2x1WlNCNE1UMGlNVEl3SWlCNU1UMGlNVGd3SWlCNE1qMGlNemt5SWlCNU1qMGlNVGd3SWk4K0NpQWdJQ0E4YkdsdVpTQjRNVDBpTVRJd0lpQjVNVDBpTWpNd0lpQjRNajBpTXpreUlpQjVNajBpTWpNd0lpOCtDaUFnSUNBOGJHbHVaU0I0TVQwaU1USXdJaUI1TVQwaU1qZ3dJaUI0TWowaU16a3lJaUI1TWowaU1qZ3dJaTgrQ2lBZ1BDOW5QZ29nSUR3aExTMGdkVzVoSUc1dmRHRWdMeUJqWVdKbGVtRXNJR052Ylc4Z1lXTmxiblJ2SUdaMVpYSjBaU0F0TFQ0S0lDQThZMmx5WTJ4bElHTjRQU0l5TURBaUlHTjVQU0l6TURBaUlISTlJak0wSWlCbWFXeHNQU0lqT0dNeVpqSm1JaTgrQ2lBZ1BISmxZM1FnZUQwaU1qSTRJaUI1UFNJeE5UQWlJSGRwWkhSb1BTSXhNU0lnYUdWcFoyaDBQU0l4TlRnaUlISjRQU0kxSWlCbWFXeHNQU0lqTVdNeFlURTJJaTgrQ2lBZ1BDRXRMU0J3YkhWdFlTQjBjbUY2WVc1a2J6b2diTU90Ym1WaElHUmxJSFJwYm5SaElIRjFaU0J6ZFdKbElDMHRQZ29nSUR4d1lYUm9JR1E5SWsweE5UQWdNemN5SUZFeU5UWWdNekF3SURNM01pQXpOakFpSUhOMGNtOXJaVDBpSTJJd04yRXpZU0lnYzNSeWIydGxMWGRwWkhSb1BTSXhNeUlnWm1sc2JEMGlibTl1WlNJZ2MzUnliMnRsTFd4cGJtVmpZWEE5SW5KdmRXNWtJaTgrQ2lBZ1BDRXRMU0J3ZFc1MGJ5Qm1hVzVoYkN3Z2NHRnNZV0p5WVM5enc2MXNZV0poSUMwdFBnb2dJRHhqYVhKamJHVWdZM2c5SWpNM01pSWdZM2s5SWpNMk1DSWdjajBpTVRZaUlHWnBiR3c5SWlNeVpqaG1ObVVpTHo0S1BDOXpkbWMrQ2c9PSIsICJzaXplcyI6ICI1MTJ4NTEyIiwgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCIsICJwdXJwb3NlIjogImFueSBtYXNrYWJsZSJ9LCB7InNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUI0Yld4dWN6MGlhSFIwY0RvdkwzZDNkeTUzTXk1dmNtY3ZNakF3TUM5emRtY2lJSFpwWlhkQ2IzZzlJakFnTUNBMU1USWdOVEV5SWo0S0lDQThjbVZqZENCM2FXUjBhRDBpTlRFeUlpQm9aV2xuYUhROUlqVXhNaUlnY25nOUlqRXhNaUlnWm1sc2JEMGlJMll6WldabE5pSXZQZ29nSUR3aExTMGdjR1Z1ZEdGbmNtRnRZU0IwWlc1MVpTQXRMVDRLSUNBOFp5QnpkSEp2YTJVOUlpTmtPV1F5WXpNaUlITjBjbTlyWlMxM2FXUjBhRDBpTnlJK0NpQWdJQ0E4YkdsdVpTQjRNVDBpTVRJd0lpQjVNVDBpTVRnd0lpQjRNajBpTXpreUlpQjVNajBpTVRnd0lpOCtDaUFnSUNBOGJHbHVaU0I0TVQwaU1USXdJaUI1TVQwaU1qTXdJaUI0TWowaU16a3lJaUI1TWowaU1qTXdJaTgrQ2lBZ0lDQThiR2x1WlNCNE1UMGlNVEl3SWlCNU1UMGlNamd3SWlCNE1qMGlNemt5SWlCNU1qMGlNamd3SWk4K0NpQWdQQzluUGdvZ0lEd2hMUzBnZFc1aElHNXZkR0VnTHlCallXSmxlbUVzSUdOdmJXOGdZV05sYm5SdklHWjFaWEowWlNBdExUNEtJQ0E4WTJseVkyeGxJR040UFNJeU1EQWlJR041UFNJek1EQWlJSEk5SWpNMElpQm1hV3hzUFNJak9HTXlaakptSWk4K0NpQWdQSEpsWTNRZ2VEMGlNakk0SWlCNVBTSXhOVEFpSUhkcFpIUm9QU0l4TVNJZ2FHVnBaMmgwUFNJeE5UZ2lJSEo0UFNJMUlpQm1hV3hzUFNJak1XTXhZVEUySWk4K0NpQWdQQ0V0TFNCd2JIVnRZU0IwY21GNllXNWtiem9nYk1PdGJtVmhJR1JsSUhScGJuUmhJSEYxWlNCemRXSmxJQzB0UGdvZ0lEeHdZWFJvSUdROUlrMHhOVEFnTXpjeUlGRXlOVFlnTXpBd0lETTNNaUF6TmpBaUlITjBjbTlyWlQwaUkySXdOMkV6WVNJZ2MzUnliMnRsTFhkcFpIUm9QU0l4TXlJZ1ptbHNiRDBpYm05dVpTSWdjM1J5YjJ0bExXeHBibVZqWVhBOUluSnZkVzVrSWk4K0NpQWdQQ0V0TFNCd2RXNTBieUJtYVc1aGJDd2djR0ZzWVdKeVlTOXp3NjFzWVdKaElDMHRQZ29nSUR4amFYSmpiR1VnWTNnOUlqTTNNaUlnWTNrOUlqTTJNQ0lnY2owaU1UWWlJR1pwYkd3OUlpTXlaamhtTm1VaUx6NEtQQzl6ZG1jK0NnPT0iLCAic2l6ZXMiOiAiMTkyeDE5MiIsICJ0eXBlIjogImltYWdlL3N2Zyt4bWwiLCAicHVycG9zZSI6ICJhbnkgbWFza2FibGUifV19">
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KICA8cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjExMiIgZmlsbD0iI2YzZWZlNiIvPgogIDwhLS0gcGVudGFncmFtYSB0ZW51ZSAtLT4KICA8ZyBzdHJva2U9IiNkOWQyYzMiIHN0cm9rZS13aWR0aD0iNyI+CiAgICA8bGluZSB4MT0iMTIwIiB5MT0iMTgwIiB4Mj0iMzkyIiB5Mj0iMTgwIi8+CiAgICA8bGluZSB4MT0iMTIwIiB5MT0iMjMwIiB4Mj0iMzkyIiB5Mj0iMjMwIi8+CiAgICA8bGluZSB4MT0iMTIwIiB5MT0iMjgwIiB4Mj0iMzkyIiB5Mj0iMjgwIi8+CiAgPC9nPgogIDwhLS0gdW5hIG5vdGEgLyBjYWJlemEsIGNvbW8gYWNlbnRvIGZ1ZXJ0ZSAtLT4KICA8Y2lyY2xlIGN4PSIyMDAiIGN5PSIzMDAiIHI9IjM0IiBmaWxsPSIjOGMyZjJmIi8+CiAgPHJlY3QgeD0iMjI4IiB5PSIxNTAiIHdpZHRoPSIxMSIgaGVpZ2h0PSIxNTgiIHJ4PSI1IiBmaWxsPSIjMWMxYTE2Ii8+CiAgPCEtLSBwbHVtYSB0cmF6YW5kbzogbMOtbmVhIGRlIHRpbnRhIHF1ZSBzdWJlIC0tPgogIDxwYXRoIGQ9Ik0xNTAgMzcyIFEyNTYgMzAwIDM3MiAzNjAiIHN0cm9rZT0iI2IwN2EzYSIgc3Ryb2tlLXdpZHRoPSIxMyIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPCEtLSBwdW50byBmaW5hbCwgcGFsYWJyYS9zw61sYWJhIC0tPgogIDxjaXJjbGUgY3g9IjM3MiIgY3k9IjM2MCIgcj0iMTYiIGZpbGw9IiMyZjhmNmUiLz4KPC9zdmc+Cg==">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KICA8cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjExMiIgZmlsbD0iI2YzZWZlNiIvPgogIDwhLS0gcGVudGFncmFtYSB0ZW51ZSAtLT4KICA8ZyBzdHJva2U9IiNkOWQyYzMiIHN0cm9rZS13aWR0aD0iNyI+CiAgICA8bGluZSB4MT0iMTIwIiB5MT0iMTgwIiB4Mj0iMzkyIiB5Mj0iMTgwIi8+CiAgICA8bGluZSB4MT0iMTIwIiB5MT0iMjMwIiB4Mj0iMzkyIiB5Mj0iMjMwIi8+CiAgICA8bGluZSB4MT0iMTIwIiB5MT0iMjgwIiB4Mj0iMzkyIiB5Mj0iMjgwIi8+CiAgPC9nPgogIDwhLS0gdW5hIG5vdGEgLyBjYWJlemEsIGNvbW8gYWNlbnRvIGZ1ZXJ0ZSAtLT4KICA8Y2lyY2xlIGN4PSIyMDAiIGN5PSIzMDAiIHI9IjM0IiBmaWxsPSIjOGMyZjJmIi8+CiAgPHJlY3QgeD0iMjI4IiB5PSIxNTAiIHdpZHRoPSIxMSIgaGVpZ2h0PSIxNTgiIHJ4PSI1IiBmaWxsPSIjMWMxYTE2Ii8+CiAgPCEtLSBwbHVtYSB0cmF6YW5kbzogbMOtbmVhIGRlIHRpbnRhIHF1ZSBzdWJlIC0tPgogIDxwYXRoIGQ9Ik0xNTAgMzcyIFEyNTYgMzAwIDM3MiAzNjAiIHN0cm9rZT0iI2IwN2EzYSIgc3Ryb2tlLXdpZHRoPSIxMyIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPCEtLSBwdW50byBmaW5hbCwgcGFsYWJyYS9zw61sYWJhIC0tPgogIDxjaXJjbGUgY3g9IjM3MiIgY3k9IjM2MCIgcj0iMTYiIGZpbGw9IiMyZjhmNmUiLz4KPC9zdmc+Cg==">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=IBM+Plex+Mono:wght@400;500&display=swap');
+  :root {
+    --paper:#f3efe6; --ink:#1c1a16; --faint:#a39c8c; --rule:#d9d2c3;
+    --lexical:#b07a3a; --rhythmic:#8c2f2f; --sinalefa:#4a7a6e; --broken:#c4bcab;
+    --rima:#2f8f6e; --figura:#6a5a9c;
+    --homeop:#3b5b9c; --homeot:#b5683c; --ason:#9a8f7d;
+    --pos-sus:#3a7d44; --pos-ver:#a8432f; --pos-adj:#2f5d8c; --pos-adv:#8c5a9c;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:'Fraunces',Georgia,serif;line-height:1.45;padding:1.5rem 1rem 3rem;}
+  .wrap{max-width:760px;margin:0 auto;}
+  header{margin-bottom:1rem;}
+  h1{font-weight:500;font-size:1.25rem;letter-spacing:-0.01em;margin:0 0 0.2rem;}
+  .sub{font-family:'IBM Plex Mono',monospace;font-size:0.68rem;color:var(--faint);text-transform:uppercase;letter-spacing:0.12em;}
+  textarea{width:100%;border:none;border-bottom:1.5px solid var(--rule);background:transparent;font-family:'Fraunces',Georgia,serif;font-size:1.1rem;line-height:1.6;color:var(--ink);padding:0.5rem 0;resize:none;outline:none;overflow:hidden;}
+  textarea:focus{border-bottom-color:var(--ink);}
+  textarea::placeholder{color:var(--faint);font-style:italic;}
+
+  /* panel de toggles */
+  .toggles{display:flex;flex-wrap:wrap;gap:0.4rem;margin:0;padding:0.6rem 0;position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:1px solid var(--rule);}
+  .tog{font-family:'IBM Plex Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.06em;
+    padding:0.3rem 0.6rem;border:1px solid var(--rule);border-radius:20px;cursor:pointer;color:var(--faint);
+    background:transparent;transition:all 0.15s;user-select:none;}
+  .tog.on{color:var(--paper);background:var(--ink);border-color:var(--ink);}
+  .tog:hover{border-color:var(--ink);}
+
+  .legend{display:none;}
+
+  .vm-circ{font-family:'IBM Plex Mono',monospace;font-size:1rem;color:var(--faint);}
+  .vm-circ.f{color:var(--rhythmic);font-weight:600;}
+  .verso-metrica-num{font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--faint);margin-left:0.5rem;}
+  /* ===== MODO VOZ ===== */
+  .voz-controls{display:flex;align-items:center;gap:0.8rem;margin-bottom:1rem;flex-wrap:wrap;}
+  .voz-rec-btn{font-family:'IBM Plex Mono',monospace;font-size:0.8rem;padding:0.6rem 1.2rem;border:1.5px solid var(--rhythmic);border-radius:24px;background:transparent;color:var(--rhythmic);cursor:pointer;transition:all 0.15s;font-weight:500;}
+  .voz-rec-btn:hover{background:var(--rhythmic);color:var(--paper);}
+  .voz-rec-btn.grabando{background:var(--rhythmic);color:var(--paper);animation:pulso 1.4s ease-in-out infinite;}
+  @keyframes pulso{0%,100%{opacity:1;}50%{opacity:0.6;}}
+  .voz-estado{font-family:'IBM Plex Mono',monospace;font-size:0.66rem;color:var(--faint);}
+  #voz-texto{width:100%;border:1px solid var(--rule);border-radius:8px;background:transparent;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;line-height:1.6;color:var(--ink);padding:0.8rem;resize:vertical;outline:none;min-height:6rem;}
+  #voz-texto:focus{border-color:var(--ink);}
+  .voz-acciones{display:flex;gap:0.6rem;margin:0.8rem 0 1.5rem;flex-wrap:wrap;align-items:center;}
+  .voz-campo{margin-bottom:0.3rem;}
+  .voz-vista{font-family:'Fraunces',Georgia,serif;font-size:1.08rem;line-height:1.7;color:var(--ink);border:1px solid var(--rule);border-radius:8px;padding:0.8rem;min-height:60px;cursor:text;background:rgba(0,0,0,0.012);}
+  .voz-parrafo{line-height:1.8;}
+  .voz-linea{display:flex;align-items:baseline;gap:0.6rem;}
+  .voz-linea-texto{flex:1 1 auto;}
+  .voz-linea-meta{flex:0 0 auto;font-family:'IBM Plex Mono',monospace;font-size:0.66rem;color:var(--faint);min-width:1.4rem;text-align:right;}
+  .voz-w{cursor:pointer;}
+  .voz-w-rima{font-weight:500;}
+  .voz-w.pw-on{text-decoration:underline;text-decoration-style:wavy;text-underline-offset:3px;}
+  .voz-w.pesca-ini::before{content:'[';color:var(--figura);font-weight:700;}
+  .voz-w.pesca-sel{background:rgba(106,90,156,0.14);}
+  .voz-pesca-hint{font-family:'IBM Plex Mono',monospace;font-size:0.64rem;color:var(--figura);line-height:1.5;margin:0.5rem 0 0;}
+  .voz-frases-bloque{margin-top:1.5rem;}
+  .voz-paso-label{font-family:'IBM Plex Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--figura);font-weight:500;margin-bottom:0.5rem;}
+  .voz-frase-aviso{font-family:'IBM Plex Mono',monospace;font-size:0.66rem;color:var(--rhythmic);margin-bottom:0.6rem;}
+  .voz-frase-card{border:1px solid var(--rule);border-radius:10px;padding:0.8rem 1rem;margin-bottom:0.7rem;background:rgba(106,90,156,0.04);}
+  .voz-frase-texto{font-family:'Fraunces',Georgia,serif;font-size:1.05rem;line-height:1.5;color:var(--ink);margin-bottom:0.5rem;}
+  .voz-frase-metrica{display:flex;align-items:center;flex-wrap:wrap;gap:0.25rem;margin-bottom:0.6rem;}
+  .voz-frase-acc{display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;}
+  .voz-frase-btn{font-family:'IBM Plex Mono',monospace;font-size:0.66rem;padding:0.35rem 0.8rem;border:1px solid var(--figura);border-radius:16px;background:transparent;color:var(--figura);cursor:pointer;transition:all 0.12s;}
+  .voz-frase-btn:hover{background:var(--figura);color:var(--paper);}
+  .voz-frase-btn.del{border-color:var(--rule);color:var(--faint);padding:0.35rem 0.6rem;}
+  .voz-frase-btn.del:hover{background:var(--rhythmic);color:var(--paper);border-color:var(--rhythmic);}
+  .voz-btn-extraer{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;padding:0.5rem 1rem;border:none;border-radius:20px;background:var(--ink);color:var(--paper);cursor:pointer;transition:all 0.15s;}
+  .voz-btn-extraer:hover{opacity:0.85;}
+  .voz-btn-limpiar{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;padding:0.5rem 1rem;border:1px solid var(--rule);border-radius:20px;background:transparent;color:var(--faint);cursor:pointer;}
+  .voz-btn-limpiar:hover{color:var(--ink);border-color:var(--ink);}
+  .voz-guia{margin:0 0 1.2rem;border:1px solid var(--rule);border-radius:8px;background:rgba(74,122,110,0.05);overflow:hidden;}
+  .voz-guia summary{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;padding:0.7rem 0.9rem;cursor:pointer;color:var(--sinalefa);font-weight:500;list-style:none;}
+  .voz-guia summary::-webkit-details-marker{display:none;}
+  .voz-guia summary::before{content:'+ ';font-weight:700;}
+  .voz-guia[open] summary::before{content:'– ';}
+  .voz-guia-cuerpo{padding:0 1rem 1rem;font-family:'Fraunces',Georgia,serif;font-size:0.95rem;line-height:1.6;color:var(--ink);}
+  .voz-guia-cuerpo p{margin:0.6rem 0;}
+  .voz-guia-cuerpo b{color:var(--sinalefa);}
+  .voz-sentidos{list-style:none;padding:0;margin:0.6rem 0;display:flex;flex-direction:column;gap:0.25rem;}
+  .voz-sentidos li{font-size:0.9rem;padding-left:1rem;position:relative;}
+  .voz-sentidos li::before{content:'·';position:absolute;left:0.3rem;color:var(--sinalefa);}
+  .voz-sentidos b{color:var(--ink);font-variant:small-caps;letter-spacing:0.02em;}
+  .voz-guia-nota{font-size:0.85rem!important;color:var(--faint)!important;font-style:italic;border-top:1px dashed var(--rule);padding-top:0.6rem;margin-top:0.8rem!important;}
+  .voz-par-rima{border-left:2px solid var(--rima);padding-left:0.7rem;margin-bottom:1rem;}
+  .voz-par-label{font-family:'IBM Plex Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--rima);margin-bottom:0.4rem;}
+  .voz-vacio-msg{font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--faint);font-style:italic;padding:0.5rem 0;}
+  .voz-cand-edit{outline:none;border-radius:4px;padding:0.15rem 0.3rem;margin:-0.15rem -0.3rem 0.3rem;transition:background 0.12s;white-space:pre-wrap;}
+  .voz-cand-edit:focus{background:rgba(106,90,156,0.08);box-shadow:inset 0 -1px 0 var(--figura);}
+  .voz-frase-btn.enviado{background:var(--rima);color:var(--paper);border-color:var(--rima);}
+  .voz-frase-btn.alt{border-color:var(--lexical);color:var(--lexical);}
+  .voz-frase-btn.alt:hover{background:var(--lexical);color:var(--paper);}
+  .mat-paso-label{font-family:'IBM Plex Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--figura);font-weight:500;margin-bottom:0.6rem;}
+  .mat-frase-card{display:flex;align-items:flex-start;gap:0.6rem;border:1px solid var(--rule);border-radius:10px;padding:0.7rem 0.9rem;margin-bottom:0.6rem;background:rgba(0,0,0,0.012);}
+  .mat-frase-card.fav{border-color:var(--lexical);background:rgba(176,122,58,0.06);}
+  .mat-estrella{flex:0 0 auto;background:none;border:none;font-size:1.1rem;cursor:pointer;color:var(--faint);padding:0;line-height:1.3;}
+  .mat-estrella.on{color:var(--lexical);}
+  .mat-frase-texto{flex:1 1 auto;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;line-height:1.45;color:var(--ink);}
+  .mat-frase-acc{flex:0 0 auto;display:flex;flex-direction:column;gap:0.35rem;align-items:stretch;}
+  .mat-respaldo{display:flex;gap:0.6rem;flex-wrap:wrap;margin-bottom:0.6rem;}
+  .mat-respaldo-hint{font-family:'IBM Plex Mono',monospace;font-size:0.64rem;color:var(--faint);line-height:1.5;}
+
+  .swatch{width:9px;height:9px;border-radius:2px;display:inline-block;}
+
+  .verse{margin-bottom:1.4rem;}
+  .verse.con-meta{display:flex;align-items:flex-start;justify-content:space-between;gap:0.8rem;}
+  .verse.con-meta .verse-line{flex:1;min-width:0;}
+  .verse-meta{display:flex;align-items:flex-start;gap:0.5rem;flex-shrink:0;padding-top:1.45rem;font-family:'IBM Plex Mono',monospace;}
+  .vm-rima{font-size:0.95rem;font-weight:500;width:1.2rem;text-align:center;}
+  .vm-count{font-size:0.7rem;color:var(--faint);min-width:1.5rem;text-align:right;}
+  .vm-count.apilado{display:flex;flex-direction:column;align-items:flex-end;line-height:1.15;}
+  .vm-count .vm-total{font-size:0.78rem;}
+  .vm-count .vm-hemi{font-size:0.6rem;opacity:0.8;}
+  body:not(.show-silabas) .vm-count{display:none;}
+  .vm-long{font-size:0.72rem;font-weight:500;width:0.9rem;text-align:center;flex-shrink:0;}
+  .vm-long.corto{color:var(--lexical);}
+  .vm-long.largo{color:var(--figura);}
+  body:not(.show-rima) .vm-rima{visibility:hidden;}
+
+  /* solo métrica: oculta el texto de las palabras, deja las x del ritmo visibles */
+  body.show-solometrica .syl{color:transparent!important;}
+  body.show-solometrica .syl .mark{opacity:1!important;color:var(--faint)!important;}
+  body.show-solometrica .syl.rhy .mark{color:var(--rhythmic)!important;font-weight:500;}
+  body.show-solometrica .word.pos-sus{color:transparent!important;}
+  body.show-solometrica .word.rima-coloreada{color:transparent!important;}
+  body.show-solometrica .word.rima-coloreada .syl{color:transparent!important;}
+  /* las sílabas de la palabra que rima toman el color del grupo (en modo normal) */
+  body:not(.show-solometrica) .word.rima-coloreada .syl{color:inherit;}
+  body.show-solometrica .cesura-inline{color:var(--sinalefa);position:relative;width:0;min-width:0;max-width:0;padding:0;overflow:visible;font-size:0;}
+  body.show-solometrica .cesura-inline::before{content:',';position:absolute;left:-0.15rem;bottom:0.1rem;font-size:0.95rem;font-family:'IBM Plex Mono',monospace;color:var(--sinalefa);font-weight:700;}
+  body.show-solometrica .verse-meta{opacity:1;}
+  /* en solo-métrica, la sinalefa colapsa: la sílaba absorbida no muestra su x...
+     ...salvo que la absorbida sea la que lleva el acento fuerte (entonces se oculta la anterior) */
+  body.show-solometrica .syl.sin-absorbida:not(.rhy) .mark{display:none;}
+  body.show-solometrica .syl.sin-previa-de-fuerte .mark{display:none;}
+
+  /* modo solo-métrica: vista de lectura rítmica. Oculta estabilidad y notas, compacta renglones */
+  body.show-solometrica .estrofa-cabecera .stab-tags{display:none;}
+  body.show-solometrica .rima-notas,
+  body.show-solometrica .parent-notas,
+  body.show-solometrica .figuras,
+  body.show-solometrica .estrofa-cmp{display:none;}
+  body.show-solometrica .verse{margin-bottom:0.15rem;}
+  body.show-solometrica .estrofa{margin-bottom:1.2rem;}
+  body.show-solometrica .estrofa-cabecera{margin-bottom:0.3rem;}
+  body.show-solometrica .verse-line{row-gap:0;font-size:1rem;}
+  body.show-solometrica .stanza{margin:0;padding:0;}
+
+  /* GRILLA: en solo-métrica cada sílaba ocupa una celda de ancho fijo, así las x se
+     alinean en columnas. Se ancla por la última tónica (relleno tras la tónica a la derecha).
+     La meta (flecha+rima+sílabas) queda como columna fija a la izquierda.
+     CLAVE: la fila de x y la meta tienen la MISMA altura para no desfasarse hacia abajo. */
+  body.show-solometrica .versos-cont{overflow-x:auto;overflow-y:hidden;}
+  body.show-solometrica .verse.con-meta{justify-content:flex-end;flex-wrap:nowrap;align-items:stretch;min-height:1.6rem;}
+  body.show-solometrica .verse.con-meta .verse-meta{
+    order:-1;flex:0 0 auto;width:5.5rem;margin:0;padding:0;
+    display:flex;flex-direction:row;justify-content:flex-start;align-items:center;gap:0.4rem;line-height:1;}
+  /* ancho de celda adaptativo: se reparte el espacio disponible entre el verso más largo
+     de la estrofa. Tope entre 0.9rem (apretado) y 2.2rem (espaciado) para que se vea bien. */
+  body.show-solometrica .estrofa{--celda:clamp(0.9rem, calc((100vw - 8rem) / var(--max-celdas, 10)), 2.2rem);}
+  body.show-solometrica .verse.con-meta .verse-line{flex:1 1 auto;flex-wrap:nowrap;justify-content:flex-end;align-items:center;
+    padding-right:calc(var(--cola-relleno,0) * var(--celda,1.4rem));font-size:0;}
+  body.show-solometrica .syl{
+    width:var(--celda,1.4rem);min-width:var(--celda,1.4rem);max-width:var(--celda,1.4rem);
+    padding:0;
+    white-space:nowrap;text-align:center;overflow:visible;box-sizing:border-box;font-size:0;}
+  body.show-solometrica .syl .mark{font-size:0.8rem;position:static;transform:none;display:block;}
+  body.show-solometrica .word{display:inline-flex;margin:0;align-items:center;}
+  body.show-solometrica .verse-line .word+.word{margin-left:0;}
+  /* la sílaba absorbida por sinalefa no ocupa celda (la grilla cuenta golpes, no sílabas) */
+  body.show-solometrica .syl.sin-absorbida:not(.rhy){width:0;min-width:0;max-width:0;overflow:hidden;}
+  /* dentro de la columna izquierda: flecha, rima y número en la misma línea */
+  body.show-solometrica .verse-meta .vm-long{width:0.9rem;text-align:center;flex:0 0 auto;font-size:0.8rem;line-height:1;}
+  body.show-solometrica .verse-meta .vm-rima{width:1.1rem;text-align:center;flex:0 0 auto;font-size:0.85rem;line-height:1;}
+  body.show-solometrica .verse-meta .vm-count{flex:0 0 auto;text-align:left;min-width:1.5rem;font-size:0.8rem;line-height:1;display:inline-flex;align-items:center;gap:0.3rem;}
+  body.show-solometrica .verse-meta .vm-count.apilado{flex-direction:row;}
+  body.show-solometrica .verse-meta .vm-count .vm-total{font-size:0.8rem;}
+  body.show-solometrica .verse-meta .vm-count .vm-hemi{font-size:0.65rem;}
+  .cesura-inline{font-family:'IBM Plex Mono',monospace;color:var(--sinalefa);font-weight:500;cursor:pointer;align-self:flex-end;padding:0 0.25rem;font-size:1rem;}
+  .cesura-inline.rompe{color:var(--rhythmic);}
+  .cesura-inline.moviendo{background:var(--sinalefa);color:var(--paper);border-radius:3px;}
+  .cesura-inline:hover{background:rgba(74,122,110,0.12);border-radius:3px;}
+  .verse-line{display:flex;flex-wrap:wrap;align-items:flex-end;font-size:1.1rem;row-gap:0.3rem;}
+  .word{display:inline-flex;align-items:flex-end;position:relative;border-radius:4px;}
+  .word-gap{width:0.5ch;position:relative;}
+  .syl{position:relative;padding:1.45rem 0 0.1rem;white-space:pre;}
+  .syl .mark{position:absolute;top:-0.15rem;left:50%;transform:translateX(-50%);font-family:'IBM Plex Mono',monospace;font-size:0.8rem;line-height:1;color:var(--faint);user-select:none;}
+  /* capas activables */
+  body.show-acentos .syl.lex .mark{color:var(--lexical);}
+  body.show-acentos .syl.rhy .mark{color:var(--rhythmic);font-weight:500;font-size:1rem;}
+  body.show-acentos .syl.rhy.lex .mark{color:var(--rhythmic);}
+  .syl .mark{opacity:0;}
+  body.show-acentos .syl .mark{opacity:1;}
+  .syl{cursor:pointer;}
+  body.show-acentos .syl:hover{background:rgba(74,122,110,0.08);border-radius:4px;}
+
+  /* ---- Coloreo gramatical (toggle gramática). La palabra toma color por categoría;
+     la sílaba tónica va más intensa. Tiene prioridad sobre el color de acento en el texto. ---- */
+  body.show-gramatica .word.pos-sus{color:var(--pos-sus);}
+  body.show-gramatica .word.pos-ver{color:var(--pos-ver);}
+  body.show-gramatica .word.pos-adj{color:var(--pos-adj);}
+  body.show-gramatica .word.pos-adv{color:var(--pos-adv);}
+  /* atenuar el resto del color de las sílabas para que mande la categoría */
+  body.show-gramatica .syl{color:inherit;}
+  /* la palabra entera va en un solo tono parejo, sin destacar la tónica */
+
+  .inventario{margin-top:2.5rem;padding-top:1.2rem;border-top:1.5px solid var(--rule);}
+  .inv-fila{margin-bottom:0.9rem;}
+  .inv-cat{display:block;font-family:'IBM Plex Mono',monospace;font-size:0.66rem;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.25rem;font-weight:500;}
+  .inv-cat.pos-sus{color:var(--pos-sus);}
+  .inv-cat.pos-ver{color:var(--pos-ver);}
+  .inv-cat.pos-adj{color:var(--pos-adj);}
+  .inv-cat.pos-adv{color:var(--pos-adv);}
+  .inv-lista{font-family:'Fraunces',Georgia,serif;font-size:0.95rem;color:var(--ink);line-height:1.6;}
+  .inv-w{cursor:pointer;border-radius:4px;padding:0.05rem 0.2rem;transition:background 0.12s,color 0.12s;}
+  .inv-w:hover{background:rgba(74,122,110,0.1);}
+  .inv-w.resaltada{background:var(--rhythmic);color:var(--paper);font-weight:500;}
+  .inv-item{display:inline-flex;align-items:center;gap:0.1rem;white-space:nowrap;}
+  .inv-fix{cursor:pointer;font-size:0.7rem;color:var(--faint);opacity:0.4;padding:0 0.15rem;transition:opacity 0.12s;}
+  .inv-fix:hover{opacity:1;color:var(--ink);}
+  /* el inventario (listas de categorías) se muestra siempre */
+
+  /* catálogo de power words */
+  .pw-box{margin:1.2rem 0 0.5rem;padding:1rem;border:1.5px solid var(--rule);border-radius:10px;background:rgba(217,210,195,0.18);}
+  .pw-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.8rem;}
+  .pw-title{font-family:'IBM Plex Mono',monospace;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--faint);}
+  .pw-acciones{display:flex;gap:0.4rem;}
+  .pw-btn{font-family:'IBM Plex Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.06em;padding:0.25rem 0.55rem;border:1px solid var(--rule);border-radius:14px;background:transparent;color:var(--faint);cursor:pointer;transition:all 0.12s;}
+  .pw-btn:hover{border-color:var(--ink);color:var(--ink);}
+  .pw-grupo{font-family:'Fraunces',Georgia,serif;font-size:1rem;line-height:1.7;padding:0.15rem 0;}
+  .pw-grupo.pw-rima{border-left:2px solid var(--rima);padding-left:0.6rem;margin:0.2rem 0;}
+  .pw-w{cursor:pointer;border-radius:4px;padding:0.05rem 0.25rem;transition:background 0.12s;}
+  .pw-w:hover{background:rgba(140,47,47,0.12);text-decoration:line-through;}
+
+  /* las marcas x del esquema siguen mostrando acentos aunque gramática esté activa */
+
+  /* sinalefas */
+  .bridge{position:relative;width:0;align-self:flex-end;cursor:pointer;opacity:0;pointer-events:none;}
+  body.show-sinalefas .bridge{opacity:1;pointer-events:auto;}
+  .bridge .arc{position:absolute;bottom:0.35rem;left:-8px;width:16px;height:8px;border-bottom:2px solid var(--sinalefa);border-radius:0 0 50% 50%/0 0 100% 100%;transition:border-color 0.15s;}
+  /* área tocable invisible, mucho más grande que el arco visible (más fácil en el celular) */
+  .bridge::after{content:'';position:absolute;bottom:-0.2rem;left:-14px;width:28px;height:2.2rem;}
+  .bridge.broken .arc{border-bottom-style:dotted;border-color:var(--broken);}
+  .bridge:hover .arc{border-color:var(--ink);}
+
+  /* marcas de figuras (subrayados de color en palabras) */
+  .word.anafora{box-shadow:inset 0 -2px 0 var(--figura);}
+  .word.epifora{box-shadow:inset 0 -2px 0 var(--rima);}
+
+  /* esquema de estrofa */
+  .stanza{margin-top:1.2rem;}
+  .estrofa{padding-bottom:1.6rem;margin-bottom:1.6rem;border-bottom:1.5px solid var(--rule);}
+  .estrofa:last-child{border-bottom:none;}
+  .stanza-title{font-family:'IBM Plex Mono',monospace;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--faint);margin-bottom:1rem;display:flex;justify-content:space-between;align-items:flex-start;gap:0.5rem;flex-wrap:wrap;}
+  .stab-tags{display:flex;gap:0.4rem;flex-wrap:wrap;justify-content:flex-end;}
+  .stab{font-size:0.62rem;padding:0.15rem 0.5rem;border-radius:20px;letter-spacing:0.05em;white-space:nowrap;}
+  .stab.estable{color:var(--rima);background:rgba(47,143,110,0.12);}
+  .stab.inestable{color:var(--lexical);background:rgba(176,122,58,0.14);}
+  .st-long{font-family:'IBM Plex Mono',monospace;font-size:0.6rem;letter-spacing:0.04em;padding:0.1rem 0.4rem;border-radius:20px;white-space:nowrap;}
+  .st-long.corto{color:var(--lexical);background:rgba(176,122,58,0.14);}
+  .st-long.largo{color:var(--figura);background:rgba(106,90,156,0.14);}
+  body:not(.show-silabas) .st-long{display:none;}
+  .st-row{display:flex;align-items:center;gap:0.8rem;margin-bottom:0.3rem;max-width:480px;}
+  .st-right{margin-left:auto;display:flex;align-items:center;gap:0.8rem;flex-shrink:0;}
+  .st-label{font-family:'IBM Plex Mono',monospace;font-size:1rem;font-weight:500;width:1.4rem;text-align:center;}
+  .lab-homeop{color:var(--homeop);}
+  .lab-homeot{color:var(--homeot);}
+  .lab-familia{color:var(--rima);}
+  .lab-ason{color:var(--ason);}
+  .lab-none{color:var(--faint);}
+  .st-pat{font-family:'IBM Plex Mono',monospace;font-size:0.92rem;letter-spacing:0.3em;color:var(--ink);}
+  .st-pat .X{color:var(--rhythmic);font-weight:500;}
+  .st-pat .X.clash,.st-pat .xpos.X.clash{background:rgba(140,47,47,0.16);border-radius:2px;text-decoration:underline wavy var(--rhythmic);}
+  .st-pat .cesura{color:var(--sinalefa);font-weight:500;}
+  .st-pat .cesura.rompe{color:var(--rhythmic);}
+  .st-pat .xpos{cursor:pointer;border-radius:3px;padding:0 0.05em;transition:background 0.12s;}
+  .st-pat .xpos.X{color:var(--rhythmic);font-weight:500;}
+  .st-pat .xpos.warn{color:#c0392b;background:rgba(192,57,43,0.12);}
+  .st-pat .xpos:hover{background:rgba(74,122,110,0.18);}
+  .st-pat .warn{color:#c0392b;background:rgba(192,57,43,0.12);border-radius:2px;padding:0 0.1em;}
+  .st-count{font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--faint);}
+  body:not(.show-silabas) .st-count{display:none;}
+  body:not(.show-rima) .st-label{visibility:hidden;}
+
+  /* figuras detectadas: lista bajo cada estrofa */
+  .figuras{margin-top:0.8rem;font-family:'IBM Plex Mono',monospace;font-size:0.66rem;color:var(--faint);line-height:1.7;}
+  .figuras .fig{display:block;}
+  .figuras b{color:var(--figura);font-weight:500;}
+  .rima-notas{margin-top:0.8rem;font-family:'IBM Plex Mono',monospace;font-size:0.66rem;color:var(--faint);line-height:1.7;}
+  .rima-notas .fig{display:block;}
+  .rima-notas b{font-weight:500;}
+  .rima-notas .n-homeop{color:var(--homeop);}
+  .rima-notas .n-homeot{color:var(--homeot);}
+  .rima-notas .n-familia{color:var(--rima);}
+  .rima-notas .n-ason{color:var(--ason);}
+  .rima-notas .n-interna{color:var(--sinalefa);}
+  .rima-notas .n-interna-aso{color:var(--ason);}
+  .figuras{display:none;}
+  .parent-notas{display:none;}
+  .word.anafora,
+  .word.epifora{box-shadow:none;}
+  .parent-notas{margin-top:0.8rem;font-family:'IBM Plex Mono',monospace;font-size:0.66rem;color:var(--faint);line-height:1.7;}
+  .parent-notas .fig{display:block;}
+  .parent-notas .n-parent{color:var(--figura);font-weight:500;}
+  body:not(.show-rima) .rima-notas{display:none;}
+
+  .hint{font-family:'IBM Plex Mono',monospace;font-size:0.66rem;color:var(--faint);margin-top:2.5rem;line-height:1.7;}
+  .hint b{color:var(--ink);font-weight:500;}
+
+  /* etiquetas de sección [Verso 1] y avisos de comparación */
+  .estrofa-cabecera{display:flex;align-items:center;flex-wrap:wrap;gap:0.5rem 0.8rem;margin-bottom:0.8rem;}
+  .estrofa-etiqueta{font-family:'IBM Plex Mono',monospace;font-size:0.66rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--figura);font-weight:500;margin-bottom:0;}
+  .estrofa-cabecera .stanza-title{margin:0;}
+  .estrofa-cmp{font-family:'IBM Plex Mono',monospace;font-size:0.64rem;line-height:1.5;margin-top:0.8rem;padding:0.4rem 0.6rem;border-radius:6px;}
+  .estrofa-cmp.ref{color:var(--faint);background:rgba(217,210,195,0.25);}
+  .estrofa-cmp.ok{color:var(--rima);background:rgba(47,143,110,0.1);}
+  .estrofa-cmp.alerta{color:var(--rhythmic);background:rgba(140,47,47,0.1);}
+  .syl.anacrusa{opacity:0.45;font-style:italic;}
+
+  /* menú de vistas */
+  .menu{display:flex;gap:0.3rem;margin-bottom:1.5rem;border-bottom:1.5px solid var(--rule);}
+  .menu-item{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;
+    padding:0.6rem 0.9rem;border:none;background:transparent;color:var(--faint);cursor:pointer;
+    border-bottom:2px solid transparent;margin-bottom:-1.5px;transition:all 0.15s;}
+  .menu-item:hover{color:var(--ink);}
+  .menu-item.active{color:var(--ink);border-bottom-color:var(--ink);}
+  .vista{display:none;}
+  .vista.activa{display:block;}
+
+  /* campo único: análisis visible por defecto, textarea al editar */
+  #campo{position:relative;min-height:3rem;margin-top:1.2rem;margin-bottom:1rem;cursor:text;}
+  #tag-bar{display:none;flex-wrap:wrap;align-items:center;gap:0.35rem;margin-bottom:0.6rem;}
+  #campo.editando #tag-bar{display:flex;}
+  .tag-bar-label{font-family:'IBM Plex Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--faint);}
+  .tag-btn{font-family:'IBM Plex Mono',monospace;font-size:0.6rem;padding:0.25rem 0.55rem;border:1px solid var(--rule);border-radius:14px;background:transparent;color:var(--figura);cursor:pointer;transition:all 0.12s;}
+  .tag-btn:hover{background:var(--figura);color:var(--paper);border-color:var(--figura);}
+
+  #nav-secciones{position:fixed;right:0.8rem;bottom:1.2rem;z-index:60;display:flex;flex-direction:column;gap:0.35rem;}
+  #nav-secciones button{width:2.4rem;height:2.4rem;border-radius:50%;border:1px solid var(--rule);background:var(--paper);color:var(--ink);font-size:1.1rem;cursor:pointer;box-shadow:0 2px 8px rgba(28,26,22,0.15);transition:all 0.15s;display:flex;align-items:center;justify-content:center;}
+  #nav-secciones button:hover{background:var(--ink);color:var(--paper);}
+  #nav-secciones button:active{transform:scale(0.92);}
+  #campo #input{display:none;}
+  #campo.editando #input{display:block;}
+  #campo.editando #output{display:none;}
+  #campo #output{min-height:2rem;}
+  /* placeholder cuando está vacío y no se edita */
+  #campo #output:empty::before{content:attr(data-placeholder);color:var(--faint);font-style:italic;font-size:1.1rem;}
+</style>
+</head>
+<body class="show-rima show-acentos show-sinalefas show-figuras">
+<div class="wrap">
+  <nav class="menu" id="menu">
+    <button class="menu-item active" data-vista="voz">Descargo</button>
+    <button class="menu-item" data-vista="powerwords">Materia prima</button>
+    <button class="menu-item" data-vista="analizador">Canción</button>
+  </nav>
+
+  <!-- VISTA: ANALIZADOR -->
+  <section id="vista-analizador" class="vista">
+    <header>
+      <h1>Canción</h1>
+      <div class="sub">métrica · rima · acentos · tu letra en construcción</div>
+    </header>
+
+    <div class="toggles" id="toggles"></div>
+
+    <div class="legend" id="legend"></div>
+
+    <!-- Campo único: el análisis se ve siempre; al tocarlo, se edita en el mismo lugar -->
+    <div id="campo">
+      <div id="tag-bar">
+        <span class="tag-bar-label">insertar:</span>
+        <button class="tag-btn" data-tag="Estrofa">Estrofa</button>
+        <button class="tag-btn" data-tag="Pre-estribillo">Pre-estribillo</button>
+        <button class="tag-btn" data-tag="Estribillo">Estribillo</button>
+        <button class="tag-btn" data-tag="Pos-estribillo">Pos-estribillo</button>
+        <button class="tag-btn" data-tag="Puente">Puente</button>
+      </div>
+      <textarea id="input" spellcheck="false" placeholder="Pegá o escribí una letra (una estrofa por bloque, separadas por una línea en blanco)…"></textarea>
+      <div id="output"></div>
+    </div>
+    <div id="nav-secciones">
+      <button id="nav-prev" title="sección anterior">↑</button>
+      <button id="nav-next" title="sección siguiente">↓</button>
+    </div>
+
+    <div class="hint">
+      <b>tocá el texto</b> → editás · <b>tocás afuera</b> → vuelve el análisis<br>
+      <b>tocá una sílaba</b> → acento fuerte · <b>tocá una palabra</b> de las listas → la sumás a tus power words
+    </div>
+  </section>
+
+  <!-- VISTA: POWER WORDS -->
+  <section id="vista-powerwords" class="vista">
+    <header>
+      <h1>Materia prima</h1>
+      <div class="sub">tus frases pescadas y tus palabras · de acá salen las canciones</div>
+    </header>
+
+    <div class="mat-paso-label">frases guardadas</div>
+    <div id="materia-frases"></div>
+    <div class="hint" id="mat-frases-vacio">
+      Todavía no guardaste frases. En el <b>Descargo</b>, sacá versos y tocá <b>★ guardar</b> para juntarlos acá.
+    </div>
+
+    <div class="mat-paso-label" style="margin-top:2rem;">power words</div>
+    <div id="powerwords"></div>
+    <div class="hint" id="pw-vacio-hint">
+      Todavía no marcaste ninguna palabra. En el <b>Descargo</b> o la <b>Canción</b>, tocá palabras para sumarlas acá.
+    </div>
+
+    <div class="mat-paso-label" style="margin-top:2rem;">respaldo</div>
+    <div class="mat-respaldo">
+      <button id="btn-exportar" class="voz-btn-extraer">↓ Exportar mi trabajo</button>
+      <button id="btn-importar" class="voz-btn-limpiar">↑ Importar</button>
+      <input type="file" id="file-importar" accept="application/json,.json" style="display:none;">
+    </div>
+    <div class="mat-respaldo-hint">Tu trabajo se guarda solo en este teléfono. Exportá de vez en cuando para tener un respaldo aparte (en Archivos, Drive, o donde quieras).</div>
+  </section>
+
+  <!-- VISTA: VOZ (hablar -> texto -> extraer palabras) -->
+  <section id="vista-voz" class="vista activa">
+    <header>
+      <h1>Descargo</h1>
+      <div class="sub">soltá todo en prosa · después pescá las frases que ya son canción</div>
+    </header>
+
+    <div class="voz-controls">
+      <button id="voz-rec" class="voz-rec-btn">● Empezar a hablar</button>
+      <span id="voz-estado" class="voz-estado"></span>
+    </div>
+
+    <!-- guía plegable: cómo hablar para que salgan versos jugosos -->
+    <details class="voz-guia">
+      <summary>¿Cómo hablar para que salgan buenos versos?</summary>
+      <div class="voz-guia-cuerpo">
+        <p>La idea (de Pat Pattison y Andrea Stolpe) es <b>mostrar, no contar</b>. No expliques lo que sentís: hacé que se sienta, describiendo con los sentidos.</p>
+        <p>No son cinco sentidos, son <b>siete</b>. Tratá de tocarlos al hablar:</p>
+        <ul class="voz-sentidos">
+          <li><b>vista</b> — qué ves, colores, luz, formas</li>
+          <li><b>oído</b> — qué suena, el silencio, una voz</li>
+          <li><b>olfato</b> — olores (el más conectado a la memoria)</li>
+          <li><b>gusto</b> — sabores, lo dulce, lo amargo</li>
+          <li><b>tacto</b> — texturas, temperatura, la piel</li>
+          <li><b>cuerpo</b> — el latido, la respiración, un nudo en la panza</li>
+          <li><b>movimiento</b> — tu cuerpo en el espacio, caer, girar, quedarse quieto</li>
+        </ul>
+        <p class="voz-guia-nota">No juzgues mientras hablás. No hay frase digna o indigna; eso lo decidís después al pescar. Si te descubrís <i>explicando</i>, volvé a un sentido concreto.</p>
+      </div>
+    </details>
+
+    <!-- CAMPO ÚNICO: descargo en prosa, se colorea al salir -->
+    <div class="voz-paso-label">tu descargo</div>
+    <div id="voz-campo1" class="voz-campo">
+      <textarea id="voz-texto" spellcheck="false" rows="5" placeholder="Hablá o escribí todo lo que se te ocurra…"></textarea>
+      <div id="voz-texto-vista" class="voz-vista" style="display:none;"></div>
+    </div>
+    <div id="voz-pesca-hint" class="voz-pesca-hint" style="display:none;">Tocá la primera y la última palabra de una frase para pescarla → va al Analizador.</div>
+    <div class="voz-acciones">
+      <button id="voz-sacar-versos" class="voz-btn-extraer">Sacar versos ↓</button>
+      <button id="voz-editar" class="voz-btn-limpiar">Editar</button>
+      <button id="voz-limpiar" class="voz-btn-limpiar">Limpiar</button>
+    </div>
+
+    <!-- versos candidatos extraídos de la prosa -->
+    <div id="voz-candidatos-bloque" class="voz-frases-bloque" style="display:none;">
+      <div class="voz-paso-label">versos que ya están en tu prosa</div>
+      <div id="voz-candidatos"></div>
+    </div>
+
+    <!-- frases rescatadas -->
+    <div id="voz-frases-bloque" class="voz-frases-bloque" style="display:none;">
+      <div class="voz-paso-label">frases pescadas</div>
+      <div id="voz-frases"></div>
+    </div>
+  </section>
+
+</div>
+<script>
+const VOWELS='aeiouáéíóúüAEIOUÁÉÍÓÚÜ', STRONG='aeoáéíóúAEOÁÉÍÓÚ', ACCENTED='áéíóúÁÉÍÓÚ';
+const isVowel=c=>VOWELS.includes(c), lower=s=>s.toLowerCase();
+const ATONAS=new Set(['el','la','los','las','un','lo','y','e','o','u','ni','que','si','de','del','al','a','con','sin','por','en','su','sus','mi','mis','tu','tus','me','te','se','le','les','nos','os','no','como','cuando','donde','mas','tan']);
+
+// ---- Clasificador gramatical (POS) por reglas morfológicas + listas cerradas ----
+// Categorías: 'sus' sustantivo, 'ver' verbo, 'adj' adjetivo, 'adv' adverbio, null = función/otro.
+// Sin análisis de contexto: las palabras ambiguas (bajo, vino, sobre) pueden fallar.
+const FUNCION=new Set(['el','la','los','las','un','una','unos','unas','lo','al','del',
+  'y','e','o','u','ni','que','si','pero','mas','sino','aunque','porque','pues','como','cuando','donde','mientras','según','conque',
+  'de','a','con','sin','por','para','en','sobre','bajo','tras','entre','hacia','hasta','desde','ante','contra','durante','mediante',
+  'su','sus','mi','mis','tu','tus','nuestro','nuestra','nuestros','nuestras','vuestro','vuestra','vuestros','vuestras',
+  'me','te','se','le','les','nos','os','lo','la','los','las',
+  'yo','tú','vos','él','ella','ello','ellos','ellas','nosotros','nosotras','vosotros','vosotras','usted','ustedes',
+  'este','esta','estos','estas','ese','esa','esos','esas','aquel','aquella','aquellos','aquellas','esto','eso','aquello',
+  'mí','ti','sí','conmigo','contigo','consigo',
+  'cada','todo','toda','todos','todas','otro','otra','otros','otras','mucho','mucha','muchos','muchas','poco','poca','pocos','pocas','algún','alguna','alguno','ningún','ninguna','ninguno','cualquier','varios','varias',
+  'es','son','soy','eres','somos','está','están','estoy','estás','estamos','hay','ha','han','he','has','hemos','fue','fueron','era','eran','ser','estar','haber']);
+// verbos irregulares/frecuentes que no calzan con las terminaciones regulares
+const VERBOS_IRREG=new Set(['voy','vas','va','vamos','van','ir','iba','iban','fui','fuiste','vino','vine','vienen','viene','ven','dar','doy','das','da','dan','di','dio','ver','veo','ves','ve','vi','vio','sé','sabe','saben','puede','pueden','puedo','quiero','quiere','quieren','tengo','tiene','tienen','hace','hacen','dice','dicen','pone','ponen','sale','salen','vive','viven','siento','siente','sienten']);
+const ADV_FRECUENTES=new Set(['muy','más','menos','bien','mal','así','aquí','ahí','allí','allá','acá','hoy','ayer','mañana','ahora','antes','después','luego','siempre','nunca','jamás','ya','aún','todavía','también','tampoco','sólo','solo','casi','quizá','quizás','acaso','apenas','pronto','tarde','temprano','arriba','abajo','adelante','atrás','cerca','lejos','demasiado','bastante','tanto','no','sí','jamás','encima','debajo','dentro','fuera','enfrente','detrás','despacio','deprisa','aprisa','adrede','gratis','sigilosamente'.replace('sigilosamente','')]);
+// adjetivos comunes que NO tienen sufijo adjetival reconocible (terminan como sustantivos).
+const ADJETIVOS=new Set(['alto','bajo','bello','feo','frío','caliente','tibio','oscuro','claro','lleno','vacío',
+  'rojo','azul','verde','negro','blanco','gris','dorado','dulce','amargo','salado','ácido',
+  'tierno','duro','blando','suave','áspero','fuerte','débil','viejo','nuevo','joven','antiguo','moderno',
+  'bueno','malo','rico','pobre','sano','enfermo','limpio','sucio','seco','húmedo','mojado',
+  'largo','corto','ancho','estrecho','grande','pequeño','chico','gordo','flaco','delgado','grueso','fino',
+  'lento','rápido','quieto','solo','solitario','triste','alegre','contento','feliz','serio','loco','cuerdo',
+  'lindo','hermoso','precioso','horrible','terrible','divino','sagrado','santo','puro','impuro',
+  'cierto','falso','verdadero','real','irreal','vivo','muerto','despierto','dormido','cansado','descansado',
+  'libre','preso','abierto','cerrado','hondo','profundo','llano','plano','redondo','cuadrado',
+  'caro','barato','justo','injusto','sabio','tonto','listo','necio','valiente','cobarde','noble','vil',
+  'eterno','breve','infinito','inmenso','enorme','minúsculo','diminuto','leve','pesado','ligero',
+  'sereno','tranquilo','inquieto','salvaje','manso','fiero','dócil','cruel',
+  'pálido','rubio','moreno','calvo','desnudo','ciego','sordo','mudo','manco','cojo',
+  'íntimo','ajeno','propio','común','raro','extraño','único','doble','simple','complejo',
+  'amado','querido','odiado','perdido','hallado','roto','entero','partido']);
+function esAdjetivo(w){
+  if(ADJETIVOS.has(w))return true;
+  let base=w.replace(/(es|s)$/,'');
+  if(ADJETIVOS.has(base))return true;
+  if(/a$/.test(base)&&ADJETIVOS.has(base.replace(/a$/,'o')))return true;
+  return false;
+}
+// formas verbales frecuentes (presente/subjuntivo/imperativo) que terminan como sustantivos
+const VERBOS_FORMA=new Set(['piense','pienses','piensen','piensa','piensas','cante','cantes','canten','canta','cantas','viva','vivas','vivan','vive','vivo','ame','ames','amen','ama','amo','mire','mires','miren','mira','miro','sienta','sientas','sientan','venga','vengas','vengan','vaya','vayas','vayan','sea','seas','sean','tenga','tengas','tengan','haga','hagas','hagan','diga','digas','digan','quiera','quieras','quieran','pueda','puedas','puedan','sepa','sepas','sepan','dé','des','den','vea','veas','vean','corre','corro','corres','salta','salto','saltas','llora','lloro','lloras','sueña','sueño','sueñas','calla','callo','callas','grita','grito','gritas','busca','busco','buscas','encuentra','encuentro','llega','llego','llegas','queda','quedo','quedas','pasa','paso','pasas','deja','dejo','dejas','lleva','llevo','llevas','toma','tomo','tomas','mata','mato','matas','besa','beso','besas','abraza','abrazo','abrazas']);
+// Lista de palabras frecuentes del español (top ~1500) para ordenar por rareza.
+const FRECUENTES=new Set(["de", "la", "que", "el", "en", "los", "no", "un", "se", "por", "es", "del", "las", "con", "una", "para", "lo", "su", "al", "como", "me", "más", "si", "pero", "te", "mi", "le", "este", "sus", "esta", "todo", "ya", "ha", "cuando", "yo", "ser", "son", "sin", "hay", "está", "fue", "tu", "muy", "sobre", "también", "todos", "eso", "tiene", "nos", "porque", "qué", "así", "años", "dos", "bien", "entre", "puede", "desde", "hasta", "hacer", "ahora", "era", "esto", "vez", "hace", "nada", "ni", "donde", "parte", "solo", "algo", "tiempo", "día", "uno", "mejor", "mucho", "tan", "ver", "vida", "ese", "han", "mismo", "siempre", "tengo", "cada", "después", "están", "gente", "esa", "estado", "estoy", "mundo", "va", "año", "les", "mas", "otro", "otros", "gracias", "otra", "cosas", "gran", "menos", "nunca", "personas", "tanto", "antes", "poco", "sea", "había", "tener", "trabajo", "durante", "ellos", "lugar", "creo", "cómo", "hecho", "quiero", "sólo", "aunque", "contra", "cuenta", "decir", "gobierno", "país", "soy", "todas", "casa", "estos", "forma", "he", "nuevo", "sido", "él", "aquí", "ella", "estas", "sí", "estaba", "estar", "hoy", "tienen", "alguien", "dice", "quien", "toda", "tres", "voy", "caso", "días", "momento", "bueno", "ciudad", "mis", "nuestro", "luego", "nacional", "parece", "nuestra", "poder", "pueden", "pues", "verdad", "historia", "mientras", "nadie", "nueva", "otras", "primera", "veces", "muchos", "cual", "debe", "dijo", "entonces", "ir", "tipo", "algunos", "general", "mayor", "tal", "además", "mal", "muchas", "primer", "según", "acuerdo", "cualquier", "dios", "fueron", "manera", "nombre", "unos", "ley", "medio", "partido", "bajo", "fuera", "hacia", "sino", "da", "grupo", "haber", "hombre", "puedo", "buena", "mujer", "persona", "será", "sistema", "casi", "fin", "hizo", "noche", "nosotros", "pasado", "presidente", "quiere", "tenemos", "tus", "eres", "méxico", "ahí", "cosa", "dentro", "españa", "estamos", "familia", "lado", "aún", "buen", "podemos", "misma", "pueblo", "tenía", "esos", "final", "mujeres", "política", "problema", "punto", "agua", "alguna", "equipo", "guerra", "saber", "sé", "vamos", "van", "ante", "dar", "embargo", "favor", "gusta", "importante", "información", "mañana", "pasa", "semana", "tienes", "claro", "dinero", "san", "social", "ejemplo", "estados", "horas", "igual", "millones", "número", "ti", "algunas", "hablar", "hora", "madre", "señor", "siendo", "centro", "derecho", "falta", "grandes", "haciendo", "hombres", "nuestros", "puedes", "amigos", "buenos", "cambio", "idea", "mierda", "muerte", "problemas", "tarde", "tras", "través", "tú", "meses", "podría", "realidad", "the", "algún", "amor", "dicho", "eran", "frente", "incluso", "primero", "real", "vas", "cuatro", "desarrollo", "hijo", "sociedad", "tema", "varios", "esas", "mí", "nivel", "niños", "seguro", "sería", "argentina", "hacen", "hemos", "juego", "llegar", "mano", "paso", "posible", "proyecto", "sigue", "somos", "unidos", "uso", "artículo", "cerca", "cierto", "grande", "países", "quién", "razón", "sabe", "todavía", "amigo", "madrid", "mayoría", "padre", "salir", "seguridad", "tierra", "visto", "único", "cuerpo", "programa", "segundo", "unas", "universidad", "último", "cabeza", "foto", "haya", "internacional", "mil", "palabras", "pasar", "público", "seguir", "servicio", "situación", "ayuda", "juan", "libro", "siguiente", "veo", "datos", "dejar", "educación", "proceso", "sentido", "cinco", "clase", "cuanto", "derechos", "ello", "estás", "hijos", "mes", "usted", "largo", "ningún", "orden", "puesto", "quieres", "realmente", "alto", "demás", "dicen", "diferentes", "español", "junto", "lista", "medios", "ninguna", "personal", "total", "trata", "video", "viene", "web", "base", "camino", "digo", "empresa", "especial", "hola", "paz", "policía", "queda", "salud", "sitio", "tomar", "tuvo", "zona", "calle", "cara", "línea", "mundial", "obra", "ojos", "os", "pensar", "servicios", "sociales", "allí", "atención", "debería", "escuela", "julio", "pueda", "quieren", "respecto", "segunda", "siento", "ve", "vivir", "capital", "casos", "etc", "libre", "luz", "mejores", "población", "quienes", "relación", "sabes", "suerte", "varias", "bastante", "cultura", "debido", "difícil", "dio", "estaban", "fotos", "fuerte", "fácil", "habla", "miedo", "minutos", "música", "poner", "pregunta", "rey", "vos", "apoyo", "dado", "deja", "demasiado", "espero", "fuerza", "iba", "josé", "manos", "mayo", "mucha", "oficial", "propio", "buenas", "chile", "control", "deben", "empresas", "encontrar", "inglés", "marzo", "peor", "serie", "sur", "trabajar", "última", "asi", "edad", "futuro", "justicia", "libertad", "nuestras", "pesar", "tampoco", "venezuela", "allá", "cantidad", "corazón", "diciembre", "encuentra", "existe", "imagen", "importa", "norte", "octubre", "político", "principal", "propia", "vi", "vista", "volver", "voz", "actual", "ambos", "elecciones", "estudio", "grupos", "media", "mira", "modo", "palabra", "pasó", "sean", "tenido", "abril", "campo", "hubiera", "internet", "joven", "nuevos", "plan", "puntos", "pública", "región", "significa", "comunidad", "dirección", "habían", "has", "investigación", "junio", "lleva", "nuevas", "partidos", "partir", "película", "república", "resto", "vuelta", "consejo", "dan", "dónde", "hacerlo", "llamado", "mercado", "movimiento", "noviembre", "papel", "precio", "respuesta", "seis", "simplemente", "única", "agosto", "aun", "cargo", "comida", "cuales", "ellas", "enero", "experiencia", "jefe", "leer", "llama", "llevar", "miembros", "padres", "pena", "producción", "siglo", "ustedes", "cabo", "común", "economía", "entiendo", "espacio", "febrero", "hablando", "haga", "necesita", "opinión", "oportunidad", "organización", "partes", "página", "resultados", "santa", "tenga", "vale", "acción", "arte", "condiciones", "conocer", "estuvo", "necesito", "noticias", "plaza", "septiembre", "usar", "valor", "vivo", "calidad", "causa", "central", "director", "duda", "europa", "fecha", "feliz", "iglesia", "necesario", "obras", "políticos", "pronto", "resultado", "alta", "cambiar", "civil", "colombia", "hermano", "libros", "local", "mar", "mismos", "viaje", "últimos", "acerca", "acá", "alrededor", "campaña", "carrera", "ejército", "encima", "estudios", "interés", "llegó", "mensaje", "negro", "niño", "objetivo", "of", "popular", "principio", "provincia", "recursos", "red", "río", "ah", "aquellos", "ayer", "blanco", "carlos", "comer", "compañía", "diciendo", "especialmente", "ganar", "interior", "lucha", "mediante", "nota", "pequeño", "prueba", "saben", "sol", "twitter", "vaya", "anterior", "buscar", "dia", "fuerzas", "justo", "lugares", "medida", "podía", "primeros", "principales", "temas", "ven", "éxito", "actividades", "adelante", "aire", "américa", "arriba", "autor", "baja", "diferencia", "dije", "entrar", "estilo", "ex", "in", "juegos", "lejos", "luis", "mala", "maría", "militar", "muestra", "oro", "par", "plata", "puerta", "relaciones", "sola", "ayudar", "canción", "color", "contigo", "defensa", "dólares", "fondo", "fútbol", "hago", "hija", "humanos", "ideas", "importantes", "llega", "menor", "ministerio", "pocos", "puerto", "quería", "recuerdo", "semanas", "acceso", "armas", "busca", "comunicación", "congreso", "espera", "evitar", "finalmente", "fuente", "hubo", "jugar", "juntos", "ministro", "productos", "puta", "siquiera", "época", "acciones", "actividad", "banco", "conocido", "conseguir", "construcción", "corte", "cualquiera", "departamento", "diez", "existen", "formas", "mitad", "oficina", "presente", "queremos", "sector", "serio", "superior", "supuesto", "boca", "capacidad", "comprar", "crear", "diferente", "energía", "esperar", "haces", "hicieron", "malo", "mantener", "modelo", "natural", "necesidad", "pequeña", "preguntas", "radio", "sale", "trabajadores", "viejo", "administración", "comisión", "conmigo", "costa", "cree", "crisis", "culpa", "cámara", "diario", "domingo", "empezar", "entender", "esté", "fuego", "fui", "habrá", "jóvenes", "perder", "políticas", "pone", "posición", "suficiente", "título", "vive", "actualmente", "creer", "llamada", "mamá", "participación", "sangre", "toma", "violencia", "auto", "brasil", "carta", "china", "ciudadanos", "cuál", "facebook", "leyes", "principios", "probablemente", "rápido", "solamente", "área", "aires", "banda", "ciudades", "clases", "colegio", "contenido", "decisión", "encuentro", "entrada", "fiesta", "francia", "francisco", "imposible", "medidas", "pagar", "pedro", "permite", "pp", "pudo", "televisión", "unión", "vía", "abajo", "atrás", "capaz", "club", "comentarios", "darle", "di", "error", "gusto", "hechos", "mayores", "normal", "precios", "proyectos", "redes", "sabemos", "sexo", "siete", "siguientes", "tambien", "texto", "tiempos", "análisis", "apenas", "chica", "constitución", "contrario", "cuentas", "código", "dolor", "efecto", "habría", "isla", "izquierda", "mente", "odio", "perú", "pienso", "post", "presencia", "profesor", "quizás", "respeto", "ropa", "serán", "siguen", "sr", "tenían", "totalmente", "versión", "aqui", "barcelona", "chicos", "cielo", "cine", "cuestión", "debemos", "escribir", "española", "formación", "hice", "ii", "importancia", "industria", "instituto", "loco", "origen", "premio", "re", "rico", "simple", "unidad", "vino", "and", "cambios", "canal", "cultural", "dando", "dejó", "derecha", "económica", "escrito", "esperando", "gustaría", "interesante", "jamás", "juicio", "miles", "noticia", "original", "peso", "pobre", "prensa", "propiedad", "revolución", "victoria", "votos", "vuelve", "york", "éste", "alma", "antonio", "artículos", "asunto", "buscando", "completamente", "conoce", "conocimiento", "estudiantes", "hospital", "humano", "imágenes", "marcha", "pasando", "pie", "puedan", "tecnología", "tipos", "trabajos", "verano", "aprender", "conjunto", "cuarto", "curso", "democracia", "don", "fe", "ganas", "género", "muerto", "nación", "negocio", "ocho", "pablo", "particular", "posibilidad", "profesional", "régimen", "suelo", "tuve", "ves", "visita", "ambiente", "ataque", "casas", "cuba", "económico", "edificio", "federal", "lengua", "mesa", "naturaleza", "noches", "pago", "piensa", "programas", "protección", "pruebas", "publicado", "sala", "santiago", "señora", "sueño", "teléfono", "trabajando", "transporte", "usa", "usuarios", "zonas", "acto", "animales", "asociación", "completo", "cuidado", "deseo", "detrás", "directamente", "doctor", "dr", "edición", "encuentran", "escuchar", "informe", "llegado", "manuel", "material", "metros", "momentos", "nacionales", "pareja", "perfecto", "presenta", "puso", "quedó", "razones", "recuerda", "venta", "viendo", "chicas", "confianza", "creación", "destino", "especie", "esposa", "hambre", "legal", "muertos", "negocios", "obtener", "pedir", "pensando", "perro", "propuesta", "pueblos", "quiera", "responsabilidad", "reunión", "revista", "solución", "territorio", "to", "viernes", "vídeo", "aplicación", "aumento", "calles", "cama", "ciencia", "decía", "diga", "distancia", "doble", "familias", "jesús", "marca", "memoria", "motivo", "opción", "pase", "pesos", "práctica", "realizar", "referencia", "reforma", "reino", "resulta", "riesgo", "sacar", "sentir", "silencio", "temporada", "terminar", "autoridades", "comenzó", "comercio", "daño", "elementos", "equipos", "esfuerzo", "fuentes", "gratis", "hacía", "http", "internacionales", "locales", "miembro", "murió", "médico", "perdido", "producto", "próximo", "sabía", "salida", "selección", "sistemas", "tendrá", "teniendo", "vieja", "aparece", "aquel", "conozco", "contacto", "contar", "crecimiento", "despues", "excelente", "función", "independencia", "intereses", "larga", "llevó", "plazo", "salió", "santo", "tv", "término", "valores", "verdadero", "verde", "voto", "corrupción", "cruz", "dormir", "esperanza", "fiscal", "hermana", "ido", "incluye", "john", "líder", "militares", "nombres", "podrá", "propios", "públicos", "rato", "tales", "tengan", "tratar", "tribunal", "usuario", "ésta", "acaba", "amo", "barrio", "chico", "ciento", "comercial", "copa", "creen", "cuyo", "efectos", "elección", "empezó", "exterior", "habitantes", "hermanos", "honor", "instituciones", "llamar", "mejorar", "miguel", "morir", "oficiales", "parque", "pequeños", "podrían", "siente", "tanta", "triste", "alguno", "contrato", "david", "debate", "dieron", "diseño", "electoral", "hogar", "mando", "niña", "películas", "quedan", "recibir", "rojo", "similar", "vemos", "vienen", "ambas", "argentino", "azul", "carne", "cumplir", "dices", "discurso", "encanta", "entrevista", "españoles", "estudiar", "expresión", "extraño", "flores", "funciona", "garcía", "increíble", "inicio", "juez", "maestro", "marco", "materia", "ninguno", "oposición", "registro", "teatro", "términos", "vecinos", "asamblea", "caja", "canciones", "detalles", "dijeron", "empleo", "enfermedad", "escena", "estructura", "fines", "golpe", "grado", "hacemos", "incluyendo", "lleno", "lópez", "matrimonio", "misión", "pan", "parecer", "participar", "peligro", "pelo", "presión", "sección", "sos", "tercera", "venir", "vio", "amiga", "batalla", "café", "carácter", "deberían", "distintos", "duro", "eh", "estación", "evento", "francés", "gana", "google", "independiente", "ingresos", "intento", "japón", "lunes", "novia", "ofrece", "operación", "papa", "perdón", "planta", "primeras", "públicas", "sirve", "tantos", "teoría", "volvió", "baño", "características", "compañeros", "compra", "concepto", "dicha", "diputados", "directo", "distintas", "documentos", "enorme", "exactamente", "festival", "generales", "gobernador", "hotel", "lograr", "matar", "mismas", "necesitamos", "necesitan", "ocurre", "período", "piel", "planes", "pocas", "principalmente", "raro", "responsable", "rusia", "tamaño", "abierto", "afuera", "alemania", "blanca", "clave", "comienza", "compartir", "considera", "crítica", "dejado", "demanda", "dias", "diversos", "ecuador", "escuelas", "estará", "hagan", "hará", "jugadores", "luna", "ojo", "personaje", "piso", "pobres", "pro", "quizá", "recién", "reina", "representa", "salvo", "sábado", "tercer", "tierras", "tuvieron", "velocidad", "visión", "áreas", "alcalde", "altura", "anteriores", "asuntos", "candidato", "comentario", "competencia", "crees", "debajo", "diversas", "empieza", "escribió", "estan", "estaría", "estén", "facultad", "generación", "gestión", "hayan", "lee", "menudo", "presupuesto", "querido", "quieras", "suena", "supongo", "trabaja", "usando", "videos", "abogado", "abrir", "acabo", "anda", "antiguo", "basta", "carga", "cita", "consumo", "contexto", "correo", "culo", "cuya", "das", "decisiones", "ejercicio", "elegir", "entra", "figura", "genial", "historias", "jugador", "menores", "municipal", "naciones", "necesitas", "nueve", "objeto", "personajes", "pies", "publicación", "páginas", "supone", "tratamiento", "villa", "actos", "calor", "ciencias"]);
+// rareza: 0 = no está en la lista (rara/distintiva), si está, su posición (menor = más común)
+function rarezaDe(w){return FRECUENTES.has(w)?1:0;}
+function posTag(word){
+  const w=word.replace(/[^a-záéíóúüñ]/gi,'').toLowerCase();
+  if(!w)return null;
+  if(correccionesPOS[w])return correccionesPOS[w]; // corrección manual del usuario gana
+  if(FUNCION.has(w))return null;
+  if(ADV_FRECUENTES.has(w))return 'adv';
+  if(VERBOS_IRREG.has(w))return 'ver';
+  if(VERBOS_FORMA.has(w))return 'ver';
+  // adjetivos comunes sin sufijo (lista cerrada): gana antes de las reglas verbales,
+  // porque algunos (cansado, amado, perdido) terminan como participios
+  if(esAdjetivo(w))return 'adj';
+  // adverbios en -mente
+  if(/mente$/.test(w))return 'adv';
+  // verbos: infinitivos (excluyendo sustantivos comunes terminados en -ar/-er/-ir)
+  if(/(ar|er|ir)$/.test(w)&&w.length>=3&&!NO_INFINITIVO.has(w))return 'ver';
+  if(/(ando|iendo|yendo)$/.test(w))return 'ver';
+  if(/(ado|ados|ido|idos)$/.test(w)&&!NO_VERBAL.has(w))return 'ver'; // participio (si no es sust. conocido)
+  // sustantivos agudos terminados en vocal tildada (no son verbos pese a -é/-í/-ó)
+  const SUS_AGUDO=new Set(['café','sofá','bebé','puré','canapé','bidé','colibrí','maní','rubí','ají','bambú','tabú','menú','iglú','champú','dominó','rococó']);
+  if(SUS_AGUDO.has(w))return 'sus';
+  if(/(aba|abas|ábamos|aban|ía|ías|íamos|ían|aré|arás|ará|aremos|arán|aría|arías|aríamos|arían|aste|iste|aron|ieron|aremos|é|í|ó|ió)$/.test(w)&&w.length>=4)return 'ver';
+  // adjetivos: terminaciones derivativas típicas
+  if(/(oso|osa|osos|osas|able|ible|ables|ibles|ante|ente|ivo|iva|ivos|ivas|izo|iza|údo|uda)$/.test(w)&&w.length>=4)return 'adj';
+  // sustantivos: sufijos nominales productivos
+  if(/(ción|ciones|sión|siones|dad|dades|tad|tades|aje|ajes|miento|mientos|ura|uras|eza|ezas|anza|anzas|ismo|ismos|ista|istas|or|ora|ores|oras|dor|dora|ero|era|ería)$/.test(w))return 'sus';
+  // por defecto, si termina en vocal o -s, lo tratamos como sustantivo (lo más común)
+  if(/[aeiou]s?$/.test(w))return 'sus';
+  return 'sus'; // fallback
+}
+
+function syllabify(word){
+  const chars=[...word],n=chars.length;
+  function vgl(start){let j=start;if(!isVowel(chars[j]))return 0;let len=1;
+    while(j+len<n&&isVowel(chars[j+len])){const a=chars[j+len-1],b=chars[j+len];
+      if(STRONG.includes(a)&&STRONG.includes(b))break;
+      if('íúÍÚ'.includes(a)||'íúÍÚ'.includes(b))break;len++;}return len;}
+  let pos=0;const cores=[];
+  while(pos<n){if(isVowel(chars[pos])){const len=vgl(pos);cores.push([pos,pos+len-1]);pos+=len;}else pos++;}
+  if(cores.length===0)return[word];
+  const INSEP=new Set(['pr','br','tr','dr','cr','gr','fr','pl','bl','cl','gl','fl','tl','ll','rr','ch']);
+  const bounds=[0];
+  for(let k=0;k<cores.length-1;k++){const ev=cores[k][1],nv=cores[k+1][0];const cons=[];
+    for(let c=ev+1;c<nv;c++)cons.push(chars[c]);const cc=cons.length;let sa;
+    if(cc===0)sa=nv;else if(cc===1)sa=ev+1;
+    else{const pair=(cons[cc-2]+cons[cc-1]).toLowerCase();sa=INSEP.has(pair)?ev+1+(cc-2):ev+1+(cc-1);}
+    bounds.push(sa);}
+  bounds.push(n);
+  const r=[];for(let k=0;k<bounds.length-1;k++)r.push(chars.slice(bounds[k],bounds[k+1]).join(''));return r;
+}
+function stressIndex(sylls,word){
+  const w=lower(word.replace(/[^a-záéíóúüñ]/gi,''));
+  if(ATONAS.has(w))return -1;if(sylls.length===1)return 0;
+  for(let i=0;i<sylls.length;i++)if([...sylls[i]].some(c=>ACCENTED.includes(c)))return i;
+  const last=w.slice(-1);if('aeiouns'.includes(last))return sylls.length-2;return sylls.length-1;
+}
+function phonetic(w){let s=w.toLowerCase();
+  return s.replace(/[áàä]/g,'a').replace(/[éèë]/g,'e').replace(/[íìï]/g,'i').replace(/[óòö]/g,'o').replace(/[úùü]/g,'u');}
+function wordStress(w){const core=w.replace(/[^a-záéíóúüñ]/gi,'');const sylls=syllabify(core);const t=stressIndex(sylls,core);
+  return{sylls,tonicIdx:t<0?sylls.length-1:t,core};}
+function asonancia(tailRaw){
+  const t=tailRaw.toLowerCase();const open='aeoáéó';
+  const isV=c=>'aeiouáéíóúü'.includes(c);
+  const deac=c=>({'á':'a','é':'e','í':'i','ó':'o','ú':'u','ü':'u'})[c]||c;
+  const out=[];let i=0;
+  while(i<t.length){if(!isV(t[i])){i++;continue;}
+    let g='';while(i<t.length&&isV(t[i])){g+=t[i];i++;}
+    let nuc;const acc=[...g].find(c=>'áéíóú'.includes(c));
+    if(acc)nuc=deac(acc);else{const op=[...g].find(c=>open.includes(c));
+      if(op)nuc=deac(op);else nuc=deac(g[g.length-1]);}
+    out.push(nuc);}
+  return out.join('');
+}
+// Familias consonánticas del castellano (modelo híbrido: Navarro Tomás + criterio práctico).
+// Cada consonante (ya en forma fonética) se mapea a un código de familia.
+const FAMILIA={
+  // plosivas sordas
+  p:'P', t:'P', k:'P',
+  // plosivas sonoras (b=v ya normalizado a b)
+  b:'B', d:'B', g:'B',
+  // fricativas sordas (s incluye seseo z/c; j incluye g+e/i)
+  f:'F', s:'F', j:'F', x:'F',
+  // nasales
+  m:'N', n:'N', 'ñ':'N',
+  // líquidas: l + r/rr juntas (decisión tomada)
+  l:'L', r:'L',
+  // post-alveolares: ll/y + ch (rioplatense /ʃ/)
+  y:'Y', // 'll' se normaliza a 'y' en fonética; ch se maneja como dígrafo abajo
+};
+// Reduce una cola fonética a su secuencia de familias consonánticas (ignora vocales).
+function familiaCons(tailPhon){
+  // normalizar dígrafos primero
+  let s=tailPhon.toLowerCase().replace(/ch/g,'Ç').replace(/ll/g,'y').replace(/rr/g,'r');
+  const out=[];
+  for(const ch of s){
+    if('aeiou'.includes(ch))continue;
+    if(ch==='Ç'){out.push('Y');continue;} // ch va con la familia post-alveolar Y
+    const f=FAMILIA[ch];
+    if(f)out.push(f);
+  }
+  return out.join('');
+}
+// Si la cola arranca con un grupo de vocales (diptongo), recorta las semivocales
+// iniciales hasta el núcleo. Ej: "iosa" -> "osa", "uerto" -> "erto" (núcleo e).
+function recortarANucleo(tail){
+  const t=tail.toLowerCase();
+  const isV=c=>'aeiouáéíóúü'.includes(c);
+  if(!isV(t[0]))return tail; // no arranca en vocal, nada que recortar
+  // tomar el grupo vocálico inicial
+  let g='';let i=0;while(i<t.length&&isV(t[i])){g+=t[i];i++;}
+  if(g.length<=1)return tail; // una sola vocal, ya es núcleo
+  const open='aeoáéó',acc='áéíóú';
+  // índice del núcleo dentro del grupo
+  let nucIdx=[...g].findIndex(c=>acc.includes(c));
+  if(nucIdx<0)nucIdx=[...g].findIndex(c=>open.includes(c));
+  if(nucIdx<0)nucIdx=g.length-1; // dos cerradas: núcleo es la última
+  return tail.slice(nucIdx);
+}
+function rhymeKeys(w){
+  const{sylls,tonicIdx}=wordStress(w);let tail=sylls.slice(tonicIdx).join('');
+  const fv=[...tail].findIndex(c=>VOWELS.includes(c));if(fv>0)tail=tail.slice(fv);
+  // recortar la cola para que arranque en la VOCAL NÚCLEO del primer grupo vocálico
+  // (evita que un diptongo como "io" en silenci-o-sa meta la semivocal i en la clave)
+  tail=recortarANucleo(tail);
+  const ph=phonetic(tail);
+  let cons=ph.replace(/v/g,'b').replace(/z/g,'s').replace(/c([ei])/g,'s$1').replace(/qu/g,'k').replace(/c([aou])/g,'k$1').replace(/c$/g,'k').replace(/ll/g,'y').replace(/h/g,'').replace(/g([ei])/g,'j$1');
+  const aso=asonancia(tail);
+  // clave de familia: vocales núcleo + secuencia de familias consonánticas
+  const consNorm=cons; // ya normalizada fonéticamente
+  const fam=aso+'|'+familiaCons(consNorm);
+  return{cons,aso,tail,fam};
+}
+
+let brokenSinalefas=new Set();
+let forcedSinalefas=new Set(); // sinalefas creadas a mano donde el sistema no las detectó (clave "li-k")
+let rhythmicOverrides={};
+let cesuraOverrides={}; // clave: índice de línea original (li) -> posición de cesura en el patrón merged
+let moviendoCesura=null; // li del verso cuya cesura se está moviendo (modo mover activo)
+// Power words: catálogo personal del usuario. Persiste en localStorage.
+let powerWords=cargarPowerWords();
+// Materia prima: frases guardadas (con favoritas marcadas). Persiste.
+let materiaFrases=cargarMateria(); // [{texto, fav}]
+function cargarMateria(){
+  try{const raw=localStorage.getItem('materiaFrases');if(raw)return JSON.parse(raw);}catch(e){}
+  return [];
+}
+function guardarMateria(){
+  try{localStorage.setItem('materiaFrases',JSON.stringify(materiaFrases));}catch(e){}
+}
+function guardarEnMateria(texto){
+  texto=texto.trim();if(!texto)return;
+  if(!materiaFrases.some(f=>f.texto===texto)){materiaFrases.unshift({texto,fav:false});guardarMateria();renderMateria();}
+}
+function renderMateria(){
+  const cont=document.getElementById('materia-frases');
+  const vacio=document.getElementById('mat-frases-vacio');
+  if(!cont)return;
+  cont.innerHTML='';
+  if(!materiaFrases.length){if(vacio)vacio.style.display='block';return;}
+  if(vacio)vacio.style.display='none';
+  // favoritas primero
+  const ordenadas=[...materiaFrases].sort((a,b)=>(b.fav?1:0)-(a.fav?1:0));
+  ordenadas.forEach(f=>{
+    const card=document.createElement('div');card.className='mat-frase-card'+(f.fav?' fav':'');
+    const estrella=document.createElement('button');estrella.className='mat-estrella'+(f.fav?' on':'');
+    estrella.textContent=f.fav?'★':'☆';estrella.title='favorita';
+    estrella.onclick=()=>{f.fav=!f.fav;guardarMateria();renderMateria();};
+    const txt=document.createElement('div');txt.className='mat-frase-texto';txt.textContent=f.texto;
+    const acc=document.createElement('div');acc.className='mat-frase-acc';
+    const bCancion=document.createElement('button');bCancion.className='voz-frase-btn';bCancion.textContent='→ Canción';
+    bCancion.onclick=()=>{agregarFraseAlAnalizador(f.texto);document.querySelector('.menu-item[data-vista="analizador"]').click();};
+    const bDel=document.createElement('button');bDel.className='voz-frase-btn del';bDel.textContent='✕';
+    bDel.onclick=()=>{materiaFrases=materiaFrases.filter(x=>x!==f);guardarMateria();renderMateria();};
+    acc.appendChild(bCancion);acc.appendChild(bDel);
+    card.appendChild(estrella);card.appendChild(txt);card.appendChild(acc);
+    cont.appendChild(card);
+  });
+}
+// Correcciones manuales de categoría gramatical (palabra -> categoría). Persiste.
+let correccionesPOS=cargarCorrecciones();
+function cargarCorrecciones(){
+  try{const raw=localStorage.getItem('correccionesPOS');if(raw)return JSON.parse(raw);}catch(e){}
+  return {};
+}
+function guardarCorrecciones(){
+  try{localStorage.setItem('correccionesPOS',JSON.stringify(correccionesPOS));}catch(e){}
+}
+function cargarPowerWords(){
+  try{const raw=localStorage.getItem('powerWords');if(raw)return new Set(JSON.parse(raw));}catch(e){}
+  return new Set();
+}
+function guardarPowerWords(){
+  try{localStorage.setItem('powerWords',JSON.stringify([...powerWords]));}catch(e){}
+}
+
+// ============ PERSISTENCIA: la letra de la Canción y sus marcas se guardan solas ============
+function guardarLetra(){
+  try{
+    const estado={
+      letra:document.getElementById('input').value,
+      rhythmicOverrides, cesuraOverrides,
+      broken:[...brokenSinalefas], forced:[...forcedSinalefas],
+    };
+    localStorage.setItem('cancionEstado',JSON.stringify(estado));
+  }catch(e){}
+}
+function cargarLetra(){
+  try{
+    const raw=localStorage.getItem('cancionEstado');if(!raw)return;
+    const e=JSON.parse(raw);
+    if(e.letra!==undefined)document.getElementById('input').value=e.letra;
+    if(e.rhythmicOverrides)rhythmicOverrides=e.rhythmicOverrides;
+    if(e.cesuraOverrides)cesuraOverrides=e.cesuraOverrides;
+    if(e.broken)brokenSinalefas=new Set(e.broken);
+    if(e.forced)forcedSinalefas=new Set(e.forced);
+  }catch(e){}
+}
+// EXPORTAR: baja un archivo con TODO el trabajo
+function exportarTodo(){
+  const data={
+    version:1, fecha:new Date().toISOString(),
+    cancion:JSON.parse(localStorage.getItem('cancionEstado')||'null'),
+    materiaFrases, powerWords:[...powerWords], correccionesPOS,
+  };
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  const f=new Date().toISOString().slice(0,10);
+  a.href=url;a.download='mi-trabajo-'+f+'.json';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+// IMPORTAR: carga un archivo guardado y restaura todo
+function importarTodo(file){
+  const reader=new FileReader();
+  reader.onload=()=>{
+    try{
+      const data=JSON.parse(reader.result);
+      if(data.cancion)localStorage.setItem('cancionEstado',JSON.stringify(data.cancion));
+      if(data.materiaFrases){materiaFrases=data.materiaFrases;guardarMateria();}
+      if(data.powerWords){powerWords=new Set(data.powerWords);guardarPowerWords();}
+      if(data.correccionesPOS){correccionesPOS=data.correccionesPOS;guardarCorrecciones();}
+      cargarLetra();
+      if(typeof analyze==='function')analyze();
+      renderPowerWords();renderMateria();
+      alert('Trabajo importado. Todo cargado.');
+    }catch(e){alert('No pude leer el archivo. ¿Es un export de esta app?');}
+  };
+  reader.readAsText(file);
+}
+
+function analyze(){
+  guardarLetra();
+  const text=document.getElementById('input').value
+    .replace(/\r\n/g,'\n').replace(/\r/g,'\n').replace(/\u2028/g,'\n').replace(/\u2029/g,'\n\n');
+  const lines=text.split('\n');
+  const out=document.getElementById('output');out.innerHTML='';
+
+  const stanzas=[];let current=[];let etiquetaActual=null;
+  const etiquetasDeEstrofa=[]; // etiqueta de cada estrofa (paralelo a stanzas)
+  const esEtiqueta=l=>/^\s*\[.+\]\s*$/.test(l);
+  lines.forEach((line,li)=>{
+    if(esEtiqueta(line)){
+      // cerrar estrofa en curso y registrar la etiqueta para la próxima
+      if(current.length){stanzas.push(current);etiquetasDeEstrofa.push(etiquetaActual);current=[];}
+      etiquetaActual=line.trim().replace(/^\[|\]$/g,'').trim();
+      return; // la etiqueta no se analiza
+    }
+    if(!line.trim()){if(current.length){stanzas.push(current);etiquetasDeEstrofa.push(etiquetaActual);current=[];etiquetaActual=null;}}
+    else current.push({line,li});
+  });
+  if(current.length){stanzas.push(current);etiquetasDeEstrofa.push(etiquetaActual);}
+
+  const estructuras=[]; // estructura de cada estrofa para comparar
+  stanzas.forEach((stanzaLines,si)=>{
+    const block=document.createElement('div');block.className='estrofa';
+    const etiqueta=etiquetasDeEstrofa[si];
+    // cabecera de la estrofa (etiqueta + estabilidad) — irá ARRIBA
+    const cabecera=document.createElement('div');cabecera.className='estrofa-cabecera';
+    if(etiqueta){
+      const et=document.createElement('div');et.className='estrofa-etiqueta';et.textContent=etiqueta;
+      cabecera.appendChild(et);
+    }
+    block.appendChild(cabecera);
+    const versosCont=document.createElement('div');versosCont.className='versos-cont';
+    block.appendChild(versosCont);
+    const stanza=[];
+    stanzaLines.forEach(({line,li})=>{
+      const tokens=line.match(/\S+/g)||[];
+      // detectar anacrusa: tokens dentro de (...) al inicio del verso
+      // se cuenta aparte; el verso se mide desde el primer token fuera del paréntesis
+      const enAnacrusa=[];
+      let dentroParen=false, sigueAnacrusa=true;
+      tokens.forEach((tok,ti)=>{
+        const abre=tok.includes('('), cierra=tok.includes(')');
+        if(sigueAnacrusa&&(dentroParen||abre)){
+          enAnacrusa[ti]=true;
+          if(abre)dentroParen=true;
+          if(cierra){dentroParen=false;sigueAnacrusa=false;} // la anacrusa termina al cerrar paréntesis
+        } else {enAnacrusa[ti]=false; if(!dentroParen)sigueAnacrusa=false;}
+      });
+      const flat=[];
+      tokens.forEach((tok,ti)=>{
+        const core=tok.replace(/[^a-záéíóúüñ]/gi,'')||tok;
+        const tieneComa=/,/.test(tok); // el token incluye una coma
+        const sylls=syllabify(core);const sIdx=stressIndex(sylls,core);
+        sylls.forEach((s,si)=>{flat.push({text:s,lex:si===sIdx,firstOfWord:si===0,lastOfWord:si===sylls.length-1,tok:ti,anacrusa:!!enAnacrusa[ti],comaDespues:tieneComa&&si===sylls.length-1,key:`${li}-${ti}-${si}`});});
+      });
+      // posición de sílaba con coma (para forzar cesura por defecto ahí)
+      let posComa=-1;
+      flat.forEach((s,idx)=>{if(s.comaDespues&&posComa<0)posComa=idx+1;});
+      const sinalefaAfter=[];
+      for(let k=0;k<flat.length-1;k++){const a=flat[k],b=flat[k+1];
+        if(a.lastOfWord&&b.firstOfWord){
+          let aEnd=a.text.replace(/[^a-záéíóúüñ]/gi,'').toLowerCase().slice(-1);
+          if(aEnd==='y')aEnd='i';
+          let bStr=b.text.replace(/[^a-záéíóúüñ]/gi,'').toLowerCase();
+          const bStart=bStr[0]==='h'?(bStr[1]||''):bStr[0];
+          const detectada=isVowel(aEnd)&&isVowel(bStart);
+          // forzada a mano: vale aunque no cumpla la regla de vocales
+          if(detectada||forcedSinalefas.has(`${li}-${k}`))sinalefaAfter[k]=true;}}
+      const rhythmic=flat.map(syl=>(syl.key in rhythmicOverrides)?rhythmicOverrides[syl.key]:syl.lex);
+
+      const verse=document.createElement('div');verse.className='verse';
+      const lineEl=document.createElement('div');lineEl.className='verse-line';
+      const positions=[];let curWordEl=null,curTok=-1;const wordEls=[];
+      flat.forEach((syl,k)=>{
+        if(syl.tok!==curTok){
+          if(curWordEl&&!sinalefaAfter[k-1]){
+            const gap=document.createElement('span');gap.className='word-gap';
+            lineEl.appendChild(gap);
+          }
+          curWordEl=document.createElement('span');curWordEl.className='word';lineEl.appendChild(curWordEl);curTok=syl.tok;wordEls[syl.tok]=curWordEl;
+          // (sin coloreo gramatical en el verso; los sustantivos siguen en las listas de abajo)
+        }
+        const sylEl=document.createElement('span');sylEl.className='syl';
+        const isRhythmic=rhythmic[k];
+        if(syl.lex)sylEl.classList.add('lex','syl-tonica');
+        if(isRhythmic)sylEl.classList.add('rhy');
+        if(syl.anacrusa)sylEl.classList.add('anacrusa');
+        // ¿esta sílaba está absorbida por una sinalefa con la anterior? (para colapsar en solo-métrica)
+        if(k>0&&sinalefaAfter[k-1]){
+          const bkeyPrev=`${li}-${k-1}`;
+          const clashPrev=sinalefaAfter[k-1]&&rhythmic[k-1]&&rhythmic[k];
+          if(!brokenSinalefas.has(bkeyPrev)&&!clashPrev){
+            sylEl.classList.add('sin-absorbida');
+            // si la absorbida es fuerte y la anterior no, ocultar la x de la anterior en su lugar
+            if(rhythmic[k]&&!rhythmic[k-1]){
+              const sylsRenders=lineEl.querySelectorAll('.syl');
+              if(sylsRenders.length>0)sylsRenders[sylsRenders.length-1].classList.add('sin-previa-de-fuerte');
+            }
+          }
+        }
+        const mark=document.createElement('span');mark.className='mark';mark.textContent=isRhythmic?'X':'x';
+        mark.onclick=(e)=>{e.stopPropagation();
+          if(moviendoCesura===li){cesuraOverrides[li]=k;moviendoCesura=null;analyze();return;}
+          rhythmicOverrides[syl.key]=!isRhythmic;analyze();};
+        sylEl.appendChild(mark);sylEl.appendChild(document.createTextNode(syl.text));
+        // en modo mover, tocar cualquier parte de la sílaba planta la cesura
+        sylEl.onclick=(e)=>{
+          if(moviendoCesura===li){e.stopPropagation();cesuraOverrides[li]=k;moviendoCesura=null;analyze();}
+        };
+        curWordEl.appendChild(sylEl);
+        const bkey=`${li}-${k}`;
+        const clash=sinalefaAfter[k]&&rhythmic[k]&&rhythmic[k+1];
+        const sinActive=sinalefaAfter[k]&&!brokenSinalefas.has(bkey)&&!clash;
+        positions.push({strong:isRhythmic,mergeNext:sinActive,anacrusa:syl.anacrusa});
+        if(sinalefaAfter[k]){
+          const br=document.createElement('span');br.className='bridge'+((brokenSinalefas.has(bkey)||clash)?' broken':'');
+          const arc=document.createElement('span');arc.className='arc';br.appendChild(arc);
+          br.onclick=(e)=>{e.stopPropagation();if(brokenSinalefas.has(bkey))brokenSinalefas.delete(bkey);else brokenSinalefas.add(bkey);analyze();};
+          curWordEl.appendChild(br);
+        }
+      });
+      verse.appendChild(lineEl);
+      const merged=[];const mergedBkeys=[];const mergedAna=[];let i=0;
+      const sylToMerged=[]; // índice de sílaba (positions) -> índice en merged
+      while(i<positions.length){let strong=positions[i].strong,j=i,ana=positions[i].anacrusa;
+        sylToMerged[i]=merged.length;
+        while(positions[j].mergeNext&&j+1<positions.length){j++;strong=strong||positions[j].strong;ana=ana&&positions[j].anacrusa;sylToMerged[j]=merged.length;}
+        mergedBkeys.push(j>i?`${li}-${j-1}`:null);
+        mergedAna.push(ana);
+        merged.push(strong);i=j+1;}
+      const silAnacrusa=mergedAna.filter(Boolean).length; // sílabas de anacrusa
+      const flags=merged.map(()=>false);let run=0;
+      for(let p=0;p<merged.length;p++){if(!merged[p])run++;else run=0;if(run>=4){for(let q=p;q>p-run;q--)flags[q]=true;}}
+      // aviso: 3+ acentos fuertes seguidos (raro en castellano, no se prohíbe, se señala)
+      const flagsAcento=merged.map(()=>false);let runA=0;
+      for(let p=0;p<merged.length;p++){if(merged[p])runA++;else runA=0;if(runA>=3){for(let q=p;q>p-runA;q--)flagsAcento[q]=true;}}
+      versosCont.appendChild(verse);
+      const lastWord=tokens.length?tokens[tokens.length-1]:'';
+      const firstWord=tokens.length?tokens[0]:'';
+      const rk=lastWord?rhymeKeys(lastWord):null;
+      // claves de rima de TODAS las palabras del verso (para rima interna)
+      const palabrasRima=tokens.map((tok,ti)=>{
+        const core=tok.replace(/[^a-záéíóúüñ]/gi,'').toLowerCase();
+        if(core.length<2||ATONAS.has(core))return null;
+        const k=rhymeKeys(core);
+        return {w:core,ti,cons:k.cons,aso:k.aso,fam:k.fam};
+      });
+      let adjust=0,colaPostTonica=0;
+      if(lastWord){const ws=wordStress(lastWord);const fe=ws.sylls.length-1-ws.tonicIdx;
+        colaPostTonica=fe;
+        if(fe===0)adjust=1;else if(fe>=2)adjust=-1;}
+      stanza.push({merged,flags,flagsAcento,adjust,colaPostTonica,mergedBkeys,silAnacrusa,posComa,sylToMerged,li,cons:rk?rk.cons:null,aso:rk?rk.aso:null,fam:rk?rk.fam:null,palabrasRima,
+        verse,wordEls,tokens,firstWord,lastWord,
+        firstClean:firstWord.replace(/[^a-záéíóúüñ]/gi,'').toLowerCase(),
+        lastClean:lastWord.replace(/[^a-záéíóúüñ]/gi,'').toLowerCase()});
+    });
+    renderStanza(stanza,block,cabecera);
+    // capturar estructura para comparar estrofas del mismo tipo.
+    // longitud SIN la anacrusa (se mide el cuerpo del verso desde el primer acento)
+    if(etiqueta){
+      const estr={etiqueta,base:etiqueta.replace(/\s*\d+\s*$/,'').trim().toLowerCase(),
+        lineas:stanza.map(v=>({silabas:v.merged.length+(v.adjust||0)-(v.silAnacrusa||0),aso:v.aso})),block};
+      estructuras.push(estr);
+    }
+    out.appendChild(block);
+  });
+  // compararEstrofas(estructuras); // desactivado: la marca de diferencias no quedaba bien
+  // inventario de palabras por categoría gramatical (toda la letra)
+  const inventario={sus:new Map(),ver:new Map(),adj:new Map(),adv:new Map()};
+  stanzas.forEach((stanzaLines)=>{
+    stanzaLines.forEach(({line})=>{
+      const toks=line.match(/\S+/g)||[];
+      toks.forEach(tok=>{
+        const w=tok.replace(/[^a-záéíóúüñ]/gi,'').toLowerCase();
+        if(!w)return;
+        const pos=posTag(tok);
+        if(pos&&inventario[pos]){inventario[pos].set(w,(inventario[pos].get(w)||0)+1);}
+      });
+    });
+  });
+  renderInventario(inventario);
+}
+
+function renderInventario(inv){
+  const out=document.getElementById('output');
+  const cats=[['sus','sustantivos','pos-sus'],['ver','verbos','pos-ver'],['adj','adjetivos','pos-adj'],['adv','adverbios','pos-adv']];
+  const total=cats.reduce((s,[k])=>s+inv[k].size,0);
+  if(total===0)return;
+  const box=document.createElement('div');box.className='inventario';
+  const title=document.createElement('div');title.className='stanza-title';
+  const tl=document.createElement('span');tl.textContent='palabras por categoría';title.appendChild(tl);
+  box.appendChild(title);
+  cats.forEach(([k,nombre,cls])=>{
+    if(inv[k].size===0)return;
+    const fila=document.createElement('div');fila.className='inv-fila';
+    const lab=document.createElement('span');lab.className='inv-cat '+cls;
+    lab.textContent=nombre+' ('+inv[k].size+')';
+    fila.appendChild(lab);
+    // ordenar por frecuencia desc, luego alfabético
+    // ordenar por frecuencia de uso en la letra, luego alfabético
+    const palabras=[...inv[k].entries()].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]));
+    const lista=document.createElement('span');lista.className='inv-lista';
+    palabras.forEach(([w,n],idx)=>{
+      const span=document.createElement('span');span.className='inv-item';
+      const wspan=document.createElement('span');
+      wspan.className='inv-w'+(powerWords.has(w)?' resaltada':'');
+      wspan.textContent=n>1?`${w}·${n}`:w;
+      wspan.onclick=()=>{
+        if(powerWords.has(w))powerWords.delete(w);
+        else powerWords.add(w);
+        wspan.classList.toggle('resaltada');
+        guardarPowerWords();renderPowerWords();
+      };
+      span.appendChild(wspan);
+      // botón de corregir categoría
+      const fix=document.createElement('span');fix.className='inv-fix';fix.textContent='✎';
+      fix.title='corregir categoría';
+      fix.onclick=(e)=>{e.stopPropagation();menuCorregir(w,k);};
+      span.appendChild(fix);
+      lista.appendChild(span);
+      if(idx<palabras.length-1)lista.appendChild(document.createTextNode(' '));
+    });
+    fila.appendChild(lista);
+    box.appendChild(fila);
+  });
+  out.appendChild(box);
+}
+// menú simple para reasignar la categoría de una palabra
+function menuCorregir(w,actual){
+  const nombres={sus:'sustantivo',ver:'verbo',adj:'adjetivo',adv:'adverbio'};
+  const opciones=['sus','ver','adj','adv'].filter(c=>c!==actual).map(c=>nombres[c]);
+  const elec=prompt(`"${w}" está como ${nombres[actual]}.\nCorregir a:\n- ${opciones.join('\n- ')}\n\nEscribí: sustantivo, verbo, adjetivo o adverbio`,'');
+  if(!elec)return;
+  const mapa={sustantivo:'sus',verbo:'ver',adjetivo:'adj',adverbio:'adv'};
+  const cat=mapa[elec.trim().toLowerCase()];
+  if(!cat){alert('No reconocí esa categoría. Usá: sustantivo, verbo, adjetivo o adverbio.');return;}
+  correccionesPOS[w]=cat;
+  guardarCorrecciones();
+  analyze(); // recalcular con la corrección aplicada
+}
+
+function renderPowerWords(){
+  const cont=document.getElementById('powerwords');if(!cont)return;
+  cont.innerHTML='';
+  const hint=document.getElementById('pw-vacio-hint');
+  if(powerWords.size===0){if(hint)hint.style.display='block';return;}
+  if(hint)hint.style.display='none';
+  const box=document.createElement('div');box.className='pw-box';
+  const head=document.createElement('div');head.className='pw-head';
+  const tit=document.createElement('span');tit.className='pw-title';
+  tit.textContent='mis power words ('+powerWords.size+')';
+  head.appendChild(tit);
+  const acc=document.createElement('span');acc.className='pw-acciones';
+  const bExp=document.createElement('button');bExp.className='pw-btn';bExp.textContent='exportar';
+  bExp.onclick=exportarPowerWords;
+  const bImp=document.createElement('button');bImp.className='pw-btn';bImp.textContent='importar';
+  bImp.onclick=importarPowerWords;
+  const bClr=document.createElement('button');bClr.className='pw-btn';bClr.textContent='vaciar';
+  bClr.onclick=()=>{if(confirm('¿Vaciar todo el catálogo de power words?')){powerWords.clear();guardarPowerWords();renderPowerWords();analyze();}};
+  acc.appendChild(bExp);acc.appendChild(bImp);acc.appendChild(bClr);
+  head.appendChild(acc);
+  box.appendChild(head);
+
+  // agrupar por rima asonante (red amplia), mismo criterio que el esquema
+  const palabras=[...powerWords];
+  const grupos={};
+  palabras.forEach(w=>{const k=rhymeKeys(w);const key=k.aso||'?';(grupos[key]=grupos[key]||[]).push(w);});
+  const ordenados=Object.entries(grupos).sort((a,b)=>b[1].length-a[1].length||a[0].localeCompare(b[0]));
+  ordenados.forEach(([aso,items])=>{
+    const fila=document.createElement('div');fila.className='pw-grupo';
+    items.sort((a,b)=>a.localeCompare(b));
+    items.forEach((w,idx)=>{
+      const span=document.createElement('span');span.className='pw-w';
+      span.textContent=w;span.title='tocar para quitar';
+      span.onclick=()=>{powerWords.delete(w);guardarPowerWords();renderPowerWords();analyze();};
+      fila.appendChild(span);
+      if(idx<items.length-1)fila.appendChild(document.createTextNode(' · '));
+    });
+    if(items.length>=2)fila.classList.add('pw-rima');
+    box.appendChild(fila);
+  });
+  cont.appendChild(box);
+}
+function exportarPowerWords(){
+  const txt=[...powerWords].join(', ');
+  navigator.clipboard?.writeText(txt).then(
+    ()=>alert('Power words copiadas:\n\n'+txt),
+    ()=>prompt('Copiá tus power words:',txt)
+  );
+}
+function importarPowerWords(){
+  const txt=prompt('Pegá tus power words (separadas por coma):','');
+  if(!txt)return;
+  txt.split(/[,\n]+/).forEach(w=>{const c=w.trim().toLowerCase();if(c)powerWords.add(c);});
+  guardarPowerWords();renderPowerWords();analyze();
+}
+
+// Convierte las claves de rima de una estrofa en un PATRÓN de letras (A,B,...).
+// Líneas que riman entre sí reciben la misma letra. Así dos estrofas con el mismo
+// esquema (AABB) coinciden aunque rimen en vocales distintas.
+function patronRima(lineas){
+  const patron=[];const mapa={};let next=0;
+  lineas.forEach(l=>{
+    const k=l.aso||'·';
+    // buscar si alguna línea anterior con la misma aso ya tiene letra
+    if(!(k in mapa))mapa[k]=String.fromCharCode(65+(next++));
+    patron.push(mapa[k]);
+  });
+  return patron;
+}
+// Compara estrofas con etiqueta del mismo tipo base y marca desvíos de ESTRUCTURA.
+function compararEstrofas(estructuras){
+  const UMBRAL_SIL=3; // diferencia de sílabas considerable
+  const porTipo={};
+  estructuras.forEach(e=>{(porTipo[e.base]=porTipo[e.base]||[]).push(e);});
+  for(const base in porTipo){
+    const grupo=porTipo[base];
+    if(grupo.length<2)continue;
+    const ref=grupo[0];
+    const patronRef=patronRima(ref.lineas);
+    grupo.forEach((e,gi)=>{
+      if(gi===0){
+        const tag=document.createElement('div');tag.className='estrofa-cmp ref';
+        tag.textContent='referencia de "'+base+'"';
+        e.block.appendChild(tag);
+        return;
+      }
+      const avisos=[];
+      if(e.lineas.length!==ref.lineas.length){
+        avisos.push(`tiene ${e.lineas.length} líneas (la referencia tiene ${ref.lineas.length})`);
+      }
+      const patronE=patronRima(e.lineas);
+      const n=Math.min(e.lineas.length,ref.lineas.length);
+      // comparar PATRÓN de rima (estructura), no la rima concreta
+      const patDifiere=patronE.slice(0,n).join('')!==patronRef.slice(0,n).join('');
+      if(patDifiere){
+        avisos.push(`estructura de rima ${patronE.slice(0,n).join('')} vs ${patronRef.slice(0,n).join('')}`);
+      }
+      // comparar longitud por línea, solo si la diferencia es considerable (≥3 sílabas)
+      for(let i=0;i<n;i++){
+        const d=Math.abs(e.lineas[i].silabas-ref.lineas[i].silabas);
+        if(d>=UMBRAL_SIL)avisos.push(`línea ${i+1}: ${e.lineas[i].silabas} síl. vs ${ref.lineas[i].silabas}`);
+      }
+      const tag=document.createElement('div');
+      if(avisos.length===0){
+        tag.className='estrofa-cmp ok';
+        tag.textContent='✓ mantiene la estructura de "'+base+'"';
+      } else {
+        tag.className='estrofa-cmp alerta';
+        tag.innerHTML='⚠ difiere de la referencia — '+avisos.join(' · ');
+      }
+      e.block.appendChild(tag);
+    });
+  }
+}
+
+// Inserta la marca de cesura // en la línea del verso largo.
+// Tocar la // activa "modo mover"; el siguiente toque en una sílaba la planta ahí.
+function insertarCesura(v,cesura){
+  const lineEl=v.verse.querySelector('.verse-line');
+  if(!lineEl)return;
+  const sylEls=lineEl.querySelectorAll('.syl');
+  // cesura viene en posición métrica (merged); convertir a índice de sílaba DOM
+  let kSil=cesura;
+  if(v.sylToMerged){const found=v.sylToMerged.findIndex(m=>m===cesura);if(found>=0)kSil=found;}
+  if(kSil<1||kSil>=sylEls.length)return;
+  const target=sylEls[kSil];
+  const marca=document.createElement('span');
+  marca.className='cesura-inline'+(v.mergedBkeys[cesura]?' rompe':'')+(moviendoCesura===v.li?' moviendo':'');
+  marca.textContent='//';
+  marca.title='tocá para mover, después tocá una sílaba';
+  marca.onclick=(e)=>{
+    e.stopPropagation();
+    moviendoCesura=(moviendoCesura===v.li)?null:v.li;
+    analyze();
+  };
+  const word=target.closest('.word');
+  if(word&&word.parentNode)word.parentNode.insertBefore(marca,word);
+}
+
+// Paleta de colores para grupos de rima (distinguibles, en la gama cálida/tinta de la app).
+const PALETA_RIMA=['#b07a3a','#2f8f6e','#8c2f2f','#6a5a9c','#3b5b9c','#b5683c','#3a7d44','#9c5a8c','#2f7d8c','#8c6a2f'];
+function colorDeGrupo(n){return PALETA_RIMA[((n%PALETA_RIMA.length)+PALETA_RIMA.length)%PALETA_RIMA.length];}
+
+function renderStanza(stanza,out,cabecera){
+  if(stanza.length<1)return;
+  const n=stanza.length;
+  const labels=new Array(n).fill(null);let nextLetter=0;
+  const letterOf=i=>String.fromCharCode(65+i);
+  // agrupar por asonancia (red amplia)
+  for(let i=0;i<n;i++){
+    if(labels[i]||!stanza[i].aso)continue;
+    const partners=[];
+    for(let j=i+1;j<n;j++)if(!labels[j]&&stanza[j].aso===stanza[i].aso)partners.push(j);
+    if(partners.length){const L=nextLetter++;[i,...partners].forEach(idx=>labels[idx]={n:L});}
+  }
+  // por cada grupo: determinar GRADO de rima (consonante > familia > asonante)
+  const grupoInfo={}; // L -> {grado, tipo, cruzan, palabras}
+  const grupos={};
+  for(let i=0;i<n;i++)if(labels[i]){const L=labels[i].n;(grupos[L]=grupos[L]||[]).push(i);}
+  for(const L in grupos){
+    const idxs=grupos[L];
+    if(idxs.length<2){grupoInfo[L]={grado:'asonante'};continue;}
+    const palabras=idxs.map(i=>stanza[i].lastClean).filter(Boolean);
+    const consKeys=idxs.map(i=>stanza[i].cons);
+    const famKeys=idxs.map(i=>stanza[i].fam);
+    const esConsonante=consKeys.every(c=>c===consKeys[0]);
+    const esFamilia=famKeys.every(f=>f===famKeys[0]);
+    if(esConsonante){
+      const cl=clasificaRima(palabras);
+      grupoInfo[L]={grado:'consonante',tipo:cl.tipo,clase:cl.clase,cruzan:cl.cruzan,palabras};
+    } else if(esFamilia){
+      grupoInfo[L]={grado:'familia',palabras};
+    } else {
+      grupoInfo[L]={grado:'asonante',palabras};
+    }
+  }
+
+  // ---- COLOR DE RIMA UNIFICADO ----
+  // Junta TODAS las palabras de la estrofa (finales e internas) y las agrupa por rima.
+  // Cada grupo con 2+ palabras recibe un color. Se prioriza la coincidencia más fuerte
+  // (consonante > familia > asonante) para que el color refleje el vínculo real.
+  // Recolectar todas las palabras con su posición (verso, token) y claves de rima.
+  const todasPalabras=[]; // {vi, ti, cons, fam, aso}
+  stanza.forEach((v,vi)=>{
+    (v.palabrasRima||[]).forEach(p=>{ if(p)todasPalabras.push({vi,ti:p.ti,cons:p.cons,fam:p.fam,aso:p.aso}); });
+  });
+  // Union-Find para agrupar palabras que riman (por la clave más fuerte que compartan).
+  const parent=todasPalabras.map((_,i)=>i);
+  const find=x=>{while(parent[x]!==x){parent[x]=parent[parent[x]];x=parent[x];}return x;};
+  const union=(a,b)=>{const ra=find(a),rb=find(b);if(ra!==rb)parent[ra]=rb;};
+  // nivel de rima entre dos palabras: 3=consonante, 2=familia, 1=asonante, 0=no riman
+  const nivelRima=(p,q)=>{
+    if(!p||!q)return 0;
+    if(p.cons&&p.cons===q.cons)return 3;
+    if(p.fam&&p.fam===q.fam)return 2;
+    if(p.aso&&p.aso===q.aso)return 1;
+    return 0;
+  };
+  for(let i=0;i<todasPalabras.length;i++)
+    for(let j=i+1;j<todasPalabras.length;j++)
+      if(nivelRima(todasPalabras[i],todasPalabras[j])>0)union(i,j);
+  // mapa raíz -> color (solo grupos con 2+ miembros)
+  const tamGrupo={};todasPalabras.forEach((_,i)=>{const r=find(i);tamGrupo[r]=(tamGrupo[r]||0)+1;});
+  const colorRaiz={};let colorIdx=0;
+  todasPalabras.forEach((_,i)=>{const r=find(i);
+    if(tamGrupo[r]>=2&&!(r in colorRaiz)){colorRaiz[r]=colorDeGrupo(colorIdx++);}});
+  // mapa (vi-ti) -> color, para pintar cada palabra
+  const colorPalabra={};
+  todasPalabras.forEach((p,i)=>{const r=find(i);if(colorRaiz[r])colorPalabra[p.vi+'-'+p.ti]=colorRaiz[r];});
+
+  // ---- SEÑALES DE ESTABILIDAD ----
+  const lastIdx=n-1;
+  const punchRima=labels[lastIdx]!==null;
+  // paridad: nº par de versos = estable, impar = inestable
+  const paridadEstable=(n%2===0);
+  // cómputo silábico de cada verso (para análisis de longitud)
+  const computos=stanza.map(v=>v.merged.length+(v.adjust||0));
+
+  const box=document.createElement('div');box.className='stanza';
+  if(n>=2){
+    const title=document.createElement('div');title.className='stanza-title';
+    const tags=document.createElement('span');tags.className='stab-tags';
+    const mk=(cls,txt)=>{const s=document.createElement('span');s.className='stab '+cls;s.textContent=txt;return s;};
+    tags.appendChild(mk(punchRima?'estable':'inestable',punchRima?'cierre rimado':'cierre suelto'));
+    tags.appendChild(mk(paridadEstable?'estable':'inestable',n+' versos · '+(paridadEstable?'par':'impar')));
+    title.appendChild(tags);
+    if(cabecera)cabecera.appendChild(title);else box.appendChild(title);
+  }
+
+  // señal de longitud: comparar cada verso con el anterior (umbral 3 sílabas)
+  const UMBRAL=3;
+  const longSenal=stanza.map((v,i)=>{
+    if(i===0)return null;
+    const d=computos[i]-computos[i-1];
+    if(d<=-UMBRAL)return 'corto';
+    if(d>=UMBRAL)return 'largo';
+    return null;
+  });
+
+  // para alinear por la última tónica en solo-métrica: cola máxima de la estrofa
+  const maxCola=Math.max(...stanza.map(v=>v.colaPostTonica||0),0);
+  // máximo de golpes (celdas) de la estrofa, para que el ancho de celda se adapte
+  const maxCeldas=Math.max(...stanza.map(v=>v.merged.length),1);
+  // el contenedor de versos recibe el máximo para calcular el ancho de celda en CSS
+  out.style.setProperty('--max-celdas',maxCeldas);
+
+  stanza.forEach((v,idx)=>{
+    // alinear la última tónica: empujar a la derecha según las sílabas que faltan tras la tónica
+    const relleno=maxCola-(v.colaPostTonica||0);
+    v.verse.style.setProperty('--cola-relleno',relleno);
+    const computoBase=v.merged.length+(v.adjust||0);
+    const esLargo=computoBase>=12;
+    // cesura para versos largos
+    let cesura=-1,extraPorCesura=0;
+    if(esLargo){
+      // el override guarda índice de SÍLABA; lo convertimos a posición métrica (merged)
+      if(v.li in cesuraOverrides){
+        const kSil=cesuraOverrides[v.li];
+        cesura=(v.sylToMerged&&v.sylToMerged[kSil]!=null)?v.sylToMerged[kSil]:kSil;
+      }
+      else if(v.posComa>0){
+        cesura=(v.sylToMerged&&v.sylToMerged[v.posComa]!=null)?v.sylToMerged[v.posComa]:v.posComa;
+      }
+      else cesura=Math.round(v.merged.length/2);
+      cesura=Math.max(1,Math.min(v.merged.length-1,cesura));
+      if(cesura>0&&v.mergedBkeys[cesura])extraPorCesura=1;
+    }
+    // etiqueta lateral del verso: rima + cómputo (+ señal de longitud)
+    const meta=document.createElement('span');meta.className='verse-meta';
+    // señal de longitud (↓/↑) a la IZQUIERDA, con ancho fijo para no descolocar la columna
+    const ls=document.createElement('span');ls.className='vm-long';
+    if(longSenal[idx]){
+      ls.classList.add(longSenal[idx]==='corto'?'corto':'largo');
+      ls.textContent=longSenal[idx]==='corto'?'↓':'↑';
+      ls.title=longSenal[idx]==='corto'?'más corto':'spotlight';
+    }
+    meta.appendChild(ls);
+    // letra de rima en la meta (la etiqueta del esquema final)
+    if(labels[idx]){
+      const info=grupoInfo[labels[idx].n];
+      const letra=letterOf(labels[idx].n);
+      const lab=document.createElement('span');lab.className='vm-rima';
+      if(info&&info.grado==='consonante'){lab.textContent=letra;lab.classList.add(info.tipo==='homeóptoton'?'lab-homeop':'lab-homeot');}
+      else if(info&&info.grado==='familia'){lab.textContent=letra;lab.classList.add('lab-familia');}
+      else {lab.textContent=letra.toLowerCase();lab.classList.add('lab-ason');}
+      // la letra toma el color de la palabra final del verso (si está en un grupo coloreado)
+      const pr=v.palabrasRima||[];
+      const ultPr=pr[pr.length-1];
+      if(ultPr){const colF=colorPalabra[idx+'-'+ultPr.ti];if(colF)lab.style.color=colF;}
+      meta.appendChild(lab);
+    } else {const lab=document.createElement('span');lab.className='vm-rima lab-none';lab.textContent='–';meta.appendChild(lab);}
+    // COLOREO UNIFICADO: pintar cada palabra del verso (final o interna) con el color de su grupo de rima
+    if(v.palabrasRima&&v.wordEls){
+      v.palabrasRima.forEach(p=>{
+        if(!p)return;
+        const col=colorPalabra[idx+'-'+p.ti];
+        if(!col)return;
+        const wEl=v.wordEls[p.ti];
+        if(wEl){wEl.classList.add('rima-coloreada');wEl.style.setProperty('color',col,'important');}
+      });
+    }
+    // cómputo de sílabas (+ hemistiquios apilados si es arte mayor con cesura)
+    const total=computoBase+extraPorCesura;
+    const cnt=document.createElement('span');cnt.className='vm-count';
+    if(esLargo&&cesura>0){
+      const izq=cesura, der=v.merged.length-cesura+(v.adjust||0)+extraPorCesura;
+      cnt.innerHTML=`<span class="vm-total">${total}</span><span class="vm-hemi">${izq}+${der}</span>`;
+      cnt.classList.add('apilado');
+    } else cnt.textContent=total;
+    meta.appendChild(cnt);
+    // la meta va como columna fija a la derecha del verso (no dentro de la línea)
+    v.verse.appendChild(meta);
+    v.verse.classList.add('con-meta');
+    // cesura: insertar // en la línea del verso largo (entre las palabras, tocable)
+    if(esLargo&&cesura>0){
+      insertarCesura(v,cesura);
+    }
+  });
+
+  // ---- NOTAS DE RIMA (grado + tipo morfológico en consonantes) ----
+  const rimaNotas=[];
+  for(const L in grupos){
+    if(grupos[L].length<2)continue;
+    const info=grupoInfo[L];
+    const letra=letterOf(parseInt(L));
+    const pals=info.palabras||grupos[L].map(i=>stanza[i].lastClean).filter(Boolean);
+    if(info.grado==='asonante'){
+      rimaNotas.push(`rima <b class="n-ason">${letra.toLowerCase()}</b>: asonante (${pals.join(', ')})`);
+    } else if(info.grado==='familia'){
+      rimaNotas.push(`rima <b class="n-familia">${letra}</b>: familia de rima · misma vocal + consonantes de igual familia (${pals.join(', ')})`);
+    } else if(info.tipo==='homeóptoton'){
+      let nota=`rima <b class="n-homeop">${letra}</b>: consonante · <b class="n-homeop">homeóptoton</b> (${pals.join(', ')})`;
+      if(info.cruzan&&info.cruzan.length)nota+=` — "${info.cruzan.join('", "')}" cruza categoría`;
+      rimaNotas.push(nota);
+    } else {
+      rimaNotas.push(`rima <b class="n-homeot">${letra}</b>: consonante · <b class="n-homeot">homeoteleuton</b> (${pals.join(', ')})`);
+    }
+  }
+
+  // ---- PARENTESCO SIN RIMA (políptoton, derivación, paronomasia, parentesco consonántico) ----
+  const parentNotas=detectParentesco(stanza,labels);
+
+  // ---- RIMA INTERNA (tres tipos) ----
+  const internaNotas=detectRimaInterna(stanza,grupoInfo,labels);
+
+  // ---- FIGURAS DE DICCIÓN ----
+  const figs=detectFiguras(stanza);
+  if(rimaNotas.length||internaNotas.length){
+    const rbox=document.createElement('div');rbox.className='rima-notas';
+    rimaNotas.forEach(f=>{const el=document.createElement('span');el.className='fig';el.innerHTML=f;rbox.appendChild(el);});
+    internaNotas.forEach(f=>{const el=document.createElement('span');el.className='fig';el.innerHTML=f;rbox.appendChild(el);});
+    box.appendChild(rbox);
+  }
+  if(parentNotas.length){
+    const pbox=document.createElement('div');pbox.className='parent-notas';
+    parentNotas.forEach(f=>{const el=document.createElement('span');el.className='fig';el.innerHTML=f;pbox.appendChild(el);});
+    box.appendChild(pbox);
+  }
+  if(figs.length){
+    const fbox=document.createElement('div');fbox.className='figuras';
+    figs.forEach(f=>{const el=document.createElement('span');el.className='fig';el.innerHTML=f;fbox.appendChild(el);});
+    box.appendChild(fbox);
+  }
+  out.appendChild(box);
+}
+
+// Esqueleto de consonantes EXACTAS (fonético, sin reducir a familia).
+// Normaliza seseo (z/c→s), b=v, ll→y, h muda, qu→k, para comparar sonidos reales.
+function esqueletoExacto(word){
+  let s=phonetic(word.replace(/[^a-záéíóúüñ]/gi,'').toLowerCase())
+    .replace(/v/g,'b').replace(/z/g,'s').replace(/qu/g,'k').replace(/c([ei])/g,'s$1')
+    .replace(/c/g,'k').replace(/h/g,'').replace(/g([ei])/g,'j$1').replace(/ll/g,'y').replace(/rr/g,'r');
+  let out='';
+  for(const ch of s)if('bdfgjklmnñprstyx'.includes(ch))out+=ch;
+  return out;
+}
+// Esqueleto consonántico de una palabra (familias, toda la palabra no solo la cola)
+function esqueletoCons(word){
+  const ph=phonetic(word.replace(/[^a-záéíóúüñ]/gi,'').toLowerCase())
+    .replace(/v/g,'b').replace(/z/g,'s').replace(/qu/g,'k').replace(/c([ei])/g,'s$1').replace(/c/g,'k').replace(/h/g,'').replace(/g([ei])/g,'j$1');
+  return familiaCons(ph);
+}
+// Detecta relaciones de sonido entre TODAS las palabras de la estrofa (cualquier posición).
+function detectParentesco(stanza,labels){
+  const notas=[];
+  const vistos=new Set();
+  // juntar todas las palabras de contenido (≥4 letras, no función) con su verso y clave de rima
+  const palabras=[];
+  stanza.forEach((v,vi)=>{
+    (v.tokens||[]).forEach(tok=>{
+      const w=tok.replace(/[^a-záéíóúüñ]/gi,'').toLowerCase();
+      if(w.length>=4&&!ATONAS.has(w)){const k=rhymeKeys(w);palabras.push({w,vi,cons:k.cons,fam:k.fam});}
+    });
+  });
+  for(let i=0;i<palabras.length;i++){
+    for(let j=i+1;j<palabras.length;j++){
+      const A=palabras[i],B=palabras[j];
+      const a=A.w,b=B.w;
+      if(a===b)continue; // misma palabra repetida no es parentesco
+      // si YA RIMAN (consonante o familia), no es parentesco sin rima: se reporta como rima
+      if(A.cons===B.cons||A.fam===B.fam)continue;
+      const key=[a,b].sort().join('|');if(vistos.has(key))continue;
+      const rel=relacionSonora(a,b);
+      if(rel){vistos.add(key);
+        notas.push(`<b class="n-parent">${rel.tipo}</b>: "${a}" / "${b}" — ${rel.desc}`);}
+    }
+  }
+  return notas;
+}
+function relacionSonora(a,b){
+  // raíz aproximada: quitar terminaciones flexivas comunes
+  const raiz=w=>w.replace(/(ar|er|ir|ado|ido|ando|iendo|aba|ía|aré|o|a|os|as|e|es|amos|an|en)$/,'');
+  const ra=raiz(a),rb=raiz(b);
+  // POLÍPTOTON: misma raíz larga compartida (mismo lexema, distinta flexión)
+  if(ra.length>=3&&ra===rb&&a!==b) return {tipo:'políptoton',desc:'misma palabra en distinta forma'};
+  // DERIVACIÓN: una raíz contiene a la otra (familia léxica)
+  if(ra.length>=3&&rb.length>=3&&(ra.startsWith(rb)||rb.startsWith(ra))&&ra!==rb)
+    return {tipo:'derivación',desc:'misma raíz, distinta palabra'};
+  // PARONOMASIA (RAE): se diferencian solo por la vocal acentuada u otro rasgo mínimo.
+  // Criterio estricto: MISMO esqueleto de consonantes exactas, longitud similar; la
+  // diferencia está en las vocales. Entra: azar/azor, mesa/mozo, casa/caza, cielo/suelo.
+  // No entra: luna/alma (ln≠lm, esqueleto distinto).
+  const esqA=esqueletoExacto(a),esqB=esqueletoExacto(b);
+  if(esqA&&esqA.length>=2&&esqA===esqB&&Math.abs(a.length-b.length)<=1&&a!==b)
+    return {tipo:'paronomasia',desc:'mismas consonantes, cambian las vocales'};
+  return null;
+}
+// distancia de Levenshtein simple
+function distancia(a,b){
+  const m=a.length,n=b.length;const d=Array.from({length:m+1},(_, i)=>[i,...Array(n).fill(0)]);
+  for(let j=0;j<=n;j++)d[0][j]=j;
+  for(let i=1;i<=m;i++)for(let j=1;j<=n;j++)
+    d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));
+  return d[m][n];
+}
+// Detecta rima INTERNA (tres tipos). Exige consonante o familia para evitar ruido asonante.
+function detectRimaInterna(stanza,grupoInfo,labels){
+  const notas=[];
+  const vistos=new Set();
+  // grado de rima entre dos claves: consonante > familia > asonante
+  const riman=(p,q)=>{
+    if(!p||!q||p.w===q.w)return null;
+    if(p.cons===q.cons)return 'consonante';
+    if(p.fam===q.fam)return 'familia';
+    if(p.aso===q.aso)return 'asonante';
+    return null;
+  };
+  // TIPO 1: rima interna — cualquier par de palabras que rime dentro del MISMO verso (incluye asonante)
+  stanza.forEach((v,vi)=>{
+    const pr=(v.palabrasRima||[]).filter(Boolean);
+    if(pr.length<2)return;
+    for(let i=0;i<pr.length;i++){
+      for(let j=i+1;j<pr.length;j++){
+        const tipo=riman(pr[i],pr[j]);
+        if(tipo){const key='c'+vi+[pr[i].w,pr[j].w].sort().join();if(vistos.has(key))continue;vistos.add(key);
+          const esFinal=(j===pr.length-1)?' (con el final)':'';
+          const cls=tipo==='asonante'?'n-interna-aso':'n-interna';
+          notas.push(`<b class="${cls}">rima interna</b> (v.${vi+1}): "${pr[i].w}" / "${pr[j].w}" · ${tipo}${esFinal}`);}
+      }
+    }
+  });
+  // TIPO 2: rima leonina — fin del primer hemistiquio rima con fin del verso (versos con cesura)
+  stanza.forEach((v,vi)=>{
+    const computo=v.merged.length+(v.adjust||0);
+    if(computo<12)return; // solo versos largos con cesura
+    const pr=(v.palabrasRima||[]).filter(Boolean);
+    if(pr.length<2)return;
+    // aproximar la palabra del primer hemistiquio: la del medio del verso
+    const medio=Math.floor(pr.length/2)-1;
+    if(medio<0)return;
+    const tipo=riman(pr[medio],pr[pr.length-1]);
+    if(tipo){const key='l'+vi;if(!vistos.has(key)){vistos.add(key);
+      notas.push(`<b class="n-interna">rima leonina</b> (v.${vi+1}): "${pr[medio].w}" en la cesura / "${pr[pr.length-1].w}" al final · ${tipo}`);}}
+  });
+  // TIPO 3: cualquier par de palabras internas de versos DISTINTOS que rimen (consonante/familia)
+  for(let a=0;a<stanza.length;a++){
+    for(let b=a+1;b<stanza.length;b++){
+      const pa=(stanza[a].palabrasRima||[]).filter(Boolean);
+      const pb=(stanza[b].palabrasRima||[]).filter(Boolean);
+      // solo palabras que NO son la última de su verso (esas ya entran en el esquema de rima)
+      const ia=pa.slice(0,-1),ib=pb.slice(0,-1);
+      for(const x of ia)for(const y of ib){
+        const tipo=riman(x,y);
+        if(tipo==='consonante'){ // entre versos, solo consonante (familia daría mucho ruido)
+          const key='x'+[x.w,y.w].sort().join();if(vistos.has(key))continue;vistos.add(key);
+          notas.push(`<b class="n-interna">rima interna cruzada</b>: "${x.w}" (v.${a+1}) / "${y.w}" (v.${b+1}) · consonante`);
+        }
+      }
+    }
+  }
+  return notas;
+}
+
+// Sustantivos comunes terminados en desinencias verbales pero que NO son formas verbales.
+// Para estos, la rima con un participio real es homeoteleuton (cruza categorías), no homeóptoton.
+const NO_VERBAL=new Set(['helado','candado','mercado','pescado','soldado','peinado','cuidado',
+  'bocado','pecado','tratado','reinado','ganado','grado','prado','agrado','dado','lado','vado',
+  'estado','condado','abogado','empleado','resultado','significado','tejado','pelado','recado',
+  'partido','sentido','vestido','sonido','ruido','olvido','marido','apellido','ladrido','latido',
+  'pedido','contenido','descuido','nido','cocido','tejido','ejido',
+  'comida','bebida','salida','medida','vida','herida','partida','guarida','avenida','corrida',
+  'caída','huida','prenda','tienda','leyenda','merienda','hacienda','vivienda',
+  'ciudad','verdad','edad','mitad','amistad','libertad','bondad','maldad','novedad']);
+// Sustantivos terminados en -ar/-er/-ir que NO son infinitivos (no comparten desinencia verbal).
+const NO_INFINITIVO=new Set(['mar','bar','par','lugar','hogar','azar','altar','collar','manjar','telar','pilar','sur','mujer','ayer','taller','color','amor','dolor','calor','sabor','temblor','rumor','clamor','interior','exterior','mayor','menor','peor','señor','flor','sudor','fervor','licor','tambor','elixir','porvenir']);
+// Clasifica la terminación flexiva/derivativa de una palabra.
+function morfClase(word){
+  const w=word.replace(/[^a-záéíóúüñ]/gi,'').toLowerCase();
+  if(NO_VERBAL.has(w)) return null; // es sustantivo, no forma verbal
+  if(NO_INFINITIVO.has(w)) return null; // sustantivo en -ar/-er/-ir, no infinitivo
+  const patrones=[
+    [/(ado|ados|ada|adas)$/,'participio-ar'],
+    [/(ido|idos|ida|idas)$/,'participio-er-ir'],
+    [/(ando)$/,'gerundio-ar'],
+    [/(iendo|yendo)$/,'gerundio-er-ir'],
+    [/(aba|abas|ábamos|aban)$/,'imperfecto-ar'],
+    [/(ía|ías|íamos|ían)$/,'imperfecto-er-ir'],
+    [/(ar)$/,'infinitivo-ar'],
+    [/(er)$/,'infinitivo-er'],
+    [/(ir)$/,'infinitivo-ir'],
+    [/(aré|arás|ará|aremos|arán)$/,'futuro-ar'],
+    [/(ción|ciones|sión|siones)$/,'sustantivo-cion'],
+    [/(mente)$/,'adverbio-mente'],
+    [/(dad|dades|tad|tades)$/,'sustantivo-dad'],
+    [/(ente|entes|ante|antes)$/,'adjetivo-nte'],
+  ];
+  for(const [re,etq] of patrones) if(re.test(w)) return etq;
+  return null;
+}
+function clasificaRima(words){
+  const clases=words.map(morfClase);
+  // contar la clase flexiva más frecuente (ignorando nulls)
+  const conteo={};
+  clases.forEach(c=>{if(c)conteo[c]=(conteo[c]||0)+1;});
+  let mayorClase=null,mayorN=0;
+  for(const c in conteo)if(conteo[c]>mayorN){mayorN=conteo[c];mayorClase=c;}
+  // ¿la mayoría comparte una familia flexiva?
+  if(mayorClase && mayorN>=Math.ceil(words.length/2) && mayorN>=2){
+    // identificar las palabras que NO pertenecen a esa familia (cruzan categoría)
+    const cruzan=words.filter((w,i)=>clases[i]!==mayorClase);
+    return {tipo:'homeóptoton',clase:mayorClase,cruzan};
+  }
+  return {tipo:'homeoteleuton'};
+}
+
+function detectFiguras(stanza){
+  const figs=[];
+  const n=stanza.length;
+  // ANÁFORA: 2+ versos consecutivos (o del grupo) que empiezan con la misma palabra
+  const firstGroups={};
+  stanza.forEach((v,i)=>{if(!v.firstClean)return;(firstGroups[v.firstClean]=firstGroups[v.firstClean]||[]).push(i);});
+  for(const w in firstGroups){
+    if(firstGroups[w].length>=2){
+      firstGroups[w].forEach(i=>stanza[i].wordEls[0]&&stanza[i].wordEls[0].classList.add('anafora'));
+      figs.push(`<b>anáfora</b>: ${firstGroups[w].length} versos abren con "${w}"`);
+    }
+  }
+  // EPÍFORA: 2+ versos que terminan con la misma palabra
+  const lastGroups={};
+  stanza.forEach((v,i)=>{if(!v.lastClean)return;(lastGroups[v.lastClean]=lastGroups[v.lastClean]||[]).push(i);});
+  for(const w in lastGroups){
+    if(lastGroups[w].length>=2){
+      lastGroups[w].forEach(i=>{const we=stanza[i].wordEls[stanza[i].wordEls.length-1];we&&we.classList.add('epifora');});
+      figs.push(`<b>epífora</b>: ${lastGroups[w].length} versos cierran con "${w}"`);
+    }
+  }
+  // ALITERACIÓN: un sonido consonante prominente, repetido en varias palabras del verso.
+  // Estricto: cuenta en cuántas PALABRAS aparece el sonido (no ocurrencias totales),
+  // exige al menos 4 palabras con ese sonido Y que sea ≥70% de las palabras de contenido.
+  stanza.forEach((v,i)=>{
+    const tokens=(v.tokens||[]).map(t=>t.toLowerCase().replace(/[^a-záéíóúüñ]/gi,'')).filter(w=>w.length>=2&&!ATONAS.has(w));
+    if(tokens.length<4)return; // versos muy cortos no cuentan
+    const enPalabras={}; // sonido -> nº de palabras que lo contienen
+    tokens.forEach(w=>{
+      const set=new Set();
+      for(const ch of w)if('bcdfgjklmnpqrstvz'.includes(ch))set.add(ch);
+      set.forEach(ch=>enPalabras[ch]=(enPalabras[ch]||0)+1);
+    });
+    for(const ch in enPalabras){
+      if(enPalabras[ch]>=4&&enPalabras[ch]>=tokens.length*0.7){
+        figs.push(`<b>aliteración</b> del sonido "${ch}" (en ${enPalabras[ch]} palabras del verso ${i+1})`);
+        break;
+      }
+    }
+  });
+  return figs;
+}
+
+// ---- TOGGLES ----
+// Las capas rima/acentos/sinalefas/sílabas quedan siempre activas (sin botón).
+// El único toggle visible es "solo métrica".
+const CAPAS_FIJAS=['acentos','sinalefas'];
+const TOGGLES=[
+  {key:'rima',label:'rima',on:true},
+  {key:'silabas',label:'sílabas',on:true},
+  {key:'figuras',label:'figuras',on:false},
+  {key:'solometrica',label:'solo métrica',on:false},
+];
+const LEGENDS={
+  rima:[['var(--homeop)','A consonante · homeóptoton'],['var(--homeot)','A homeoteleuton'],['var(--rima)','A familia de rima'],['var(--ason)','a asonante']],
+  acentos:[['var(--lexical)','tónica léxica'],['var(--rhythmic)','acento fuerte']],
+  sinalefas:[['var(--sinalefa)','sinalefa']],
+  figuras:[['var(--figura)','anáfora'],['var(--rima)','epífora']],
+  gramatica:[['var(--pos-sus)','sustantivo']],
+};
+function renderToggles(){
+  const c=document.getElementById('toggles');c.innerHTML='';
+  // capas siempre activas (sin botón)
+  CAPAS_FIJAS.forEach(k=>document.body.classList.add('show-'+k));
+  TOGGLES.forEach(t=>{
+    const b=document.createElement('span');b.className='tog'+(t.on?' on':'');
+    b.textContent=t.label;
+    b.onclick=()=>{t.on=!t.on;document.body.classList.toggle('show-'+t.key,t.on);b.classList.toggle('on',t.on);};
+    c.appendChild(b);
+    document.body.classList.toggle('show-'+t.key,t.on);
+  });
+}
+function renderLegend(){
+  const c=document.getElementById('legend');c.innerHTML='';
+  TOGGLES.forEach(t=>{if(!t.on||!LEGENDS[t.key])return;
+    LEGENDS[t.key].forEach(([col,txt])=>{
+      const s=document.createElement('span');
+      s.innerHTML=`<i class="swatch" style="background:${col}"></i> ${txt}`;
+      c.appendChild(s);});});
+}
+
+const ta=document.getElementById('input');
+const campo=document.getElementById('campo');
+const outputEl=document.getElementById('output');
+function autosize(){ta.style.height='auto';ta.style.height=ta.scrollHeight+'px';}
+function normalizeBreaks(s){return s.replace(/\r\n/g,'\n').replace(/\r/g,'\n').replace(/\u2028/g,'\n').replace(/\u2029/g,'\n\n');}
+
+// ---- Modo edición vs. análisis ----
+let editando=false;
+let textoAlEntrar=''; // snapshot para reconciliar marcas al salir de edición
+function entrarEdicion(){
+  if(editando)return;
+  editando=true;
+  textoAlEntrar=ta.value;
+  campo.classList.add('editando');
+  autosize();
+  ta.focus();
+}
+function salirEdicion(){
+  if(!editando)return;
+  editando=false;
+  campo.classList.remove('editando');
+  reconciliarMarcas(textoAlEntrar,ta.value); // conservar marcas de líneas no cambiadas
+  analyze();
+}
+// Purga las marcas (acentos, sinalefas, cesuras) solo de las líneas que cambiaron.
+// Las marcas se guardan con el índice de línea (li) en su clave.
+function reconciliarMarcas(viejo,nuevo){
+  const lv=viejo.replace(/\r\n/g,'\n').split('\n');
+  const ln=nuevo.replace(/\r\n/g,'\n').split('\n');
+  // diff por subsecuencia común más larga (LCS): mapea índice de línea VIEJA -> índice de línea NUEVA
+  // para las líneas que sobreviven sin cambios. Las que cambiaron/desaparecieron no se mapean.
+  const m=lv.length,n=ln.length;
+  const dp=Array.from({length:m+1},()=>new Array(n+1).fill(0));
+  for(let i=m-1;i>=0;i--)for(let j=n-1;j>=0;j--){
+    dp[i][j]=(lv[i]===ln[j])?dp[i+1][j+1]+1:Math.max(dp[i+1][j],dp[i][j+1]);
+  }
+  const viejoANuevo={}; // li viejo -> li nuevo (solo líneas idénticas que sobreviven)
+  let i=0,j=0;
+  while(i<m&&j<n){
+    if(lv[i]===ln[j]){viejoANuevo[i]=j;i++;j++;}
+    else if(dp[i+1][j]>=dp[i][j+1])i++;
+    else j++;
+  }
+  // remapear cada estructura de marcas al nuevo número de línea; descartar las no mapeadas
+  const remapKeyLi=(obj)=>{
+    const nuevoObj={};
+    for(const k of Object.keys(obj)){
+      const partes=k.split('-');const li=parseInt(partes[0],10);
+      if(li in viejoANuevo){
+        partes[0]=viejoANuevo[li];
+        nuevoObj[partes.join('-')]=obj[k];
+      }
+    }
+    return nuevoObj;
+  };
+  rhythmicOverrides=remapKeyLi(rhythmicOverrides);
+  cesuraOverrides=remapKeyLi(cesuraOverrides);
+  // brokenSinalefas es un Set de claves "li-posicion"
+  const nuevasSin=new Set();
+  for(const k of brokenSinalefas){
+    const partes=k.split('-');const li=parseInt(partes[0],10);
+    if(li in viejoANuevo){partes[0]=viejoANuevo[li];nuevasSin.add(partes.join('-'));}
+  }
+  brokenSinalefas.clear();
+  for(const k of nuevasSin)brokenSinalefas.add(k);
+  // forcedSinalefas: mismo remapeo (claves "li-k")
+  const nuevasForced=new Set();
+  for(const k of forcedSinalefas){
+    const partes=k.split('-');const li=parseInt(partes[0],10);
+    if(li in viejoANuevo){partes[0]=viejoANuevo[li];nuevasForced.add(partes.join('-'));}
+  }
+  forcedSinalefas.clear();
+  for(const k of nuevasForced)forcedSinalefas.add(k);
+}
+// tocar el análisis entra en edición
+outputEl.addEventListener('click',(e)=>{
+  // no entrar en edición si el toque fue sobre un elemento interactivo (sílaba, puente, palabra)
+  if(e.target.closest('.syl, .bridge, .inv-w, .xpos'))return;
+  entrarEdicion();
+});
+// si el análisis está vacío (sin texto), tocar el placeholder también edita
+campo.addEventListener('click',(e)=>{if(!ta.value.trim()&&!editando)entrarEdicion();});
+// salir al perder foco
+ta.addEventListener('blur',()=>{salirEdicion();});
+
+ta.addEventListener('paste',(e)=>{e.preventDefault();
+  const raw=(e.clipboardData||window.clipboardData).getData('text');
+  const clean=normalizeBreaks(raw);
+  const start=ta.selectionStart,end=ta.selectionEnd;
+  ta.value=ta.value.slice(0,start)+clean+ta.value.slice(end);
+  ta.selectionStart=ta.selectionEnd=start+clean.length;
+  autosize();});
+ta.addEventListener('input',()=>{autosize();});
+
+// ---- Navegación por secciones (estrofas) ----
+function estrofasVisibles(){return [...document.querySelectorAll('#vista-analizador .estrofa')];}
+function irASeccion(dir){
+  const ests=estrofasVisibles();if(!ests.length)return;
+  const y=window.scrollY+80; // referencia: un poco abajo del tope (los toggles sticky)
+  // posición de cada estrofa
+  const tops=ests.map(e=>e.getBoundingClientRect().top+window.scrollY);
+  let idx=0;
+  for(let i=0;i<tops.length;i++){if(tops[i]<=y+5)idx=i;}
+  let target=dir>0?idx+1:idx-1;
+  // si vamos hacia abajo y ya estamos al principio de la actual, saltar a la siguiente;
+  // si vamos hacia arriba y estamos lejos del tope de la actual, ir al tope de la actual primero
+  if(dir<0&&tops[idx]<y-30)target=idx;
+  target=Math.max(0,Math.min(ests.length-1,target));
+  const destino=tops[target]-110;
+  window.scrollTo({top:Math.max(0,destino),behavior:'smooth'});
+}
+document.getElementById('nav-prev').onclick=()=>irASeccion(-1);
+document.getElementById('nav-next').onclick=()=>irASeccion(1);
+document.querySelectorAll('.tag-btn').forEach(btn=>{
+  // usar mousedown para no perder el foco/selección del textarea antes del click
+  btn.addEventListener('mousedown',(e)=>{
+    e.preventDefault();
+    const tag=btn.dataset.tag;
+    // contar cuántos tags de este tipo ya existen para numerar
+    const re=new RegExp('\\['+tag+'\\s*\\d*\\]','gi');
+    const existentes=(ta.value.match(re)||[]).length;
+    const texto=`[${tag} ${existentes+1}]`;
+    // insertar en la posición del cursor, en su propia línea
+    let pos=ta.selectionStart;
+    if(!editando){entrarEdicion();pos=ta.value.length;}
+    const antes=ta.value.slice(0,pos), despues=ta.value.slice(pos);
+    // asegurar saltos de línea alrededor del tag
+    const needNlBefore=antes.length>0&&!antes.endsWith('\n')?'\n':'';
+    const needNlAfter=despues.length>0&&!despues.startsWith('\n')?'\n':'';
+    const ins=needNlBefore+texto+needNlAfter;
+    ta.value=antes+ins+despues;
+    const newPos=pos+ins.length;
+    ta.selectionStart=ta.selectionEnd=newPos;
+    autosize();ta.focus();
+  });
+});
+
+// ---- Menú de vistas ----
+// ============ MODO ESCRITURA (espejo métrico) ============
+// Extrae el patrón métrico de un verso: lista de golpes con acento (true=fuerte).
+// Reutiliza el motor de silabeo/acentos. Aplica sinalefas entre palabras.
+function moldeDeVerso(texto){
+  const tokens=(texto.match(/\S+/g)||[]);
+  if(!tokens.length)return {golpes:[],silabas:0};
+  const flat=[];
+  tokens.forEach((tok)=>{
+    const core=tok.replace(/[^a-záéíóúüñ]/gi,'')||tok;
+    if(!core)return;
+    const sylls=syllabify(core);const sIdx=stressIndex(sylls,core);
+    sylls.forEach((s,si)=>{flat.push({text:s,lex:si===sIdx,first:si===0,last:si===sylls.length-1});});
+  });
+  // sinalefas: fusionar vocal final + inicial entre palabras
+  const fused=[];let i=0;
+  while(i<flat.length){
+    let strong=flat[i].lex,j=i;
+    while(j+1<flat.length&&flat[j].last&&flat[j+1].first){
+      let aEnd=flat[j].text.replace(/[^a-záéíóúüñ]/gi,'').toLowerCase().slice(-1);
+      if(aEnd==='y')aEnd='i';
+      let bStr=flat[j+1].text.replace(/[^a-záéíóúüñ]/gi,'').toLowerCase();
+      const bStart=bStr[0]==='h'?(bStr[1]||''):bStr[0];
+      if(isVowel(aEnd)&&isVowel(bStart)){j++;strong=strong||flat[j].lex;}else break;
+    }
+    fused.push(strong);i=j+1;
+  }
+  // ajuste por terminación de la última palabra (aguda +1, esdrújula -1)
+  const lastWord=tokens[tokens.length-1]||'';
+  let adjust=0;
+  if(lastWord){const ws=wordStress(lastWord);const fe=ws.sylls.length-1-ws.tonicIdx;
+    if(fe===0)adjust=1;else if(fe>=2)adjust=-1;}
+  return {golpes:fused,silabas:fused.length+adjust,adjust};
+}
+
+// ============ MODO VOZ (hablar -> texto -> extraer palabras) ============
+const vozTexto=document.getElementById('voz-texto');
+const vozRec=document.getElementById('voz-rec');
+const vozEstado=document.getElementById('voz-estado');
+let reconocedor=null, grabando=false;
+
+// dictado por voz con Web Speech API (si el navegador lo soporta)
+const SpeechRec=window.SpeechRecognition||window.webkitSpeechRecognition;
+function initReconocedor(){
+  if(!SpeechRec)return null;
+  const r=new SpeechRec();
+  r.lang='es-AR';r.continuous=true;r.interimResults=true;
+  let baseTexto='';
+  r.onstart=()=>{baseTexto=vozTexto.value?vozTexto.value+' ':'';vozEstado.textContent='escuchando…';vozRec.classList.add('grabando');vozRec.textContent='■ Parar';};
+  r.onresult=(e)=>{
+    let final='',interim='';
+    for(let i=e.resultIndex;i<e.results.length;i++){
+      const t=e.results[i][0].transcript;
+      if(e.results[i].isFinal)final+=t;else interim+=t;
+    }
+    vozTexto.value=baseTexto+final+interim;
+    if(final)baseTexto+=final;
+  };
+  r.onerror=(e)=>{
+    if(e.error==='not-allowed'||e.error==='service-not-allowed'){
+      vozEstado.textContent='no se pudo acceder al micrófono — usá el micrófono del teclado';
+    } else if(e.error==='no-speech'){vozEstado.textContent='no escuché nada, probá de nuevo';}
+    else vozEstado.textContent='';
+    pararGrabacion();
+  };
+  r.onend=()=>{if(grabando){try{r.start();}catch(_){pararGrabacion();}}};
+  return r;
+}
+function empezarGrabacion(){
+  if(!SpeechRec){vozEstado.textContent='Tu navegador no tiene dictado. Usá el micrófono del teclado al escribir.';return;}
+  reconocedor=reconocedor||initReconocedor();
+  grabando=true;
+  try{reconocedor.start();}catch(_){}
+}
+function pararGrabacion(){
+  grabando=false;
+  if(reconocedor){try{reconocedor.stop();}catch(_){}}
+  vozRec.classList.remove('grabando');vozRec.textContent='● Empezar a hablar';
+  if(vozEstado.textContent==='escuchando…')vozEstado.textContent='';
+  // al terminar de dictar, colorear el descargo
+  try{if(campoDescargo&&campoDescargo.ta.value.trim())campoDescargo.salirEdicion();}catch(_){}
+}
+vozRec.onclick=()=>{grabando?pararGrabacion():empezarGrabacion();};
+
+// ============ COLOREO LIVIANO (reusable para los dos campos de Voz) ============
+// Agrupa las palabras del texto que riman entre sí (union-find) y devuelve un mapa
+// "linea-token" -> color. Reusa rhymeKeys y colorDeGrupo del motor.
+function mapaColorRima(lineas){
+  const palabras=[]; // {li, ti, cons, fam, aso}
+  lineas.forEach((linea,li)=>{
+    const toks=linea.match(/[a-záéíóúüñ]+/gi)||[];
+    toks.forEach((tok,ti)=>{
+      const core=tok.toLowerCase();
+      if(core.length<2||ATONAS.has(core))return;
+      const k=rhymeKeys(core);
+      if(k)palabras.push({li,ti,cons:k.cons,fam:k.fam,aso:k.aso});
+    });
+  });
+  const parent=palabras.map((_,i)=>i);
+  const find=x=>{while(parent[x]!==x){parent[x]=parent[parent[x]];x=parent[x];}return x;};
+  const union=(a,b)=>{const ra=find(a),rb=find(b);if(ra!==rb)parent[ra]=rb;};
+  const nivel=(p,q)=>{
+    if(p.cons&&p.cons===q.cons)return 3;
+    if(p.fam&&p.fam===q.fam)return 2;
+    if(p.aso&&p.aso===q.aso)return 1;
+    return 0;
+  };
+  for(let i=0;i<palabras.length;i++)
+    for(let j=i+1;j<palabras.length;j++)
+      if(nivel(palabras[i],palabras[j])>0)union(i,j);
+  const tam={};palabras.forEach((_,i)=>{const r=find(i);tam[r]=(tam[r]||0)+1;});
+  const colorRaiz={};let ci=0;
+  palabras.forEach((_,i)=>{const r=find(i);if(tam[r]>=2&&!(r in colorRaiz))colorRaiz[r]=colorDeGrupo(ci++);});
+  const mapa={};
+  palabras.forEach((p,i)=>{const r=find(i);if(colorRaiz[r])mapa[p.li+'-'+p.ti]=colorRaiz[r];});
+  return mapa;
+}
+// renderiza el texto coloreado. En modo "pesca", tocar dos palabras pesca la frase entre ellas.
+let pescaInicio=null; // {wordIdx, span}
+function renderColoreoLiviano(texto, cont, conMetrica, pesca){
+  cont.innerHTML='';
+  pescaInicio=null;
+  const lineas=texto.split('\n');
+  const mapa=mapaColorRima(lineas);
+  // recolectar todas las palabras en orden con su posición, para poder extraer rangos
+  const todasW=[]; // {texto, li, ti}
+  lineas.forEach((linea,li)=>{
+    let ti=0;
+    (linea.split(/([a-záéíóúüñ]+)/gi)).forEach(p=>{if(/^[a-záéíóúüñ]+$/i.test(p)){todasW.push({texto:p,li,ti});ti++;}});
+  });
+  let wordIdx=0; // índice global de palabra
+  // crear la palabra tocable (común a párrafo y a líneas)
+  function crearPalabra(parte, li, ti){
+    const sp=document.createElement('span');sp.className='voz-w';sp.textContent=parte;
+    // en modo pesca (descargo) NO se colorean rimas: prosa limpia. El color vive en el Analizador.
+    if(!pesca){const col=mapa[li+'-'+ti];if(col){sp.style.color=col;sp.classList.add('voz-w-rima');}}
+    const lower=parte.toLowerCase();
+    if(powerWords.has(lower))sp.classList.add('pw-on');
+    const miIdx=wordIdx;
+    if(pesca){
+      sp.dataset.idx=miIdx;
+      let clickTimer=null;
+      sp.onclick=(e)=>{e.stopPropagation();
+        if(clickTimer){clearTimeout(clickTimer);clickTimer=null;
+          if(powerWords.has(lower))powerWords.delete(lower);else powerWords.add(lower);
+          sp.classList.toggle('pw-on');guardarPowerWords();renderPowerWords();
+          if(navigator.vibrate)navigator.vibrate(15);
+          if(pescaInicio&&pescaInicio.span===sp){pescaInicio=null;sp.classList.remove('pesca-ini');}
+          return;
+        }
+        clickTimer=setTimeout(()=>{clickTimer=null;marcarPesca(miIdx, sp, todasW, cont);},230);
+      };
+    }
+    wordIdx++;
+    return sp;
+  }
+  if(pesca){
+    // DESCARGO: un párrafo corrido, se lee como prosa. Los saltos de línea son espacios.
+    const par=document.createElement('div');par.className='voz-parrafo';
+    lineas.forEach((linea,li)=>{
+      let ti=0;
+      const partes=linea.split(/([a-záéíóúüñ]+)/gi);
+      partes.forEach(parte=>{
+        if(/^[a-záéíóúüñ]+$/i.test(parte)){par.appendChild(crearPalabra(parte,li,ti));ti++;}
+        else if(parte)par.appendChild(document.createTextNode(parte));
+      });
+      // un espacio entre líneas (en vez de salto) para que fluya como prosa
+      if(li<lineas.length-1)par.appendChild(document.createTextNode(' '));
+    });
+    cont.appendChild(par);
+    return;
+  }
+  // (modo líneas con métrica, para otros usos)
+  lineas.forEach((linea,li)=>{
+    const row=document.createElement('div');row.className='voz-linea';
+    const cuerpo=document.createElement('div');cuerpo.className='voz-linea-texto';
+    if(!linea.trim()){
+      cuerpo.innerHTML='&nbsp;';row.appendChild(cuerpo);cont.appendChild(row);return;
+    }
+    let ti=0;
+    const partes=linea.split(/([a-záéíóúüñ]+)/gi);
+    partes.forEach(parte=>{
+      if(/^[a-záéíóúüñ]+$/i.test(parte)){cuerpo.appendChild(crearPalabra(parte,li,ti));ti++;}
+      else if(parte)cuerpo.appendChild(document.createTextNode(parte));
+    });
+    row.appendChild(cuerpo);
+    if(conMetrica){
+      const m=moldeDeVerso(linea);
+      const meta=document.createElement('div');meta.className='voz-linea-meta';
+      meta.textContent=m.silabas;row.appendChild(meta);
+    }
+    cont.appendChild(row);
+  });
+}
+// marcar inicio/fin de una frase a pescar
+function marcarPesca(idx, span, todasW, cont){
+  if(pescaInicio===null){
+    // limpiar marcas previas
+    cont.querySelectorAll('.pesca-ini,.pesca-sel').forEach(e=>e.classList.remove('pesca-ini','pesca-sel'));
+    pescaInicio={idx,span};
+    span.classList.add('pesca-ini');
+  } else {
+    let a=pescaInicio.idx, b=idx;
+    if(a>b){const t=a;a=b;b=t;}
+    // armar la frase con las palabras entre a y b (inclusive), respetando texto original
+    const frase=todasW.slice(a,b+1).map(w=>w.texto).join(' ');
+    // resaltar el rango
+    cont.querySelectorAll('.voz-w').forEach(sp=>{
+      const i=Number(sp.dataset.idx);
+      if(i>=a&&i<=b)sp.classList.add('pesca-sel');
+    });
+    if(frase.trim())agregarFraseAlAnalizador(frase.trim());
+    pescaInicio=null;
+    setTimeout(()=>cont.querySelectorAll('.pesca-ini,.pesca-sel').forEach(e=>e.classList.remove('pesca-ini','pesca-sel')),600);
+  }
+}
+// mandar una frase pescada al ANALIZADOR real (sin duplicar el motor)
+function agregarFraseAlAnalizador(frase){
+  const inp=document.getElementById('input');
+  const previo=inp.value;
+  inp.value=(previo.trim()?previo.replace(/\s*$/,'')+'\n':'')+frase;
+  // reconciliar marcas viejas->nuevas y reanalizar (mismo ciclo que salir de edición)
+  if(typeof reconciliarMarcas==='function'){try{reconciliarMarcas(previo,inp.value);}catch(_){}}
+  if(typeof analyze==='function')analyze();
+  // asegurar que el analizador quede en modo "vista" (no edición) para mostrar el análisis
+  if(typeof editando!=='undefined'&&editando&&typeof salirEdicion==='function'){try{salirEdicion();}catch(_){}}
+  // feedback + guardar también como frase pescada (tarjeta)
+  if(!frasesSemilla.includes(frase)){frasesSemilla.unshift(frase);renderFrasesSemilla();mostrarFrasesBloque();}
+  if(navigator.vibrate)navigator.vibrate(25);
+}
+
+// ---- gestión de un campo editable que se colorea al salir (patrón edición/vista) ----
+function setupCampoColoreable(taId, vistaId, conMetrica, onBlurExtra, pesca){
+  const ta=document.getElementById(taId);
+  const vista=document.getElementById(vistaId);
+  function autosize(){ta.style.height='auto';ta.style.height=Math.max(ta.scrollHeight,60)+'px';}
+  function entrarEdicion(){
+    vista.style.display='none';ta.style.display='block';autosize();
+    document.getElementById('voz-pesca-hint').style.display='none';
+  }
+  function salirEdicion(){
+    if(!ta.value.trim()){vista.style.display='none';ta.style.display='block';autosize();return;}
+    renderColoreoLiviano(ta.value,vista,conMetrica,pesca);
+    ta.style.display='none';vista.style.display='block';
+    if(onBlurExtra)onBlurExtra();
+  }
+  ta.addEventListener('input',autosize);
+  ta.addEventListener('blur',salirEdicion);
+  // si es modo pesca, tocar la vista NO entra en edición (se usa el botón Editar);
+  // así tocar palabras pesca frases sin abrir el teclado.
+  if(!pesca)vista.addEventListener('click',entrarEdicion);
+  autosize();
+  return {entrarEdicion,salirEdicion,ta,vista};
+}
+const campoDescargo=setupCampoColoreable('voz-texto','voz-texto-vista',false,()=>{mostrarFrasesBloque();document.getElementById('voz-pesca-hint').style.display='block';},true);
+
+document.getElementById('voz-limpiar').onclick=()=>{
+  campoDescargo.ta.value='';campoDescargo.entrarEdicion();
+  vozEstado.textContent='';frasesSemilla=[];renderFrasesSemilla();mostrarFrasesBloque();
+};
+
+// ---- FRASES RESCATADAS ----
+let frasesSemilla=[];
+function mostrarFrasesBloque(){
+  document.getElementById('voz-frases-bloque').style.display=frasesSemilla.length?'block':'none';
+}
+// botón Editar: vuelve el descargo a modo edición
+document.getElementById('voz-editar').onclick=()=>{campoDescargo.entrarEdicion();document.getElementById('voz-texto').focus();};
+function renderFrasesSemilla(){
+  const cont=document.getElementById('voz-frases');
+  cont.innerHTML='';
+  frasesSemilla.forEach((f,i)=>{
+    const m=moldeDeVerso(f);
+    const circulos=m.golpes.map(g=>`<span class="vm-circ${g?' f':''}">${g?'●':'○'}</span>`).join('');
+    const card=document.createElement('div');card.className='voz-frase-card';
+    card.innerHTML=`<div class="voz-frase-texto">${f}</div>
+      <div class="voz-frase-metrica">${circulos}<span class="verso-metrica-num">${m.silabas} síl.</span></div>`;
+    const acc=document.createElement('div');acc.className='voz-frase-acc';
+    const bAnal=document.createElement('button');bAnal.className='voz-frase-btn';bAnal.textContent='→ Analizador';
+    bAnal.onclick=()=>{agregarFraseAlAnalizador(f);document.querySelector('.menu-item[data-vista="analizador"]').click();};
+    const bDel=document.createElement('button');bDel.className='voz-frase-btn del';bDel.textContent='✕';
+    bDel.onclick=()=>{frasesSemilla.splice(i,1);renderFrasesSemilla();mostrarFrasesBloque();};
+    acc.appendChild(bAnal);acc.appendChild(bDel);
+    card.appendChild(acc);
+    cont.appendChild(card);
+  });
+}
+
+
+// ============ EXTRACTOR DE VERSOS (gramatical, sin IA) ============
+// Corta la prosa en tramos por pausas naturales, se queda con los que tienen forma de
+// verso (6-11 sílabas, cierre en palabra con peso) y prioriza los pares que riman.
+const PAUSA_PALABRAS=new Set(['y','e','o','u','ni','que','pero','mas','sino','aunque','porque','pues','cuando','donde','mientras','si']);
+function tramosDeProsa(texto){
+  // normalizar y cortar por puntuación fuerte primero
+  const bloques=texto.replace(/\s+/g,' ').split(/[.;:!?\n]+/);
+  const tramos=[];
+  bloques.forEach(bloque=>{
+    // sub-cortar por comas y por palabras-pausa (y, que, pero…)
+    const palabras=bloque.trim().split(' ').filter(Boolean);
+    let actual=[];
+    palabras.forEach(p=>{
+      const limpia=p.replace(/[,]/g,'');
+      const corteDespues=/,/.test(p);
+      const esPausa=PAUSA_PALABRAS.has(limpia.toLowerCase());
+      if(esPausa&&actual.length>=3){
+        tramos.push(actual.join(' '));actual=[];
+        // la palabra-pausa arranca el siguiente tramo salvo que sea conjunción pura
+        if(!['y','e','o','u','ni','que'].includes(limpia.toLowerCase()))actual.push(limpia);
+      } else {
+        actual.push(limpia);
+        if(corteDespues&&actual.length>=3){tramos.push(actual.join(' '));actual=[];}
+      }
+    });
+    if(actual.length)tramos.push(actual.join(' '));
+  });
+  return tramos.map(t=>t.trim()).filter(t=>t.split(' ').length>=3);
+}
+function ultimaPalabra(tramo){
+  const toks=tramo.match(/[a-záéíóúüñ]+/gi)||[];
+  return toks.length?toks[toks.length-1].toLowerCase():'';
+}
+function extraerVersos(){
+  const cont=document.getElementById('voz-candidatos');
+  const bloque=document.getElementById('voz-candidatos-bloque');
+  const texto=document.getElementById('voz-texto').value;
+  if(!texto.trim()){cont.innerHTML='<div class="voz-vacio-msg">Primero soltá algo en el descargo.</div>';bloque.style.display='block';return;}
+  const tramos=tramosDeProsa(texto);
+  // evaluar cada tramo: sílabas (6-11), cierre en palabra con peso
+  const cands=[];
+  tramos.forEach(t=>{
+    const m=moldeDeVerso(t);
+    if(m.silabas<4||m.silabas>14)return;
+    const ult=ultimaPalabra(t);
+    const pos=posTag(ult);
+    // descartar cierre en palabra función (sin peso)
+    if(!pos)return;
+    const k=rhymeKeys(ult);
+    cands.push({texto:t,silabas:m.silabas,golpes:m.golpes,ult,aso:k?k.aso:'',cons:k?k.cons:'',fam:k?k.fam:''});
+  });
+  if(!cands.length){cont.innerHTML='<div class="voz-vacio-msg">No encontré tramos con forma de verso. Probá hablar con frases un poco más largas y sensoriales.</div>';bloque.style.display='block';return;}
+  // render en orden cronológico (como salieron en la prosa). La rima viene después.
+  cont.innerHTML='';
+  cands.forEach(c=>cont.appendChild(tarjetaCandidato(c)));
+  bloque.style.display='block';
+}
+function tarjetaCandidato(c){
+  const card=document.createElement('div');card.className='voz-frase-card voz-cand-card';
+  // texto editable y multilínea: podés retocar el verso y partirlo en dos con Enter
+  const txt=document.createElement('div');txt.className='voz-frase-texto voz-cand-edit';
+  txt.contentEditable='true';txt.spellcheck=false;txt.textContent=c.texto;
+  card.appendChild(txt);
+  // extraer las líneas del texto editable (cada línea = un verso)
+  function lineasDe(){
+    // contentEditable usa <div>/<br> para saltos; normalizar a \n
+    const html=txt.innerHTML.replace(/<div>/gi,'\n').replace(/<br\s*\/?>/gi,'\n').replace(/<\/div>/gi,'');
+    const tmp=document.createElement('div');tmp.innerHTML=html;
+    return (tmp.textContent||'').split('\n').map(s=>s.trim()).filter(Boolean);
+  }
+  const acc=document.createElement('div');acc.className='voz-frase-acc';
+  const bCancion=document.createElement('button');bCancion.className='voz-frase-btn';bCancion.textContent='→ Canción';
+  bCancion.onclick=()=>{
+    const ls=lineasDe();if(!ls.length)return;
+    ls.forEach(l=>agregarFraseAlAnalizador(l));
+    bCancion.textContent='✓ enviado';bCancion.classList.add('enviado');
+    setTimeout(()=>{bCancion.textContent='→ Canción';bCancion.classList.remove('enviado');},1200);
+  };
+  const bMateria=document.createElement('button');bMateria.className='voz-frase-btn alt';bMateria.textContent='★ guardar';
+  bMateria.onclick=()=>{
+    const ls=lineasDe();if(!ls.length)return;
+    ls.forEach(l=>guardarEnMateria(l));
+    bMateria.textContent='✓ guardado';bMateria.classList.add('enviado');
+    setTimeout(()=>{bMateria.textContent='★ guardar';bMateria.classList.remove('enviado');},1200);
+  };
+  acc.appendChild(bCancion);acc.appendChild(bMateria);
+  card.appendChild(acc);
+  return card;
+}
+document.getElementById('voz-sacar-versos').onclick=extraerVersos;
+document.getElementById('btn-exportar').onclick=exportarTodo;
+document.getElementById('btn-importar').onclick=()=>document.getElementById('file-importar').click();
+document.getElementById('file-importar').onchange=(e)=>{if(e.target.files[0])importarTodo(e.target.files[0]);e.target.value='';};
+
+
+document.querySelectorAll('.menu-item').forEach(btn=>{
+  btn.onclick=()=>{
+    const vista=btn.dataset.vista;
+    document.querySelectorAll('.menu-item').forEach(b=>b.classList.toggle('active',b===btn));
+    document.querySelectorAll('.vista').forEach(v=>v.classList.remove('activa'));
+    document.getElementById('vista-'+vista).classList.add('activa');
+    if(vista!=='voz'&&typeof pararGrabacion==='function')pararGrabacion();
+    if(vista==='powerwords'){renderPowerWords();renderMateria();}
+    // al entrar a Canción, re-dimensionar el campo (estaba oculto y el alto se calculaba mal)
+    if(vista==='analizador'){requestAnimationFrame(()=>{try{autosize();}catch(_){}});}
+    document.getElementById('nav-secciones').style.display=(vista==='analizador')?'flex':'none';
+  };
+});
+
+// placeholder en el output vacío
+outputEl.setAttribute('data-placeholder','Tocá acá para escribir o pegar una letra…');
+
+cargarLetra();
+renderToggles();renderLegend();renderPowerWords();renderMateria();autosize();analyze();
+// si arranca vacío, entrar directo en edición para poder escribir
+if(!ta.value.trim())entrarEdicion();
+
+// ============ PWA: service worker embebido (funciona sin internet) ============
+// Cachea esta misma página para que abra offline una vez instalada en el celu.
+if('serviceWorker' in navigator){
+  const swCode=`
+    const CACHE='componer-v1';
+    self.addEventListener('install',e=>{self.skipWaiting();});
+    self.addEventListener('activate',e=>{e.waitUntil(self.clients.claim());});
+    self.addEventListener('fetch',e=>{
+      if(e.request.method!=='GET')return;
+      e.respondWith(
+        caches.open(CACHE).then(cache=>
+          cache.match(e.request).then(hit=>{
+            const net=fetch(e.request).then(resp=>{
+              if(resp&&resp.status===200&&e.request.url.startsWith(self.location.origin))
+                cache.put(e.request,resp.clone());
+              return resp;
+            }).catch(()=>hit);
+            return hit||net;
+          })
+        )
+      );
+    });
+  `;
+  try{
+    const blob=new Blob([swCode],{type:'text/javascript'});
+    const url=URL.createObjectURL(blob);
+    navigator.serviceWorker.register(url).catch(()=>{});
+  }catch(e){}
+}
+</script>
+</body>
+</html>
