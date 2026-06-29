@@ -33,6 +33,8 @@
   /* panel de toggles */
   .toggles{display:flex;flex-direction:column;align-items:flex-start;gap:0.55rem;margin:0;padding:0.6rem 0;position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:1px solid var(--rule);}
   .tog-fila{display:flex;flex-wrap:wrap;gap:0.4rem;align-items:center;}
+  .tog-fila-1{gap:0.6rem;}
+  .tog-fila-2{gap:0.8rem;}
   .tog{font-family:'IBM Plex Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.06em;
     padding:0.3rem 0.6rem;border:1px solid var(--rule);border-radius:20px;cursor:pointer;color:var(--faint);
     background:transparent;transition:all 0.15s;user-select:none;}
@@ -169,7 +171,12 @@
   body.modo-solo-texto .estrofa-cabecera{display:none!important;}
   body.modo-solo-texto .info-notas-btn,body.modo-solo-texto .notas-cont{display:none!important;}
   body.modo-solo-texto .anafora,body.modo-solo-texto .epifora{text-decoration:none!important;}
-  body.modo-solo-texto .verse{margin-bottom:0.2rem;}
+  body.modo-solo-texto .verse{margin-bottom:0!important;}
+  body.modo-solo-texto .verse-line{row-gap:0;line-height:1.5;}
+  body.modo-solo-texto .verse.con-meta{display:block;}
+  /* el espacio entre palabras con sinalefa vuelve a normal cuando no hay análisis */
+  body.modo-solo-texto .word-gap.con-sinalefa,
+  body:not(.show-sinalefas) .word-gap.con-sinalefa{width:0.5ch;}
 
   /* solo métrica: oculta el texto de las palabras, deja las x del ritmo visibles */
   body.show-solometrica .syl{color:transparent!important;}
@@ -189,10 +196,6 @@
   body.show-solometrica .syl.sin-previa-de-fuerte .mark{display:none;}
 
   /* modo solo-métrica: vista de lectura rítmica. Oculta estabilidad y notas, compacta renglones */
-  body.show-solometrica .estrofa-cabecera .stab-tags{display:none;}
-  body.show-solometrica .rima-notas,
-  body.show-solometrica .parent-notas,
-  body.show-solometrica .figuras,
   body.show-solometrica .estrofa-cmp{display:none;}
   body.show-solometrica .verse{margin-bottom:0.15rem;}
   body.show-solometrica .estrofa{margin-bottom:1.2rem;}
@@ -223,6 +226,9 @@
   body.show-solometrica .verse-line .word+.word{margin-left:0;}
   /* la sílaba absorbida por sinalefa no ocupa celda (la grilla cuenta golpes, no sílabas) */
   body.show-solometrica .syl.sin-absorbida:not(.rhy){width:0;min-width:0;max-width:0;overflow:hidden;}
+  /* en solo métrica el arco de sinalefa va abajo de la celda (no flotando arriba) */
+  body.show-solometrica .bridge{position:relative;width:0;height:0;align-self:flex-end;}
+  body.show-solometrica .bridge .arc{position:absolute;bottom:-0.3rem;left:-12px;width:16px;height:8px;}
   /* dentro de la columna izquierda: flecha, rima y número en la misma línea */
   body.show-solometrica .verse-meta .vm-long{width:0.9rem;text-align:center;flex:0 0 auto;font-size:0.8rem;line-height:1;}
   body.show-solometrica .verse-meta .vm-rima{width:1.1rem;text-align:center;flex:0 0 auto;font-size:0.85rem;line-height:1;}
@@ -237,6 +243,7 @@
   .verse-line{display:flex;flex-wrap:wrap;align-items:flex-end;font-size:1.1rem;row-gap:0.3rem;}
   .word{display:inline-flex;align-items:flex-end;position:relative;border-radius:4px;}
   .word-gap{width:0.5ch;position:relative;}
+  .word-gap.con-sinalefa{width:0.5ch;}
   .syl{position:relative;padding:1.45rem 0 0.1rem;white-space:pre;}
   .syl .mark{position:absolute;top:-0.15rem;left:50%;transform:translateX(-50%);font-family:'IBM Plex Mono',monospace;font-size:0.8rem;line-height:1;color:var(--faint);user-select:none;}
   .mk-v{display:none;}
@@ -309,7 +316,7 @@
 
   /* esquema de estrofa */
   .stanza{margin-top:1.2rem;}
-  .info-notas-btn{font-family:'IBM Plex Mono',monospace;font-size:0.62rem;padding:0.3rem 0.7rem;border:1px solid var(--rule);border-radius:14px;background:transparent;color:var(--faint);cursor:pointer;transition:all 0.12s;}
+  .info-notas-btn{font-family:'IBM Plex Mono',monospace;font-size:0.78rem;width:1.7rem;height:1.7rem;padding:0;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--rule);border-radius:50%;background:transparent;color:var(--faint);cursor:pointer;transition:all 0.12s;}
   .info-notas-btn:hover,.info-notas-btn.abierto{color:var(--ink);border-color:var(--ink);}
   .notas-cont{margin-top:0.7rem;}
   .estrofa{padding-bottom:1.6rem;margin-bottom:1.6rem;border-bottom:1.5px solid var(--rule);}
@@ -381,9 +388,9 @@
   .syl.anacrusa{opacity:0.45;font-style:italic;}
 
   /* menú de vistas */
-  .menu{display:flex;gap:0.3rem;margin-bottom:1.5rem;border-bottom:1.5px solid var(--rule);}
+  .menu{display:flex;justify-content:space-around;margin-bottom:1.5rem;border-bottom:1.5px solid var(--rule);}
   .menu-item{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;
-    padding:0.6rem 0.9rem;border:none;background:transparent;color:var(--faint);cursor:pointer;
+    padding:0.6rem 0.4rem;border:none;background:transparent;color:var(--faint);cursor:pointer;
     border-bottom:2px solid transparent;margin-bottom:-1.5px;transition:all 0.15s;}
   .menu-item:hover{color:var(--ink);}
   .menu-item.active{color:var(--ink);border-bottom-color:var(--ink);}
@@ -667,8 +674,24 @@ function asonancia(tailRaw){
   const out=[];let i=0;
   while(i<t.length){if(!isV(t[i])){i++;continue;}
     let g='';while(i<t.length&&isV(t[i])){g+=t[i];i++;}
-    let nuc;const acc=[...g].find(c=>'áéíóú'.includes(c));
-    if(acc)nuc=deac(acc);else{const op=[...g].find(c=>open.includes(c));
+    // HIATO: una cerrada tildada (í/ú) junto a otra vocal NO forma diptongo;
+    // son sílabas separadas y cada vocal cuenta para la asonancia (ej. "ías" en fantas-ías = i + a)
+    const chars=[...g];
+    if(chars.length>1&&chars.some(c=>'íú'.includes(c))){
+      // cada vocal del hiato cuenta, salvo la semivocal átona (i/u sin tilde) pegada a abierta
+      chars.forEach((c,ci)=>{
+        const esCerradaAtona=('iu'.includes(c));
+        if(esCerradaAtona){
+          // ¿está pegada a una abierta? entonces es semivocal de diptongo → se absorbe
+          const vecinoAbierto=(ci>0&&'aeoáéó'.includes(chars[ci-1]))||(ci<chars.length-1&&'aeoáéó'.includes(chars[ci+1]));
+          if(vecinoAbierto)return;
+        }
+        out.push(deac(c));
+      });
+      continue;
+    }
+    let nuc;const acc=chars.find(c=>'áéíóú'.includes(c));
+    if(acc)nuc=deac(acc);else{const op=chars.find(c=>open.includes(c));
       if(op)nuc=deac(op);else nuc=deac(g[g.length-1]);}
     out.push(nuc);}
   return out.join('');
@@ -940,8 +963,11 @@ function analyze(){
       const positions=[];let curWordEl=null,curTok=-1;const wordEls=[];
       flat.forEach((syl,k)=>{
         if(syl.tok!==curTok){
-          if(curWordEl&&!sinalefaAfter[k-1]){
+          if(curWordEl){
+            // SIEMPRE separar las palabras con un espacio (el texto se lee normal).
+            // El arco de sinalefa se dibuja encima sin pegar las palabras.
             const gap=document.createElement('span');gap.className='word-gap';
+            if(sinalefaAfter[k-1])gap.classList.add('con-sinalefa');
             lineEl.appendChild(gap);
           }
           curWordEl=document.createElement('span');curWordEl.className='word';lineEl.appendChild(curWordEl);curTok=syl.tok;wordEls[syl.tok]=curWordEl;
@@ -1480,7 +1506,7 @@ function renderStanza(stanza,out,cabecera){
   const hayNotas=rimaNotas.length||internaNotas.length||parentNotas.length||figs.length;
   if(hayNotas){
     // botón de información: las notas de estudio quedan plegadas, no ocupan espacio
-    const infoBtn=document.createElement('button');infoBtn.className='info-notas-btn';infoBtn.textContent='ⓘ rimas y figuras';
+    const infoBtn=document.createElement('button');infoBtn.className='info-notas-btn';infoBtn.textContent='ⓘ';infoBtn.title='rimas y figuras';
     const notasCont=document.createElement('div');notasCont.className='notas-cont';notasCont.style.display='none';
     if(rimaNotas.length||internaNotas.length){
       const rbox=document.createElement('div');rbox.className='rima-notas';
@@ -1688,13 +1714,33 @@ function clasificaRima(words){
 function detectFiguras(stanza){
   const figs=[];
   const n=stanza.length;
-  // ANÁFORA: 2+ versos consecutivos (o del grupo) que empiezan con la misma palabra
+  // ANÁFORA: 2+ versos que empiezan igual. Detecta el arranque común más largo
+  // (no solo la primera palabra: "Hoy es noche de sexo" repetido se reconoce entero).
+  const limpiarTok=t=>t.toLowerCase().replace(/[^a-záéíóúüñ]/gi,'');
   const firstGroups={};
   stanza.forEach((v,i)=>{if(!v.firstClean)return;(firstGroups[v.firstClean]=firstGroups[v.firstClean]||[]).push(i);});
   for(const w in firstGroups){
-    if(firstGroups[w].length>=2){
-      firstGroups[w].forEach(i=>stanza[i].wordEls[0]&&stanza[i].wordEls[0].classList.add('anafora'));
-      figs.push(`<b>anáfora</b>: ${firstGroups[w].length} versos abren con "${w}"`);
+    const idxs=firstGroups[w];
+    if(idxs.length>=2){
+      // ¿cuántas palabras iniciales comparten en común todos los versos del grupo?
+      let comun=1;
+      const toksDe=i=>(stanza[i].tokens||[]).map(limpiarTok);
+      const base=toksDe(idxs[0]);
+      outer:for(let p=1;p<base.length;p++){
+        for(const i of idxs){const tk=toksDe(i);if(!tk[p]||tk[p]!==base[p])break outer;}
+        comun=p+1;
+      }
+      // marcar las primeras `comun` palabras de cada verso. wordEls está indexado por
+      // índice de token; recorro los tokens en orden y marco los primeros `comun` con wordEl.
+      idxs.forEach(i=>{
+        const we=stanza[i].wordEls||[];
+        let marcadas=0;
+        for(let ti=0;ti<(stanza[i].tokens||[]).length&&marcadas<comun;ti++){
+          if(we[ti]){we[ti].classList.add('anafora');marcadas++;}
+        }
+      });
+      const frase=base.slice(0,comun).join(' ');
+      figs.push(`<b>anáfora</b>: ${idxs.length} versos abren con "${frase}"`);
     }
   }
   // EPÍFORA: 2+ versos que terminan con la misma palabra
@@ -1774,39 +1820,41 @@ function aplicarVista(){
 }
 function renderToggles(){
   const c=document.getElementById('toggles');c.innerHTML='';
-  // --- NIVEL 1: switch maestro Análisis ---
+  // --- LÍNEA 1: switch Análisis + solo métrica + selector x|vocal ---
+  const fila1=document.createElement('div');fila1.className='tog-fila tog-fila-1';
   const sw=document.createElement('label');sw.className='sw-analisis';
   sw.innerHTML='<span class="sw-track'+(analisisOn?' on':'')+'"><span class="sw-thumb"></span></span><span class="sw-label">análisis</span>';
   sw.querySelector('.sw-track').onclick=()=>{analisisOn=!analisisOn;aplicarVista();renderToggles();};
-  c.appendChild(sw);
+  fila1.appendChild(sw);
   if(analisisOn){
-    // --- botón de vista: solo métrica ---
-    const fila=document.createElement('div');fila.className='tog-fila';
     const sm=document.createElement('span');sm.className='tog tog-vista'+(soloMetricaOn?' on':'');
     sm.textContent='solo métrica';
     sm.onclick=()=>{soloMetricaOn=!soloMetricaOn;sm.classList.toggle('on',soloMetricaOn);aplicarVista();};
-    fila.appendChild(sm);
-    // --- NIVEL 2: checkboxes de capas ---
-    CAPAS.forEach(cap=>{
-      const chk=document.createElement('span');chk.className='chk'+(cap.on?' on':'');
-      chk.innerHTML='<span class="chk-box">'+(cap.on?'✓':'')+'</span>'+cap.label;
-      chk.onclick=()=>{cap.on=!cap.on;chk.classList.toggle('on',cap.on);chk.querySelector('.chk-box').textContent=cap.on?'✓':'';aplicarVista();renderToggles();};
-      fila.appendChild(chk);
-    });
-    c.appendChild(fila);
-    // --- NIVEL 3: selector x | vocal (solo si métrica está activa) ---
+    fila1.appendChild(sm);
+    // selector x|vocal (solo si métrica activa), sin la palabra "marca:"
     const metricaOn=CAPAS.find(c=>c.key==='metrica').on;
     if(metricaOn){
       const sel=document.createElement('div');sel.className='marca-sel';
-      sel.innerHTML='<span class="marca-lbl">marca:</span>';
       ['x','vocal'].forEach(modo=>{
         const op=document.createElement('span');op.className='marca-op'+(marcaModo===modo?' on':'');
         op.textContent=modo;
         op.onclick=()=>{marcaModo=modo;aplicarVista();renderToggles();};
         sel.appendChild(op);
       });
-      c.appendChild(sel);
+      fila1.appendChild(sel);
     }
+  }
+  c.appendChild(fila1);
+  // --- LÍNEA 2: checkboxes de capas ---
+  if(analisisOn){
+    const fila2=document.createElement('div');fila2.className='tog-fila tog-fila-2';
+    CAPAS.forEach(cap=>{
+      const chk=document.createElement('span');chk.className='chk'+(cap.on?' on':'');
+      chk.innerHTML='<span class="chk-box">'+(cap.on?'✓':'')+'</span>'+cap.label;
+      chk.onclick=()=>{cap.on=!cap.on;chk.classList.toggle('on',cap.on);chk.querySelector('.chk-box').textContent=cap.on?'✓':'';aplicarVista();renderToggles();};
+      fila2.appendChild(chk);
+    });
+    c.appendChild(fila2);
   }
   aplicarVista();
 }
