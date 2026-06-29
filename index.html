@@ -31,12 +31,32 @@
   textarea::placeholder{color:var(--faint);font-style:italic;}
 
   /* panel de toggles */
-  .toggles{display:flex;flex-wrap:wrap;gap:0.4rem;margin:0;padding:0.6rem 0;position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:1px solid var(--rule);}
+  .toggles{display:flex;flex-direction:column;align-items:flex-start;gap:0.55rem;margin:0;padding:0.6rem 0;position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:1px solid var(--rule);}
+  .tog-fila{display:flex;flex-wrap:wrap;gap:0.4rem;align-items:center;}
   .tog{font-family:'IBM Plex Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.06em;
     padding:0.3rem 0.6rem;border:1px solid var(--rule);border-radius:20px;cursor:pointer;color:var(--faint);
     background:transparent;transition:all 0.15s;user-select:none;}
   .tog.on{color:var(--paper);background:var(--ink);border-color:var(--ink);}
   .tog:hover{border-color:var(--ink);}
+  /* switch maestro Análisis */
+  .sw-analisis{display:flex;align-items:center;gap:0.5rem;cursor:pointer;user-select:none;}
+  .sw-track{width:38px;height:22px;border-radius:11px;background:var(--rule);position:relative;transition:background 0.18s;flex-shrink:0;}
+  .sw-track.on{background:var(--rhythmic);}
+  .sw-thumb{position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:var(--paper);transition:left 0.18s;box-shadow:0 1px 2px rgba(0,0,0,0.2);}
+  .sw-track.on .sw-thumb{left:18px;}
+  .sw-label{font-family:'IBM Plex Mono',monospace;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink);font-weight:500;}
+  /* checkboxes de capas */
+  .chk{display:inline-flex;align-items:center;gap:0.35rem;font-family:'IBM Plex Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--faint);cursor:pointer;user-select:none;padding:0.2rem 0.3rem;transition:color 0.15s;}
+  .chk.on{color:var(--ink);}
+  .chk-box{width:15px;height:15px;border:1.5px solid var(--rule);border-radius:4px;display:inline-flex;align-items:center;justify-content:center;font-size:0.6rem;color:var(--paper);transition:all 0.15s;}
+  .chk.on .chk-box{background:var(--ink);border-color:var(--ink);}
+  /* selector de marca x | vocal */
+  .marca-sel{display:inline-flex;align-items:center;gap:0.3rem;}
+  .marca-lbl{font-family:'IBM Plex Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--faint);margin-right:0.1rem;}
+  .marca-op{font-family:'IBM Plex Mono',monospace;font-size:0.62rem;padding:0.2rem 0.55rem;border:1px solid var(--rule);cursor:pointer;color:var(--faint);user-select:none;transition:all 0.15s;}
+  .marca-op:first-of-type{border-radius:14px 0 0 14px;border-right:none;}
+  .marca-op:last-of-type{border-radius:0 14px 14px 0;}
+  .marca-op.on{background:var(--ink);color:var(--paper);border-color:var(--ink);}
 
   .legend{display:none;}
 
@@ -62,6 +82,7 @@
   .voz-w{cursor:pointer;}
   .voz-w-rima{font-weight:500;}
   .voz-w.pw-on{text-decoration:underline;text-decoration-style:wavy;text-underline-offset:3px;}
+  .word.pw-marcada{text-decoration:underline;text-decoration-style:wavy;text-decoration-color:var(--lexical);text-underline-offset:3px;}
   .voz-w.pesca-ini::before{content:'[';color:var(--figura);font-weight:700;}
   .voz-w.pesca-sel{background:rgba(106,90,156,0.14);}
   .voz-pesca-hint{font-family:'IBM Plex Mono',monospace;font-size:0.64rem;color:var(--figura);line-height:1.5;margin:0.5rem 0 0;}
@@ -80,21 +101,9 @@
   .voz-btn-extraer:hover{opacity:0.85;}
   .voz-btn-limpiar{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;padding:0.5rem 1rem;border:1px solid var(--rule);border-radius:20px;background:transparent;color:var(--faint);cursor:pointer;}
   .voz-btn-limpiar:hover{color:var(--ink);border-color:var(--ink);}
-  .voz-guia{margin:0 0 1.2rem;border:1px solid var(--rule);border-radius:8px;background:rgba(74,122,110,0.05);overflow:hidden;}
-  .voz-guia summary{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;padding:0.7rem 0.9rem;cursor:pointer;color:var(--sinalefa);font-weight:500;list-style:none;}
-  .voz-guia summary::-webkit-details-marker{display:none;}
-  .voz-guia summary::before{content:'+ ';font-weight:700;}
-  .voz-guia[open] summary::before{content:'– ';}
-  .voz-guia-cuerpo{padding:0 1rem 1rem;font-family:'Fraunces',Georgia,serif;font-size:0.95rem;line-height:1.6;color:var(--ink);}
-  .voz-guia-cuerpo p{margin:0.6rem 0;}
-  .voz-guia-cuerpo b{color:var(--sinalefa);}
-  .voz-sentidos{list-style:none;padding:0;margin:0.6rem 0;display:flex;flex-direction:column;gap:0.25rem;}
-  .voz-sentidos li{font-size:0.9rem;padding-left:1rem;position:relative;}
-  .voz-sentidos li::before{content:'·';position:absolute;left:0.3rem;color:var(--sinalefa);}
-  .voz-sentidos b{color:var(--ink);font-variant:small-caps;letter-spacing:0.02em;}
-  .voz-guia-nota{font-size:0.85rem!important;color:var(--faint)!important;font-style:italic;border-top:1px dashed var(--rule);padding-top:0.6rem;margin-top:0.8rem!important;}
   .voz-par-rima{border-left:2px solid var(--rima);padding-left:0.7rem;margin-bottom:1rem;}
   .voz-par-label{font-family:'IBM Plex Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--rima);margin-bottom:0.4rem;}
+  .voz-lema{font-family:'Fraunces',Georgia,serif;font-size:0.98rem;line-height:1.6;color:var(--sinalefa);font-style:italic;margin:0.4rem 0 1.4rem;padding-left:0.8rem;border-left:2px solid var(--sinalefa);}
   .voz-vacio-msg{font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--faint);font-style:italic;padding:0.5rem 0;}
   .voz-cand-edit{outline:none;border-radius:4px;padding:0.15rem 0.3rem;margin:-0.15rem -0.3rem 0.3rem;transition:background 0.12s;white-space:pre-wrap;}
   .voz-cand-edit:focus{background:rgba(106,90,156,0.08);box-shadow:inset 0 -1px 0 var(--figura);}
@@ -106,10 +115,15 @@
   .mat-frase-card.fav{border-color:var(--lexical);background:rgba(176,122,58,0.06);}
   .mat-estrella{flex:0 0 auto;background:none;border:none;font-size:1.1rem;cursor:pointer;color:var(--faint);padding:0;line-height:1.3;}
   .mat-estrella.on{color:var(--lexical);}
-  .mat-frase-texto{flex:1 1 auto;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;line-height:1.45;color:var(--ink);}
+  .mat-frase-texto{flex:1 1 auto;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;line-height:1.45;color:var(--ink);white-space:pre-line;outline:none;border-radius:4px;padding:0.1rem 0.25rem;margin:-0.1rem -0.25rem;}
+  .mat-frase-texto:focus{background:rgba(106,90,156,0.08);box-shadow:inset 0 -1px 0 var(--figura);}
   .mat-frase-acc{flex:0 0 auto;display:flex;flex-direction:column;gap:0.35rem;align-items:stretch;}
   .mat-respaldo{display:flex;gap:0.6rem;flex-wrap:wrap;margin-bottom:0.6rem;}
   .mat-respaldo-hint{font-family:'IBM Plex Mono',monospace;font-size:0.64rem;color:var(--faint);line-height:1.5;}
+  .desc-hist-card{border:1px solid var(--rule);border-radius:10px;padding:0.7rem 0.9rem;margin-bottom:0.6rem;background:rgba(0,0,0,0.012);}
+  .desc-hist-meta{font-family:'IBM Plex Mono',monospace;font-size:0.6rem;color:var(--faint);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.35rem;}
+  .desc-hist-texto{font-family:'Fraunces',Georgia,serif;font-size:0.95rem;line-height:1.5;color:var(--ink);margin-bottom:0.5rem;}
+  .desc-hist-acc{display:flex;gap:0.5rem;}
 
   .swatch{width:9px;height:9px;border-radius:2px;display:inline-block;}
 
@@ -124,9 +138,28 @@
   .vm-count .vm-hemi{font-size:0.6rem;opacity:0.8;}
   body:not(.show-silabas) .vm-count{display:none;}
   .vm-long{font-size:0.72rem;font-weight:500;width:0.9rem;text-align:center;flex-shrink:0;}
+  .vm-expo{font-size:0.6em;font-weight:600;margin-left:0.05em;vertical-align:super;line-height:0;}
+  .vm-expo.corto{color:var(--lexical);}
+  .vm-expo.largo{color:var(--figura);}
   .vm-long.corto{color:var(--lexical);}
   .vm-long.largo{color:var(--figura);}
   body:not(.show-rima) .vm-rima{visibility:hidden;}
+  /* rima OFF: las palabras coloreadas vuelven a tinta (final e internas) */
+  body:not(.show-rima) .word.rima-coloreada,
+  body:not(.show-rima) .word.rima-coloreada .syl{color:var(--ink)!important;}
+  /* MÉTRICA OFF: sin marcas (x), sin conteo, sin acentos — solo el texto del verso */
+  body:not(.show-metrica) .syl .mark{display:none!important;}
+  body:not(.show-metrica) .vm-count{display:none!important;}
+  /* MODO SOLO TEXTO (switch análisis OFF): letra plana, sin nada */
+  body.modo-solo-texto .syl .mark{display:none!important;}
+  body.modo-solo-texto .verse-meta{display:none!important;}
+  body.modo-solo-texto .word.rima-coloreada,
+  body.modo-solo-texto .word.rima-coloreada .syl,
+  body.modo-solo-texto .syl{color:var(--ink)!important;}
+  body.modo-solo-texto .estrofa-cabecera{display:none!important;}
+  body.modo-solo-texto .info-notas-btn,body.modo-solo-texto .notas-cont{display:none!important;}
+  body.modo-solo-texto .anafora,body.modo-solo-texto .epifora{text-decoration:none!important;}
+  body.modo-solo-texto .verse{margin-bottom:0.2rem;}
 
   /* solo métrica: oculta el texto de las palabras, deja las x del ritmo visibles */
   body.show-solometrica .syl{color:transparent!important;}
@@ -196,6 +229,12 @@
   .word-gap{width:0.5ch;position:relative;}
   .syl{position:relative;padding:1.45rem 0 0.1rem;white-space:pre;}
   .syl .mark{position:absolute;top:-0.15rem;left:50%;transform:translateX(-50%);font-family:'IBM Plex Mono',monospace;font-size:0.8rem;line-height:1;color:var(--faint);user-select:none;}
+  .mk-v{display:none;}
+  body.show-vocales .mk-x{display:none;}
+  body.show-vocales .mk-v{display:inline;}
+  /* rima interna: toma su color SOLO si el toggle 'rimas internas' está activo */
+  body.show-internas .rima-interna-col{color:var(--rcol)!important;}
+  body.show-internas .rima-interna-col .syl{color:var(--rcol)!important;}
   /* capas activables */
   body.show-acentos .syl.lex .mark{color:var(--lexical);}
   body.show-acentos .syl.rhy .mark{color:var(--rhythmic);font-weight:500;font-size:1rem;}
@@ -260,6 +299,9 @@
 
   /* esquema de estrofa */
   .stanza{margin-top:1.2rem;}
+  .info-notas-btn{font-family:'IBM Plex Mono',monospace;font-size:0.62rem;padding:0.3rem 0.7rem;border:1px solid var(--rule);border-radius:14px;background:transparent;color:var(--faint);cursor:pointer;transition:all 0.12s;}
+  .info-notas-btn:hover,.info-notas-btn.abierto{color:var(--ink);border-color:var(--ink);}
+  .notas-cont{margin-top:0.7rem;}
   .estrofa{padding-bottom:1.6rem;margin-bottom:1.6rem;border-bottom:1.5px solid var(--rule);}
   .estrofa:last-child{border-bottom:none;}
   .stanza-title{font-family:'IBM Plex Mono',monospace;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--faint);margin-bottom:1rem;display:flex;justify-content:space-between;align-items:flex-start;gap:0.5rem;flex-wrap:wrap;}
@@ -358,7 +400,7 @@
   #campo #output:empty::before{content:attr(data-placeholder);color:var(--faint);font-style:italic;font-size:1.1rem;}
 </style>
 </head>
-<body class="show-rima show-acentos show-sinalefas show-figuras">
+<body class="show-rima show-acentos show-sinalefas show-figuras show-metrica show-silabas">
 <div class="wrap">
   <nav class="menu" id="menu">
     <button class="menu-item active" data-vista="voz">Descargo</button>
@@ -442,23 +484,7 @@
     </div>
 
     <!-- guía plegable: cómo hablar para que salgan versos jugosos -->
-    <details class="voz-guia">
-      <summary>¿Cómo hablar para que salgan buenos versos?</summary>
-      <div class="voz-guia-cuerpo">
-        <p>La idea (de Pat Pattison y Andrea Stolpe) es <b>mostrar, no contar</b>. No expliques lo que sentís: hacé que se sienta, describiendo con los sentidos.</p>
-        <p>No son cinco sentidos, son <b>siete</b>. Tratá de tocarlos al hablar:</p>
-        <ul class="voz-sentidos">
-          <li><b>vista</b> — qué ves, colores, luz, formas</li>
-          <li><b>oído</b> — qué suena, el silencio, una voz</li>
-          <li><b>olfato</b> — olores (el más conectado a la memoria)</li>
-          <li><b>gusto</b> — sabores, lo dulce, lo amargo</li>
-          <li><b>tacto</b> — texturas, temperatura, la piel</li>
-          <li><b>cuerpo</b> — el latido, la respiración, un nudo en la panza</li>
-          <li><b>movimiento</b> — tu cuerpo en el espacio, caer, girar, quedarse quieto</li>
-        </ul>
-        <p class="voz-guia-nota">No juzgues mientras hablás. No hay frase digna o indigna; eso lo decidís después al pescar. Si te descubrís <i>explicando</i>, volvé a un sentido concreto.</p>
-      </div>
-    </details>
+    <p class="voz-lema">No expliques lo que sentís: hacé que se sienta, con todos tus sentidos.</p>
 
     <!-- CAMPO ÚNICO: descargo en prosa, se colorea al salir -->
     <div class="voz-paso-label">tu descargo</div>
@@ -484,12 +510,37 @@
       <div class="voz-paso-label">frases pescadas</div>
       <div id="voz-frases"></div>
     </div>
+
+    <!-- historial de descargos: todo tu flujo de trabajo, no se pierde -->
+    <div id="descargos-hist-bloque" class="voz-frases-bloque" style="display:none;margin-top:2rem;">
+      <div class="voz-paso-label">descargos anteriores</div>
+      <div id="descargos-hist"></div>
+    </div>
   </section>
 
 </div>
 <script>
 const VOWELS='aeiouáéíóúüAEIOUÁÉÍÓÚÜ', STRONG='aeoáéíóúAEOÁÉÍÓÚ', ACCENTED='áéíóúÁÉÍÓÚ';
 const isVowel=c=>VOWELS.includes(c), lower=s=>s.toLowerCase();
+// núcleo vocálico de una sílaba: la vocal que "suena". En diptongo, la abierta (a/e/o);
+// si las dos son cerradas (i/u), la segunda. Devuelve la vocal (sin tilde) o '' si no hay.
+const ABIERTAS='aeoáéó';
+function nucleoVocalico(silaba){
+  const vocs=[];
+  for(const c of silaba.toLowerCase()){
+    if(VOWELS.toLowerCase().includes(c))vocs.push(c);
+  }
+  if(!vocs.length)return '';
+  if(vocs.length===1)return vocs[0];
+  // varias vocales: priorizar la abierta; si hay tilde, esa; si todas cerradas, la última
+  const conTilde=vocs.find(v=>'áéíóú'.includes(v));
+  if(conTilde)return conTilde;
+  const abierta=vocs.find(v=>ABIERTAS.includes(v));
+  if(abierta)return abierta;
+  return vocs[vocs.length-1];
+}
+// quita la tilde de una vocal (para mostrar limpia)
+function sinTilde(v){return ({'á':'a','é':'e','í':'i','ó':'o','ú':'u'})[v]||v;}
 const ATONAS=new Set(['el','la','los','las','un','lo','y','e','o','u','ni','que','si','de','del','al','a','con','sin','por','en','su','sus','mi','mis','tu','tus','me','te','se','le','les','nos','os','no','como','cuando','donde','mas','tan']);
 
 // ---- Clasificador gramatical (POS) por reglas morfológicas + listas cerradas ----
@@ -704,9 +755,18 @@ function renderMateria(){
     estrella.textContent=f.fav?'★':'☆';estrella.title='favorita';
     estrella.onclick=()=>{f.fav=!f.fav;guardarMateria();renderMateria();};
     const txt=document.createElement('div');txt.className='mat-frase-texto';txt.textContent=f.texto;
+    txt.contentEditable='true';txt.spellcheck=false;
+    // al editar, guardar el texto nuevo (respetando saltos de línea = varios versos)
+    txt.addEventListener('blur',()=>{
+      const html=txt.innerHTML.replace(/<div>/gi,'\n').replace(/<br\s*\/?>/gi,'\n').replace(/<\/div>/gi,'');
+      const tmp=document.createElement('div');tmp.innerHTML=html;
+      const nuevo=(tmp.textContent||'').split('\n').map(s=>s.trim()).filter(Boolean).join('\n');
+      if(nuevo&&nuevo!==f.texto){f.texto=nuevo;guardarMateria();}
+      else if(!nuevo){txt.textContent=f.texto;}
+    });
     const acc=document.createElement('div');acc.className='mat-frase-acc';
     const bCancion=document.createElement('button');bCancion.className='voz-frase-btn';bCancion.textContent='→ Canción';
-    bCancion.onclick=()=>{agregarFraseAlAnalizador(f.texto);document.querySelector('.menu-item[data-vista="analizador"]').click();};
+    bCancion.onclick=()=>{agregarFraseAlAnalizador(f.texto);bCancion.textContent='✓ enviada';bCancion.classList.add('enviado');setTimeout(()=>{bCancion.textContent='→ Canción';bCancion.classList.remove('enviado');},1200);};
     const bDel=document.createElement('button');bDel.className='voz-frase-btn del';bDel.textContent='✕';
     bDel.onclick=()=>{materiaFrases=materiaFrases.filter(x=>x!==f);guardarMateria();renderMateria();};
     acc.appendChild(bCancion);acc.appendChild(bDel);
@@ -759,6 +819,7 @@ function exportarTodo(){
     version:1, fecha:new Date().toISOString(),
     cancion:JSON.parse(localStorage.getItem('cancionEstado')||'null'),
     materiaFrases, powerWords:[...powerWords], correccionesPOS,
+    descargoActual:localStorage.getItem('descargoActual')||'', descargosHistorial,
   };
   const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
   const url=URL.createObjectURL(blob);
@@ -778,6 +839,8 @@ function importarTodo(file){
       if(data.materiaFrases){materiaFrases=data.materiaFrases;guardarMateria();}
       if(data.powerWords){powerWords=new Set(data.powerWords);guardarPowerWords();}
       if(data.correccionesPOS){correccionesPOS=data.correccionesPOS;guardarCorrecciones();}
+      if(data.descargoActual!==undefined){localStorage.setItem('descargoActual',data.descargoActual);cargarDescargoActual();}
+      if(data.descargosHistorial){descargosHistorial=data.descargosHistorial;guardarDescargosHist();renderDescargosHist();}
       cargarLetra();
       if(typeof analyze==='function')analyze();
       renderPowerWords();renderMateria();
@@ -869,6 +932,18 @@ function analyze(){
             lineEl.appendChild(gap);
           }
           curWordEl=document.createElement('span');curWordEl.className='word';lineEl.appendChild(curWordEl);curTok=syl.tok;wordEls[syl.tok]=curWordEl;
+          // doble toque sobre la palabra: la guarda/saca de power words
+          (function(wEl,tokIdx){
+            const palabraTxt=(tokens[tokIdx]||'').replace(/[^a-záéíóúüñ]/gi,'').toLowerCase();
+            if(palabraTxt){
+              wEl.addEventListener('dblclick',(e)=>{e.stopPropagation();e.preventDefault();
+                if(powerWords.has(palabraTxt))powerWords.delete(palabraTxt);else powerWords.add(palabraTxt);
+                wEl.classList.toggle('pw-marcada');guardarPowerWords();renderPowerWords();
+                if(navigator.vibrate)navigator.vibrate(15);
+              });
+              if(powerWords.has(palabraTxt))wEl.classList.add('pw-marcada');
+            }
+          })(curWordEl,syl.tok);
           // (sin coloreo gramatical en el verso; los sustantivos siguen en las listas de abajo)
         }
         const sylEl=document.createElement('span');sylEl.className='syl';
@@ -889,7 +964,11 @@ function analyze(){
             }
           }
         }
-        const mark=document.createElement('span');mark.className='mark';mark.textContent=isRhythmic?'X':'x';
+        const mark=document.createElement('span');mark.className='mark';
+        const vocalNuc=sinTilde(nucleoVocalico(syl.text));
+        const vocalMostrar=vocalNuc?(isRhythmic?vocalNuc.toUpperCase():vocalNuc):(isRhythmic?'X':'x');
+        // dos spans: la x (por defecto) y la vocal (cuando el toggle 'vocales' está activo)
+        mark.innerHTML='<span class="mk-x">'+(isRhythmic?'X':'x')+'</span><span class="mk-v">'+vocalMostrar+'</span>';
         mark.onclick=(e)=>{e.stopPropagation();
           if(moviendoCesura===li){cesuraOverrides[li]=k;moviendoCesura=null;analyze();return;}
           rhythmicOverrides[syl.key]=!isRhythmic;analyze();};
@@ -1297,16 +1376,9 @@ function renderStanza(stanza,out,cabecera){
       cesura=Math.max(1,Math.min(v.merged.length-1,cesura));
       if(cesura>0&&v.mergedBkeys[cesura])extraPorCesura=1;
     }
-    // etiqueta lateral del verso: rima + cómputo (+ señal de longitud)
+    // etiqueta lateral del verso: rima + cómputo (con la señal de longitud como exponente del número)
     const meta=document.createElement('span');meta.className='verse-meta';
-    // señal de longitud (↓/↑) a la IZQUIERDA, con ancho fijo para no descolocar la columna
-    const ls=document.createElement('span');ls.className='vm-long';
-    if(longSenal[idx]){
-      ls.classList.add(longSenal[idx]==='corto'?'corto':'largo');
-      ls.textContent=longSenal[idx]==='corto'?'↓':'↑';
-      ls.title=longSenal[idx]==='corto'?'más corto':'spotlight';
-    }
-    meta.appendChild(ls);
+    // (la señal de longitud ya no va suelta a la izquierda; va como exponente del número, abajo)
     // letra de rima en la meta (la etiqueta del esquema final)
     if(labels[idx]){
       const info=grupoInfo[labels[idx].n];
@@ -1323,22 +1395,37 @@ function renderStanza(stanza,out,cabecera){
     } else {const lab=document.createElement('span');lab.className='vm-rima lab-none';lab.textContent='–';meta.appendChild(lab);}
     // COLOREO UNIFICADO: pintar cada palabra del verso (final o interna) con el color de su grupo de rima
     if(v.palabrasRima&&v.wordEls){
+      const pr=v.palabrasRima.filter(Boolean);
+      const ultTi=pr.length?pr[pr.length-1].ti:-1; // la última con contenido = rima final
       v.palabrasRima.forEach(p=>{
         if(!p)return;
         const col=colorPalabra[idx+'-'+p.ti];
         if(!col)return;
         const wEl=v.wordEls[p.ti];
-        if(wEl){wEl.classList.add('rima-coloreada');wEl.style.setProperty('color',col,'important');}
+        if(wEl){
+          wEl.classList.add('rima-coloreada');
+          wEl.style.setProperty('--rcol',col);
+          // si NO es la palabra final del verso, es rima interna (se puede apagar aparte)
+          if(p.ti!==ultTi){wEl.classList.add('rima-interna-col');}
+          else {wEl.style.setProperty('color',col,'important');}
+        }
       });
     }
     // cómputo de sílabas (+ hemistiquios apilados si es arte mayor con cesura)
     const total=computoBase+extraPorCesura;
     const cnt=document.createElement('span');cnt.className='vm-count';
+    // exponente de longitud (↑ spotlight / ↓ más corto) arriba a la derecha del número
+    let expo='';
+    if(longSenal[idx]){
+      const flecha=longSenal[idx]==='corto'?'↓':'↑';
+      const cls=longSenal[idx]==='corto'?'corto':'largo';
+      expo=`<sup class="vm-expo ${cls}" title="${longSenal[idx]==='corto'?'más corto':'spotlight'}">${flecha}</sup>`;
+    }
     if(esLargo&&cesura>0){
       const izq=cesura, der=v.merged.length-cesura+(v.adjust||0)+extraPorCesura;
-      cnt.innerHTML=`<span class="vm-total">${total}</span><span class="vm-hemi">${izq}+${der}</span>`;
+      cnt.innerHTML=`<span class="vm-total">${total}${expo}</span><span class="vm-hemi">${izq}+${der}</span>`;
       cnt.classList.add('apilado');
-    } else cnt.textContent=total;
+    } else cnt.innerHTML=total+expo;
     meta.appendChild(cnt);
     // la meta va como columna fija a la derecha del verso (no dentro de la línea)
     v.verse.appendChild(meta);
@@ -1377,21 +1464,31 @@ function renderStanza(stanza,out,cabecera){
 
   // ---- FIGURAS DE DICCIÓN ----
   const figs=detectFiguras(stanza);
-  if(rimaNotas.length||internaNotas.length){
-    const rbox=document.createElement('div');rbox.className='rima-notas';
-    rimaNotas.forEach(f=>{const el=document.createElement('span');el.className='fig';el.innerHTML=f;rbox.appendChild(el);});
-    internaNotas.forEach(f=>{const el=document.createElement('span');el.className='fig';el.innerHTML=f;rbox.appendChild(el);});
-    box.appendChild(rbox);
-  }
-  if(parentNotas.length){
-    const pbox=document.createElement('div');pbox.className='parent-notas';
-    parentNotas.forEach(f=>{const el=document.createElement('span');el.className='fig';el.innerHTML=f;pbox.appendChild(el);});
-    box.appendChild(pbox);
-  }
-  if(figs.length){
-    const fbox=document.createElement('div');fbox.className='figuras';
-    figs.forEach(f=>{const el=document.createElement('span');el.className='fig';el.innerHTML=f;fbox.appendChild(el);});
-    box.appendChild(fbox);
+  const hayNotas=rimaNotas.length||internaNotas.length||parentNotas.length||figs.length;
+  if(hayNotas){
+    // botón de información: las notas de estudio quedan plegadas, no ocupan espacio
+    const infoBtn=document.createElement('button');infoBtn.className='info-notas-btn';infoBtn.textContent='ⓘ rimas y figuras';
+    const notasCont=document.createElement('div');notasCont.className='notas-cont';notasCont.style.display='none';
+    if(rimaNotas.length||internaNotas.length){
+      const rbox=document.createElement('div');rbox.className='rima-notas';
+      rimaNotas.forEach(f=>{const el=document.createElement('span');el.className='fig';el.innerHTML=f;rbox.appendChild(el);});
+      internaNotas.forEach(f=>{const el=document.createElement('span');el.className='fig';el.innerHTML=f;rbox.appendChild(el);});
+      notasCont.appendChild(rbox);
+    }
+    if(parentNotas.length){
+      const pbox=document.createElement('div');pbox.className='parent-notas';
+      parentNotas.forEach(f=>{const el=document.createElement('span');el.className='fig';el.innerHTML=f;pbox.appendChild(el);});
+      notasCont.appendChild(pbox);
+    }
+    if(figs.length){
+      const fbox=document.createElement('div');fbox.className='figuras';
+      figs.forEach(f=>{const el=document.createElement('span');el.className='fig';el.innerHTML=f;fbox.appendChild(el);});
+      notasCont.appendChild(fbox);
+    }
+    infoBtn.onclick=(e)=>{e.stopPropagation();const vis=notasCont.style.display!=='none';notasCont.style.display=vis?'none':'block';infoBtn.classList.toggle('abierto',!vis);};
+    // el botón va ARRIBA en la cabecera (al lado de la estabilidad); las notas quedan abajo
+    if(cabecera)cabecera.appendChild(infoBtn);else box.appendChild(infoBtn);
+    box.appendChild(notasCont);
   }
   out.appendChild(box);
 }
@@ -1621,39 +1718,87 @@ function detectFiguras(stanza){
 // ---- TOGGLES ----
 // Las capas rima/acentos/sinalefas/sílabas quedan siempre activas (sin botón).
 // El único toggle visible es "solo métrica".
-const CAPAS_FIJAS=['acentos','sinalefas'];
-const TOGGLES=[
+// Capas siempre activas (rima final, acentos, sinalefas, sílabas, figuras): el análisis base.
+// ===== SISTEMA DE VISUALIZACIÓN (3 niveles) =====
+// 1) switch maestro Análisis: OFF = solo texto plano
+// 2) checkboxes de capas: métrica, rima, figuras
+// 3) selector de marca: x | vocal (solo si métrica está activa)
+let analisisOn=true;
+let soloMetricaOn=false;
+const CAPAS=[
+  {key:'metrica',label:'métrica',on:true},
   {key:'rima',label:'rima',on:true},
-  {key:'silabas',label:'sílabas',on:true},
-  {key:'figuras',label:'figuras',on:false},
-  {key:'solometrica',label:'solo métrica',on:false},
+  {key:'figuras',label:'figuras',on:true},
 ];
-const LEGENDS={
-  rima:[['var(--homeop)','A consonante · homeóptoton'],['var(--homeot)','A homeoteleuton'],['var(--rima)','A familia de rima'],['var(--ason)','a asonante']],
-  acentos:[['var(--lexical)','tónica léxica'],['var(--rhythmic)','acento fuerte']],
-  sinalefas:[['var(--sinalefa)','sinalefa']],
-  figuras:[['var(--figura)','anáfora'],['var(--rima)','epífora']],
-  gramatica:[['var(--pos-sus)','sustantivo']],
-};
+let marcaModo='x'; // 'x' | 'vocal'
+const CAPAS_BASE=['acentos','sinalefas']; // siempre activas dentro del análisis
+
+function aplicarVista(){
+  const b=document.body;
+  // switch maestro
+  b.classList.toggle('modo-solo-texto',!analisisOn);
+  if(!analisisOn){
+    // en solo texto, sacar todas las capas
+    ['show-metrica','show-rima','show-figuras','show-silabas','show-acentos','show-sinalefas','show-vocales','show-solometrica'].forEach(c=>b.classList.remove(c));
+    return;
+  }
+  // análisis ON: capas base siempre
+  CAPAS_BASE.forEach(k=>b.classList.add('show-'+k));
+  // checkboxes
+  const metrica=CAPAS.find(c=>c.key==='metrica').on;
+  const rima=CAPAS.find(c=>c.key==='rima').on;
+  const figuras=CAPAS.find(c=>c.key==='figuras').on;
+  b.classList.toggle('show-metrica',metrica);
+  b.classList.toggle('show-silabas',metrica);   // el conteo de sílabas va con la métrica
+  b.classList.toggle('show-acentos',metrica);    // los acentos también son métrica
+  b.classList.toggle('show-rima',rima);
+  b.classList.toggle('show-internas',rima);      // rima incluye internas
+  b.classList.toggle('show-figuras',figuras);
+  // selector de marca: vocal solo si métrica está activa
+  b.classList.toggle('show-vocales',metrica&&marcaModo==='vocal');
+  // vista solo métrica (compacta, todo a la derecha) — solo si métrica activa
+  b.classList.toggle('show-solometrica',soloMetricaOn&&metrica);
+}
 function renderToggles(){
   const c=document.getElementById('toggles');c.innerHTML='';
-  // capas siempre activas (sin botón)
-  CAPAS_FIJAS.forEach(k=>document.body.classList.add('show-'+k));
-  TOGGLES.forEach(t=>{
-    const b=document.createElement('span');b.className='tog'+(t.on?' on':'');
-    b.textContent=t.label;
-    b.onclick=()=>{t.on=!t.on;document.body.classList.toggle('show-'+t.key,t.on);b.classList.toggle('on',t.on);};
-    c.appendChild(b);
-    document.body.classList.toggle('show-'+t.key,t.on);
-  });
+  // --- NIVEL 1: switch maestro Análisis ---
+  const sw=document.createElement('label');sw.className='sw-analisis';
+  sw.innerHTML='<span class="sw-track'+(analisisOn?' on':'')+'"><span class="sw-thumb"></span></span><span class="sw-label">análisis</span>';
+  sw.querySelector('.sw-track').onclick=()=>{analisisOn=!analisisOn;aplicarVista();renderToggles();};
+  c.appendChild(sw);
+  if(analisisOn){
+    // --- botón de vista: solo métrica ---
+    const fila=document.createElement('div');fila.className='tog-fila';
+    const sm=document.createElement('span');sm.className='tog tog-vista'+(soloMetricaOn?' on':'');
+    sm.textContent='solo métrica';
+    sm.onclick=()=>{soloMetricaOn=!soloMetricaOn;sm.classList.toggle('on',soloMetricaOn);aplicarVista();};
+    fila.appendChild(sm);
+    // --- NIVEL 2: checkboxes de capas ---
+    CAPAS.forEach(cap=>{
+      const chk=document.createElement('span');chk.className='chk'+(cap.on?' on':'');
+      chk.innerHTML='<span class="chk-box">'+(cap.on?'✓':'')+'</span>'+cap.label;
+      chk.onclick=()=>{cap.on=!cap.on;chk.classList.toggle('on',cap.on);chk.querySelector('.chk-box').textContent=cap.on?'✓':'';aplicarVista();renderToggles();};
+      fila.appendChild(chk);
+    });
+    c.appendChild(fila);
+    // --- NIVEL 3: selector x | vocal (solo si métrica está activa) ---
+    const metricaOn=CAPAS.find(c=>c.key==='metrica').on;
+    if(metricaOn){
+      const sel=document.createElement('div');sel.className='marca-sel';
+      sel.innerHTML='<span class="marca-lbl">marca:</span>';
+      ['x','vocal'].forEach(modo=>{
+        const op=document.createElement('span');op.className='marca-op'+(marcaModo===modo?' on':'');
+        op.textContent=modo;
+        op.onclick=()=>{marcaModo=modo;aplicarVista();renderToggles();};
+        sel.appendChild(op);
+      });
+      c.appendChild(sel);
+    }
+  }
+  aplicarVista();
 }
 function renderLegend(){
-  const c=document.getElementById('legend');c.innerHTML='';
-  TOGGLES.forEach(t=>{if(!t.on||!LEGENDS[t.key])return;
-    LEGENDS[t.key].forEach(([col,txt])=>{
-      const s=document.createElement('span');
-      s.innerHTML=`<i class="swatch" style="background:${col}"></i> ${txt}`;
-      c.appendChild(s);});});
+  const c=document.getElementById('legend');if(c)c.innerHTML='';
 }
 
 const ta=document.getElementById('input');
@@ -1733,7 +1878,7 @@ function reconciliarMarcas(viejo,nuevo){
 // tocar el análisis entra en edición
 outputEl.addEventListener('click',(e)=>{
   // no entrar en edición si el toque fue sobre un elemento interactivo (sílaba, puente, palabra)
-  if(e.target.closest('.syl, .bridge, .inv-w, .xpos'))return;
+  if(e.target.closest('.syl, .bridge, .inv-w, .xpos, .info-notas-btn, .notas-cont'))return;
   entrarEdicion();
 });
 // si el análisis está vacío (sin texto), tocar el placeholder también edita
@@ -2004,7 +2149,7 @@ function marcarPesca(idx, span, todasW, cont){
       const i=Number(sp.dataset.idx);
       if(i>=a&&i<=b)sp.classList.add('pesca-sel');
     });
-    if(frase.trim())agregarFraseAlAnalizador(frase.trim());
+    if(frase.trim())guardarEnMateria(frase.trim());
     pescaInicio=null;
     setTimeout(()=>cont.querySelectorAll('.pesca-ini,.pesca-sel').forEach(e=>e.classList.remove('pesca-ini','pesca-sel')),600);
   }
@@ -2047,10 +2192,65 @@ function setupCampoColoreable(taId, vistaId, conMetrica, onBlurExtra, pesca){
   autosize();
   return {entrarEdicion,salirEdicion,ta,vista};
 }
-const campoDescargo=setupCampoColoreable('voz-texto','voz-texto-vista',false,()=>{mostrarFrasesBloque();document.getElementById('voz-pesca-hint').style.display='block';},true);
+const campoDescargo=setupCampoColoreable('voz-texto','voz-texto-vista',false,()=>{mostrarFrasesBloque();document.getElementById('voz-pesca-hint').style.display='block';guardarDescargoActual();},true);
+
+// ---- AUTO-GUARDADO DEL DESCARGO + HISTORIAL ----
+// El descargo actual se guarda solo; los descargos viejos quedan en un historial.
+let descargosHistorial=cargarDescargos();
+function cargarDescargos(){
+  try{const raw=localStorage.getItem('descargosHistorial');if(raw)return JSON.parse(raw);}catch(e){}
+  return [];
+}
+function guardarDescargosHist(){
+  try{localStorage.setItem('descargosHistorial',JSON.stringify(descargosHistorial));}catch(e){}
+}
+function guardarDescargoActual(){
+  try{localStorage.setItem('descargoActual',document.getElementById('voz-texto').value);}catch(e){}
+}
+function cargarDescargoActual(){
+  try{const t=localStorage.getItem('descargoActual');if(t)document.getElementById('voz-texto').value=t;}catch(e){}
+}
+// archivar el descargo actual en el historial (al limpiar o empezar otro)
+function archivarDescargo(){
+  const t=document.getElementById('voz-texto').value.trim();
+  if(!t)return;
+  if(!descargosHistorial.some(d=>d.texto===t)){
+    descargosHistorial.unshift({texto:t,fecha:new Date().toISOString()});
+    guardarDescargosHist();renderDescargosHist();
+  }
+}
+function renderDescargosHist(){
+  const cont=document.getElementById('descargos-hist');
+  const bloque=document.getElementById('descargos-hist-bloque');
+  if(!cont)return;
+  if(!descargosHistorial.length){if(bloque)bloque.style.display='none';return;}
+  if(bloque)bloque.style.display='block';
+  cont.innerHTML='';
+  descargosHistorial.forEach((d,i)=>{
+    const card=document.createElement('div');card.className='desc-hist-card';
+    const fecha=new Date(d.fecha);
+    const f=fecha.toLocaleDateString('es-AR',{day:'2-digit',month:'short'})+' '+fecha.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});
+    const meta=document.createElement('div');meta.className='desc-hist-meta';meta.textContent=f;
+    const txt=document.createElement('div');txt.className='desc-hist-texto';txt.textContent=d.texto.length>140?d.texto.slice(0,140)+'…':d.texto;
+    const acc=document.createElement('div');acc.className='desc-hist-acc';
+    const bAbrir=document.createElement('button');bAbrir.className='voz-frase-btn';bAbrir.textContent='abrir';
+    bAbrir.onclick=()=>{
+      archivarDescargo();
+      document.getElementById('voz-texto').value=d.texto;
+      campoDescargo.entrarEdicion();guardarDescargoActual();
+      window.scrollTo({top:0,behavior:'smooth'});
+    };
+    const bDel=document.createElement('button');bDel.className='voz-frase-btn del';bDel.textContent='✕';
+    bDel.onclick=()=>{descargosHistorial.splice(i,1);guardarDescargosHist();renderDescargosHist();};
+    acc.appendChild(bAbrir);acc.appendChild(bDel);
+    card.appendChild(meta);card.appendChild(txt);card.appendChild(acc);
+    cont.appendChild(card);
+  });
+}
 
 document.getElementById('voz-limpiar').onclick=()=>{
-  campoDescargo.ta.value='';campoDescargo.entrarEdicion();
+  archivarDescargo();
+  campoDescargo.ta.value='';campoDescargo.entrarEdicion();guardarDescargoActual();
   vozEstado.textContent='';frasesSemilla=[];renderFrasesSemilla();mostrarFrasesBloque();
 };
 
@@ -2060,6 +2260,7 @@ function mostrarFrasesBloque(){
   document.getElementById('voz-frases-bloque').style.display=frasesSemilla.length?'block':'none';
 }
 // botón Editar: vuelve el descargo a modo edición
+document.getElementById('voz-texto').addEventListener('input',guardarDescargoActual);
 document.getElementById('voz-editar').onclick=()=>{campoDescargo.entrarEdicion();document.getElementById('voz-texto').focus();};
 function renderFrasesSemilla(){
   const cont=document.getElementById('voz-frases');
@@ -2085,31 +2286,36 @@ function renderFrasesSemilla(){
 // ============ EXTRACTOR DE VERSOS (gramatical, sin IA) ============
 // Corta la prosa en tramos por pausas naturales, se queda con los que tienen forma de
 // verso (6-11 sílabas, cierre en palabra con peso) y prioriza los pares que riman.
-const PAUSA_PALABRAS=new Set(['y','e','o','u','ni','que','pero','mas','sino','aunque','porque','pues','cuando','donde','mientras','si']);
+// palabras que en el habla marcan pausa natural (sin necesidad de coma)
+const PAUSA_PALABRAS=new Set(['y','e','o','u','ni','que','pero','mas','sino','aunque','porque','pues','cuando','donde','mientras','si','para','con','como','cómo','sin','desde','hasta','aunque','entonces','así','también','quisiera','quiero']);
+function silabasDe(texto){try{return moldeDeVerso(texto).silabas;}catch(_){return (texto.match(/[aeiouáéíóúü]/gi)||[]).length;}}
 function tramosDeProsa(texto){
-  // normalizar y cortar por puntuación fuerte primero
+  // cortar por puntuación fuerte si la hay
   const bloques=texto.replace(/\s+/g,' ').split(/[.;:!?\n]+/);
   const tramos=[];
   bloques.forEach(bloque=>{
-    // sub-cortar por comas y por palabras-pausa (y, que, pero…)
     const palabras=bloque.trim().split(' ').filter(Boolean);
     let actual=[];
     palabras.forEach(p=>{
       const limpia=p.replace(/[,]/g,'');
       const corteDespues=/,/.test(p);
       const esPausa=PAUSA_PALABRAS.has(limpia.toLowerCase());
-      if(esPausa&&actual.length>=3){
-        tramos.push(actual.join(' '));actual=[];
-        // la palabra-pausa arranca el siguiente tramo salvo que sea conjunción pura
-        if(!['y','e','o','u','ni','que'].includes(limpia.toLowerCase()))actual.push(limpia);
+      const silActual=actual.length?silabasDe(actual.join(' ')):0;
+      // cortar ANTES de una palabra-pausa si ya tenemos un tramo con largo de verso
+      if(esPausa&&silActual>=5){
+        tramos.push(actual.join(' '));actual=[limpia];
       } else {
         actual.push(limpia);
-        if(corteDespues&&actual.length>=3){tramos.push(actual.join(' '));actual=[];}
+        const sil=silabasDe(actual.join(' '));
+        // cortar después de coma con largo mínimo, o cuando el tramo ya es largo (límite hablado)
+        if((corteDespues&&sil>=5)||sil>=11){
+          tramos.push(actual.join(' '));actual=[];
+        }
       }
     });
     if(actual.length)tramos.push(actual.join(' '));
   });
-  return tramos.map(t=>t.trim()).filter(t=>t.split(' ').length>=3);
+  return tramos.map(t=>t.trim()).filter(t=>t.split(' ').length>=2);
 }
 function ultimaPalabra(tramo){
   const toks=tramo.match(/[a-záéíóúüñ]+/gi)||[];
@@ -2153,21 +2359,15 @@ function tarjetaCandidato(c){
     return (tmp.textContent||'').split('\n').map(s=>s.trim()).filter(Boolean);
   }
   const acc=document.createElement('div');acc.className='voz-frase-acc';
-  const bCancion=document.createElement('button');bCancion.className='voz-frase-btn';bCancion.textContent='→ Canción';
-  bCancion.onclick=()=>{
-    const ls=lineasDe();if(!ls.length)return;
-    ls.forEach(l=>agregarFraseAlAnalizador(l));
-    bCancion.textContent='✓ enviado';bCancion.classList.add('enviado');
-    setTimeout(()=>{bCancion.textContent='→ Canción';bCancion.classList.remove('enviado');},1200);
-  };
   const bMateria=document.createElement('button');bMateria.className='voz-frase-btn alt';bMateria.textContent='★ guardar';
   bMateria.onclick=()=>{
     const ls=lineasDe();if(!ls.length)return;
-    ls.forEach(l=>guardarEnMateria(l));
+    // las líneas se guardan como UNA sola sección (verso multi-línea), unidas por salto
+    guardarEnMateria(ls.join('\n'));
     bMateria.textContent='✓ guardado';bMateria.classList.add('enviado');
     setTimeout(()=>{bMateria.textContent='★ guardar';bMateria.classList.remove('enviado');},1200);
   };
-  acc.appendChild(bCancion);acc.appendChild(bMateria);
+  acc.appendChild(bMateria);
   card.appendChild(acc);
   return card;
 }
@@ -2195,6 +2395,8 @@ document.querySelectorAll('.menu-item').forEach(btn=>{
 outputEl.setAttribute('data-placeholder','Tocá acá para escribir o pegar una letra…');
 
 cargarLetra();
+cargarDescargoActual();renderDescargosHist();
+if(document.getElementById('voz-texto').value.trim())campoDescargo.salirEdicion();
 renderToggles();renderLegend();renderPowerWords();renderMateria();autosize();analyze();
 // si arranca vacío, entrar directo en edición para poder escribir
 if(!ta.value.trim())entrarEdicion();
