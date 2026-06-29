@@ -64,8 +64,8 @@
   .vm-circ.f{color:var(--rhythmic);font-weight:600;}
   .verso-metrica-num{font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--faint);margin-left:0.5rem;}
   /* ===== MODO VOZ ===== */
-  .voz-controls{display:flex;align-items:center;gap:0.8rem;margin-bottom:1rem;flex-wrap:wrap;}
-  .voz-rec-btn{font-family:'IBM Plex Mono',monospace;font-size:0.8rem;padding:0.6rem 1.2rem;border:1.5px solid var(--rhythmic);border-radius:24px;background:transparent;color:var(--rhythmic);cursor:pointer;transition:all 0.15s;font-weight:500;}
+  .voz-controls{display:flex;flex-direction:column;align-items:stretch;gap:0.4rem;margin-bottom:1rem;}
+  .voz-rec-btn{font-family:'IBM Plex Mono',monospace;font-size:0.85rem;padding:0.75rem 1.2rem;border:1.5px solid var(--rhythmic);border-radius:24px;background:transparent;color:var(--rhythmic);cursor:pointer;transition:all 0.15s;font-weight:500;width:100%;}
   .voz-rec-btn:hover{background:var(--rhythmic);color:var(--paper);}
   .voz-rec-btn.grabando{background:var(--rhythmic);color:var(--paper);animation:pulso 1.4s ease-in-out infinite;}
   @keyframes pulso{0%,100%{opacity:1;}50%{opacity:0.6;}}
@@ -105,6 +105,16 @@
   .voz-par-label{font-family:'IBM Plex Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--rima);margin-bottom:0.4rem;}
   .voz-lema{font-family:'Fraunces',Georgia,serif;font-size:0.98rem;line-height:1.6;color:var(--sinalefa);font-style:italic;margin:0.4rem 0 1.4rem;padding-left:0.8rem;border-left:2px solid var(--sinalefa);}
   .voz-vacio-msg{font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--faint);font-style:italic;padding:0.5rem 0;}
+  .vp-grupo{margin-bottom:1rem;}
+  .vp-titulo{font-family:'IBM Plex Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.4rem;font-weight:500;}
+  .vp-titulo.vp-sus{color:var(--rhythmic);}
+  .vp-titulo.vp-ver{color:var(--sinalefa);}
+  .vp-titulo.vp-adj{color:var(--lexical);}
+  .vp-titulo.vp-adv{color:var(--figura);}
+  .vp-lista{display:flex;flex-wrap:wrap;gap:0.35rem;}
+  .vp-chip{font-family:'Fraunces',Georgia,serif;font-size:0.92rem;padding:0.2rem 0.55rem;border:1px solid var(--rule);border-radius:14px;cursor:pointer;color:var(--ink);transition:all 0.12s;}
+  .vp-chip:hover{border-color:var(--ink);}
+  .vp-chip.pw{text-decoration:underline;text-decoration-style:wavy;text-decoration-color:var(--lexical);text-underline-offset:2px;}
   .voz-cand-edit{outline:none;border-radius:4px;padding:0.15rem 0.3rem;margin:-0.15rem -0.3rem 0.3rem;transition:background 0.12s;white-space:pre-wrap;}
   .voz-cand-edit:focus{background:rgba(106,90,156,0.08);box-shadow:inset 0 -1px 0 var(--figura);}
   .voz-frase-btn.enviado{background:var(--rima);color:var(--paper);border-color:var(--rima);}
@@ -403,7 +413,7 @@
 <body class="show-rima show-acentos show-sinalefas show-figuras show-metrica show-silabas">
 <div class="wrap">
   <nav class="menu" id="menu">
-    <button class="menu-item active" data-vista="voz">Descargo</button>
+    <button class="menu-item active" data-vista="voz">Escena</button>
     <button class="menu-item" data-vista="powerwords">Materia prima</button>
     <button class="menu-item" data-vista="analizador">Canción</button>
   </nav>
@@ -474,7 +484,7 @@
   <!-- VISTA: VOZ (hablar -> texto -> extraer palabras) -->
   <section id="vista-voz" class="vista activa">
     <header>
-      <h1>Descargo</h1>
+      <h1>Escena</h1>
       <div class="sub">soltá todo en prosa · después pescá las frases que ya son canción</div>
     </header>
 
@@ -482,9 +492,6 @@
       <button id="voz-rec" class="voz-rec-btn">● Empezar a hablar</button>
       <span id="voz-estado" class="voz-estado"></span>
     </div>
-
-    <!-- guía plegable: cómo hablar para que salgan versos jugosos -->
-    <p class="voz-lema">No expliques lo que sentís: hacé que se sienta, con todos tus sentidos.</p>
 
     <!-- CAMPO ÚNICO: descargo en prosa, se colorea al salir -->
     <div class="voz-paso-label">tu descargo</div>
@@ -503,6 +510,12 @@
     <div id="voz-candidatos-bloque" class="voz-frases-bloque" style="display:none;">
       <div class="voz-paso-label">versos que ya están en tu prosa</div>
       <div id="voz-candidatos"></div>
+    </div>
+
+    <!-- palabras desarmadas por categoría gramatical -->
+    <div id="voz-palabras-bloque" class="voz-frases-bloque" style="display:none;">
+      <div class="voz-paso-label">tus palabras, desarmadas</div>
+      <div id="voz-palabras"></div>
     </div>
 
     <!-- frases rescatadas -->
@@ -2020,7 +2033,13 @@ function pararGrabacion(){
   // al terminar de dictar, colorear el descargo
   try{if(campoDescargo&&campoDescargo.ta.value.trim())campoDescargo.salirEdicion();}catch(_){}
 }
-vozRec.onclick=()=>{grabando?pararGrabacion():empezarGrabacion();};
+vozRec.onclick=()=>{
+  if(grabando){
+    pararGrabacion();
+    // al terminar de hablar con nuestro micrófono, sacar los versos solo
+    setTimeout(()=>{if(document.getElementById('voz-texto').value.trim())extraerVersos();},300);
+  } else empezarGrabacion();
+};
 
 // ============ COLOREO LIVIANO (reusable para los dos campos de Voz) ============
 // Agrupa las palabras del texto que riman entre sí (union-find) y devuelve un mapa
@@ -2339,10 +2358,45 @@ function extraerVersos(){
     const k=rhymeKeys(ult);
     cands.push({texto:t,silabas:m.silabas,golpes:m.golpes,ult,aso:k?k.aso:'',cons:k?k.cons:'',fam:k?k.fam:''});
   });
-  if(!cands.length){cont.innerHTML='<div class="voz-vacio-msg">No encontré tramos con forma de verso. Probá hablar con frases un poco más largas y sensoriales.</div>';bloque.style.display='block';return;}
+  if(!cands.length){cont.innerHTML='<div class="voz-vacio-msg">No encontré tramos con forma de verso. Probá hablar con frases un poco más largas y sensoriales.</div>';bloque.style.display='block';extraerPalabras(texto);return;}
   // render en orden cronológico (como salieron en la prosa). La rima viene después.
   cont.innerHTML='';
   cands.forEach(c=>cont.appendChild(tarjetaCandidato(c)));
+  bloque.style.display='block';
+  extraerPalabras(texto);
+}
+// desarma la prosa en sus piezas: sustantivos, verbos, adjetivos, adverbios
+function extraerPalabras(texto){
+  const cont=document.getElementById('voz-palabras');
+  const bloque=document.getElementById('voz-palabras-bloque');
+  if(!cont)return;
+  const grupos={sus:new Set(),ver:new Set(),adj:new Set(),adv:new Set()};
+  (texto.match(/[a-záéíóúüñ]+/gi)||[]).forEach(w=>{
+    const pos=posTag(w);
+    if(pos&&grupos[pos])grupos[pos].add(w.toLowerCase());
+  });
+  const total=grupos.sus.size+grupos.ver.size+grupos.adj.size+grupos.adv.size;
+  if(!total){bloque.style.display='none';return;}
+  const NOMBRES={sus:'sustantivos',ver:'verbos',adj:'adjetivos',adv:'adverbios'};
+  cont.innerHTML='';
+  ['sus','ver','adj','adv'].forEach(k=>{
+    if(!grupos[k].size)return;
+    const sec=document.createElement('div');sec.className='vp-grupo';
+    const tit=document.createElement('div');tit.className='vp-titulo vp-'+k;tit.textContent=NOMBRES[k];
+    sec.appendChild(tit);
+    const lista=document.createElement('div');lista.className='vp-lista';
+    [...grupos[k]].forEach(w=>{
+      const chip=document.createElement('span');chip.className='vp-chip';chip.textContent=w;
+      // doble toque: sumar a power words
+      chip.onclick=()=>{
+        if(powerWords.has(w))powerWords.delete(w);else powerWords.add(w);
+        chip.classList.toggle('pw');guardarPowerWords();renderPowerWords();
+      };
+      if(powerWords.has(w))chip.classList.add('pw');
+      lista.appendChild(chip);
+    });
+    sec.appendChild(lista);cont.appendChild(sec);
+  });
   bloque.style.display='block';
 }
 function tarjetaCandidato(c){
@@ -2367,7 +2421,14 @@ function tarjetaCandidato(c){
     bMateria.textContent='✓ guardado';bMateria.classList.add('enviado');
     setTimeout(()=>{bMateria.textContent='★ guardar';bMateria.classList.remove('enviado');},1200);
   };
-  acc.appendChild(bMateria);
+  const bCancion=document.createElement('button');bCancion.className='voz-frase-btn';bCancion.textContent='→ Canción';
+  bCancion.onclick=()=>{
+    const ls=lineasDe();if(!ls.length)return;
+    ls.forEach(l=>agregarFraseAlAnalizador(l));
+    bCancion.textContent='✓ enviado';bCancion.classList.add('enviado');
+    setTimeout(()=>{bCancion.textContent='→ Canción';bCancion.classList.remove('enviado');},1200);
+  };
+  acc.appendChild(bMateria);acc.appendChild(bCancion);
   card.appendChild(acc);
   return card;
 }
