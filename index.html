@@ -67,6 +67,11 @@
   .verso-metrica-num{font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--faint);margin-left:0.5rem;}
   /* ===== MODO VOZ ===== */
   .voz-controls{display:flex;flex-direction:column;align-items:stretch;gap:0.4rem;margin-bottom:1rem;}
+  .dado-zona{margin-bottom:1.1rem;}
+  .dado-invita{font-family:'IBM Plex Mono',monospace;font-size:0.68rem;color:var(--faint);line-height:1.5;margin-bottom:0.5rem;}
+  .dado-btn{width:100%;font-family:'IBM Plex Mono',monospace;font-size:0.78rem;padding:0.7rem 1.2rem;border:1px dashed var(--sinalefa);border-radius:24px;background:transparent;color:var(--sinalefa);cursor:pointer;transition:all 0.15s;}
+  .dado-btn:hover{background:rgba(74,122,110,0.06);border-style:solid;}
+  .dado-escena{margin-top:0.8rem;padding:0.9rem 1rem;border-left:3px solid var(--sinalefa);background:rgba(74,122,110,0.05);border-radius:0 8px 8px 0;font-family:'Fraunces',Georgia,serif;font-size:1.08rem;line-height:1.5;color:var(--ink);font-style:italic;}
   .voz-rec-btn{font-family:'IBM Plex Mono',monospace;font-size:0.85rem;padding:0.75rem 1.2rem;border:1.5px solid var(--rhythmic);border-radius:24px;background:transparent;color:var(--rhythmic);cursor:pointer;transition:all 0.15s;font-weight:500;width:100%;}
   .voz-rec-btn:hover{background:var(--rhythmic);color:var(--paper);}
   .voz-rec-btn.grabando{background:var(--rhythmic);color:var(--paper);animation:pulso 1.4s ease-in-out infinite;}
@@ -389,9 +394,33 @@
 
   /* menú de vistas */
   .menu{display:flex;justify-content:space-around;margin-bottom:1.5rem;border-bottom:1.5px solid var(--rule);}
-  .menu-item{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;
-    padding:0.6rem 0.4rem;border:none;background:transparent;color:var(--faint);cursor:pointer;
-    border-bottom:2px solid transparent;margin-bottom:-1.5px;transition:all 0.15s;}
+  .proyecto-barra{display:flex;align-items:center;padding:0.5rem 0 0.3rem;}
+  .proyecto-actual{display:flex;align-items:center;gap:0.4rem;background:transparent;border:none;cursor:pointer;padding:0.2rem 0;font-family:'Fraunces',Georgia,serif;}
+  .proyecto-nombre{font-size:1.15rem;font-weight:500;color:var(--ink);}
+  .proyecto-chevron{font-family:'IBM Plex Mono',monospace;font-size:0.9rem;color:var(--faint);}
+  .proyecto-panel{border:1px solid var(--rule);border-radius:10px;background:var(--paper);margin-bottom:1rem;padding:0.5rem;box-shadow:0 4px 16px rgba(0,0,0,0.08);}
+  .proyecto-item{display:flex;align-items:center;gap:0.4rem;border-radius:7px;transition:background 0.12s;}
+  .proyecto-item.activo{background:rgba(140,47,47,0.06);}
+  .proyecto-item-nom{flex:1;text-align:left;background:transparent;border:none;cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1rem;color:var(--ink);padding:0.55rem 0.6rem;}
+  .proyecto-item.activo .proyecto-item-nom{color:var(--rhythmic);font-weight:500;}
+  .proyecto-item-del{background:transparent;border:none;color:var(--faint);cursor:pointer;font-size:0.8rem;padding:0.4rem 0.6rem;}
+  .proyecto-item-del:hover{color:var(--rhythmic);}
+  .proyecto-item-edit{background:transparent;border:none;color:var(--faint);cursor:pointer;font-size:0.85rem;padding:0.4rem 0.5rem;}
+  .proyecto-item-edit:hover{color:var(--sinalefa);}
+  .modal-fondo{position:fixed;inset:0;background:rgba(28,26,22,0.4);z-index:200;display:flex;align-items:center;justify-content:center;padding:1.5rem;}
+  .modal-caja{background:var(--paper);border-radius:14px;padding:1.3rem;width:100%;max-width:340px;box-shadow:0 12px 40px rgba(0,0,0,0.25);}
+  .modal-titulo{font-family:'IBM Plex Mono',monospace;font-size:0.78rem;color:var(--ink);margin-bottom:0.9rem;line-height:1.4;}
+  .modal-input{width:100%;box-sizing:border-box;font-family:'Fraunces',Georgia,serif;font-size:1.1rem;padding:0.6rem 0.7rem;border:1.5px solid var(--rule);border-radius:8px;background:var(--paper);color:var(--ink);outline:none;margin-bottom:1rem;}
+  .modal-input:focus{border-color:var(--sinalefa);}
+  .modal-acciones{display:flex;gap:0.6rem;justify-content:flex-end;}
+  .modal-btn{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;padding:0.55rem 1.1rem;border-radius:20px;cursor:pointer;border:1px solid var(--rule);background:transparent;color:var(--faint);}
+  .modal-btn.ok{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+  .modal-btn.cancelar:hover{color:var(--ink);border-color:var(--ink);}
+  .proyecto-nueva{width:100%;margin-top:0.3rem;padding:0.6rem;background:transparent;border:1px dashed var(--rule);border-radius:7px;color:var(--sinalefa);font-family:'IBM Plex Mono',monospace;font-size:0.72rem;cursor:pointer;transition:all 0.12s;}
+  .proyecto-nueva:hover{border-color:var(--sinalefa);background:rgba(74,122,110,0.04);}
+  .menu-item{font-family:'IBM Plex Mono',monospace;font-size:0.64rem;text-transform:uppercase;letter-spacing:0.03em;
+    padding:0.6rem 0.2rem;border:none;background:transparent;color:var(--faint);cursor:pointer;
+    border-bottom:2px solid transparent;margin-bottom:-1.5px;transition:all 0.15s;white-space:nowrap;}
   .menu-item:hover{color:var(--ink);}
   .menu-item.active{color:var(--ink);border-bottom-color:var(--ink);}
   .vista{display:none;}
@@ -419,9 +448,35 @@
 </head>
 <body class="show-rima show-acentos show-sinalefas show-figuras show-metrica show-silabas">
 <div class="wrap">
+  <!-- barra de proyecto: la canción en la que estás trabajando -->
+  <div class="proyecto-barra" id="proyecto-barra">
+    <button class="proyecto-actual" id="proyecto-actual">
+      <span class="proyecto-nombre" id="proyecto-nombre">—</span>
+      <span class="proyecto-chevron">⌄</span>
+    </button>
+  </div>
+  <!-- panel desplegable de canciones -->
+  <div class="proyecto-panel" id="proyecto-panel" style="display:none;">
+    <div class="proyecto-lista" id="proyecto-lista"></div>
+    <button class="proyecto-nueva" id="proyecto-nueva">+ Canción nueva</button>
+  </div>
+
+  <!-- modal propio para nombrar/renombrar (prompt no funciona en PWA iOS) -->
+  <div class="modal-fondo" id="modal-fondo" style="display:none;">
+    <div class="modal-caja">
+      <div class="modal-titulo" id="modal-titulo">Nombre de la canción</div>
+      <input type="text" id="modal-input" class="modal-input" placeholder="Título…" autocomplete="off">
+      <div class="modal-acciones">
+        <button class="modal-btn cancelar" id="modal-cancelar">Cancelar</button>
+        <button class="modal-btn ok" id="modal-ok">Guardar</button>
+      </div>
+    </div>
+  </div>
+
   <nav class="menu" id="menu">
     <button class="menu-item active" data-vista="voz">Escena</button>
     <button class="menu-item" data-vista="powerwords">Materia prima</button>
+    <button class="menu-item" data-vista="palabrario">Palabrario</button>
     <button class="menu-item" data-vista="analizador">Canción</button>
   </nav>
 
@@ -464,19 +519,13 @@
   <section id="vista-powerwords" class="vista">
     <header>
       <h1>Materia prima</h1>
-      <div class="sub">tus frases pescadas y tus palabras · de acá salen las canciones</div>
+      <div class="sub">tus frases pescadas en esta canción</div>
     </header>
 
     <div class="mat-paso-label">frases guardadas</div>
     <div id="materia-frases"></div>
     <div class="hint" id="mat-frases-vacio">
-      Todavía no guardaste frases. En el <b>Descargo</b>, sacá versos y tocá <b>★ guardar</b> para juntarlos acá.
-    </div>
-
-    <div class="mat-paso-label" style="margin-top:2rem;">power words</div>
-    <div id="powerwords"></div>
-    <div class="hint" id="pw-vacio-hint">
-      Todavía no marcaste ninguna palabra. En el <b>Descargo</b> o la <b>Canción</b>, tocá palabras para sumarlas acá.
+      Todavía no guardaste frases. En la <b>Escena</b>, sacá versos y tocá <b>★ Materia prima</b> para juntarlos acá.
     </div>
 
     <div class="mat-paso-label" style="margin-top:2rem;">respaldo</div>
@@ -488,6 +537,18 @@
     <div class="mat-respaldo-hint">Tu trabajo se guarda solo en este teléfono. Exportá de vez en cuando para tener un respaldo aparte (en Archivos, Drive, o donde quieras).</div>
   </section>
 
+  <!-- VISTA: PALABRARIO (palabras transversales, comunes a todas las canciones) -->
+  <section id="vista-palabrario" class="vista">
+    <header>
+      <h1>Palabrario</h1>
+      <div class="sub">tus palabras de siempre · están en todas tus canciones</div>
+    </header>
+    <div id="powerwords"></div>
+    <div class="hint" id="pw-vacio-hint">
+      Todavía no marcaste ninguna palabra. En la <b>Escena</b> o la <b>Canción</b>, tocá dos veces una palabra para sumarla acá.
+    </div>
+  </section>
+
   <!-- VISTA: VOZ (hablar -> texto -> extraer palabras) -->
   <section id="vista-voz" class="vista activa">
     <header>
@@ -495,18 +556,20 @@
       <div class="sub">soltá todo en prosa · después pescá las frases que ya son canción</div>
     </header>
 
-    <div class="voz-controls">
-      <button id="voz-rec" class="voz-rec-btn">● Empezar a hablar</button>
-      <span id="voz-estado" class="voz-estado"></span>
+    <!-- zona del dado: una escena con conflicto para improvisar -->
+    <div class="dado-zona">
+      <div class="dado-invita">¿No sabés sobre qué escribir? Dejá que el dado te tire una escena.</div>
+      <button id="dado-btn" class="dado-btn" title="Escena aleatoria">⚄ Escena aleatoria</button>
+      <div id="dado-escena" class="dado-escena" style="display:none;"></div>
     </div>
 
-    <!-- CAMPO ÚNICO: descargo en prosa, se colorea al salir -->
-    <div class="voz-paso-label">tu descargo</div>
+    <!-- CAMPO ÚNICO: improvisación en prosa, se colorea al salir -->
+    <div class="voz-paso-label">tu improvisación</div>
     <div id="voz-campo1" class="voz-campo">
-      <textarea id="voz-texto" spellcheck="false" rows="5" placeholder="Hablá o escribí todo lo que se te ocurra…"></textarea>
+      <textarea id="voz-texto" spellcheck="false" rows="5" placeholder="Improvisá la escena que se te ocurra…"></textarea>
       <div id="voz-texto-vista" class="voz-vista" style="display:none;"></div>
     </div>
-    <div id="voz-pesca-hint" class="voz-pesca-hint" style="display:none;">Tocá la primera y la última palabra de una frase para pescarla → va al Analizador.</div>
+    <div id="voz-pesca-hint" class="voz-pesca-hint" style="display:none;">Tocá la primera y la última palabra de una frase para pescarla → va a Materia prima.</div>
     <div class="voz-acciones">
       <button id="voz-sacar-versos" class="voz-btn-extraer">Sacar versos ↓</button>
       <button id="voz-editar" class="voz-btn-limpiar">Editar</button>
@@ -761,16 +824,84 @@ let forcedSinalefas=new Set(); // sinalefas creadas a mano donde el sistema no l
 let rhythmicOverrides={};
 let cesuraOverrides={}; // clave: índice de línea original (li) -> posición de cesura en el patrón merged
 let moviendoCesura=null; // li del verso cuya cesura se está moviendo (modo mover activo)
+// ============ PROYECTOS / CANCIONES ============
+// Cada canción guarda su Escena, Materia prima y Canción por separado.
+// Las power words y correcciones POS son globales (transversales a todas).
+function cargarProyectos(){
+  try{const raw=localStorage.getItem('proyectos');if(raw)return JSON.parse(raw);}catch(e){}
+  return null;
+}
+function guardarProyectos(){
+  try{localStorage.setItem('proyectos',JSON.stringify(PROYECTOS));}catch(e){}
+}
+let PROYECTOS=cargarProyectos();
+let proyectoActivo;
+if(!PROYECTOS||!PROYECTOS.lista||!PROYECTOS.lista.length){
+  // primera vez: crear canción inicial y migrar lo que hubiera en las claves viejas
+  const id='c'+Date.now();
+  PROYECTOS={lista:[{id,nombre:'Mi primera canción'}],activo:id};
+  // migrar claves legacy (sin sufijo) a esta primera canción
+  ['materiaFrases','cancionEstado','descargoActual','descargosHistorial'].forEach(base=>{
+    const v=localStorage.getItem(base);
+    if(v!==null){try{localStorage.setItem(base+'__'+id,v);}catch(e){}}
+  });
+  guardarProyectos();
+}
+proyectoActivo=PROYECTOS.activo;
+// clave por-canción: agrega el sufijo del proyecto activo
+function claveCancion(base){return base+'__'+proyectoActivo;}
+function nombreProyectoActivo(){
+  const p=PROYECTOS.lista.find(x=>x.id===proyectoActivo);
+  return p?p.nombre:'(sin nombre)';
+}
+function crearProyecto(nombre){
+  const id='c'+Date.now();
+  PROYECTOS.lista.push({id,nombre:nombre||'Canción nueva'});
+  PROYECTOS.activo=id;guardarProyectos();
+  cambiarA(id);
+}
+function cambiarA(id){
+  // guardar el estado actual antes de cambiar
+  try{guardarLetra();guardarDescargoActual();}catch(e){}
+  proyectoActivo=id;PROYECTOS.activo=id;guardarProyectos();
+  // recargar todo lo de la canción nueva
+  materiaFrases=cargarMateria();
+  descargosHistorial=cargarDescargos();
+  document.getElementById('input').value='';
+  rhythmicOverrides={};cesuraOverrides={};brokenSinalefas=new Set();forcedSinalefas=new Set();
+  cargarLetra();
+  document.getElementById('voz-texto').value='';
+  cargarDescargoActual();
+  try{if(campoDescargo){if(document.getElementById('voz-texto').value.trim())campoDescargo.salirEdicion();else campoDescargo.entrarEdicion();}}catch(e){}
+  renderMateria();renderDescargosHist();analyze();
+  renderBarraProyecto();
+  // limpiar candidatos/frases de la sesión anterior
+  ['voz-candidatos-bloque','voz-palabras-bloque','voz-frases-bloque'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none';});
+}
+function renombrarProyecto(nombre){
+  const p=PROYECTOS.lista.find(x=>x.id===proyectoActivo);
+  if(p){p.nombre=nombre;guardarProyectos();renderBarraProyecto();}
+}
+function borrarProyecto(id){
+  if(PROYECTOS.lista.length<=1)return; // siempre queda al menos una
+  ['materiaFrases','cancionEstado','descargoActual','descargosHistorial'].forEach(base=>{
+    try{localStorage.removeItem(base+'__'+id);}catch(e){}
+  });
+  PROYECTOS.lista=PROYECTOS.lista.filter(x=>x.id!==id);
+  if(proyectoActivo===id){PROYECTOS.activo=PROYECTOS.lista[0].id;guardarProyectos();cambiarA(PROYECTOS.lista[0].id);}
+  else {guardarProyectos();renderBarraProyecto();}
+}
+
 // Power words: catálogo personal del usuario. Persiste en localStorage.
 let powerWords=cargarPowerWords();
-// Materia prima: frases guardadas (con favoritas marcadas). Persiste.
+// Materia prima: frases guardadas (con favoritas marcadas). Persiste POR CANCIÓN.
 let materiaFrases=cargarMateria(); // [{texto, fav}]
 function cargarMateria(){
-  try{const raw=localStorage.getItem('materiaFrases');if(raw)return JSON.parse(raw);}catch(e){}
+  try{const raw=localStorage.getItem(claveCancion('materiaFrases'));if(raw)return JSON.parse(raw);}catch(e){}
   return [];
 }
 function guardarMateria(){
-  try{localStorage.setItem('materiaFrases',JSON.stringify(materiaFrases));}catch(e){}
+  try{localStorage.setItem(claveCancion('materiaFrases'),JSON.stringify(materiaFrases));}catch(e){}
 }
 function guardarEnMateria(texto){
   texto=texto.trim();if(!texto)return;
@@ -835,12 +966,12 @@ function guardarLetra(){
       rhythmicOverrides, cesuraOverrides,
       broken:[...brokenSinalefas], forced:[...forcedSinalefas],
     };
-    localStorage.setItem('cancionEstado',JSON.stringify(estado));
+    localStorage.setItem(claveCancion('cancionEstado'),JSON.stringify(estado));
   }catch(e){}
 }
 function cargarLetra(){
   try{
-    const raw=localStorage.getItem('cancionEstado');if(!raw)return;
+    const raw=localStorage.getItem(claveCancion('cancionEstado'));if(!raw)return;
     const e=JSON.parse(raw);
     if(e.letra!==undefined)document.getElementById('input').value=e.letra;
     if(e.rhythmicOverrides)rhythmicOverrides=e.rhythmicOverrides;
@@ -853,9 +984,9 @@ function cargarLetra(){
 function exportarTodo(){
   const data={
     version:1, fecha:new Date().toISOString(),
-    cancion:JSON.parse(localStorage.getItem('cancionEstado')||'null'),
+    cancion:JSON.parse(localStorage.getItem(claveCancion('cancionEstado'))||'null'),
     materiaFrases, powerWords:[...powerWords], correccionesPOS,
-    descargoActual:localStorage.getItem('descargoActual')||'', descargosHistorial,
+    descargoActual:localStorage.getItem(claveCancion('descargoActual'))||'', descargosHistorial,
   };
   const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
   const url=URL.createObjectURL(blob);
@@ -871,11 +1002,11 @@ function importarTodo(file){
   reader.onload=()=>{
     try{
       const data=JSON.parse(reader.result);
-      if(data.cancion)localStorage.setItem('cancionEstado',JSON.stringify(data.cancion));
+      if(data.cancion)localStorage.setItem(claveCancion('cancionEstado'),JSON.stringify(data.cancion));
       if(data.materiaFrases){materiaFrases=data.materiaFrases;guardarMateria();}
       if(data.powerWords){powerWords=new Set(data.powerWords);guardarPowerWords();}
       if(data.correccionesPOS){correccionesPOS=data.correccionesPOS;guardarCorrecciones();}
-      if(data.descargoActual!==undefined){localStorage.setItem('descargoActual',data.descargoActual);cargarDescargoActual();}
+      if(data.descargoActual!==undefined){localStorage.setItem(claveCancion('descargoActual'),data.descargoActual);cargarDescargoActual();}
       if(data.descargosHistorial){descargosHistorial=data.descargosHistorial;guardarDescargosHist();renderDescargosHist();}
       cargarLetra();
       if(typeof analyze==='function')analyze();
@@ -2034,60 +2165,9 @@ function moldeDeVerso(texto){
   return {golpes:fused,silabas:fused.length+adjust,adjust};
 }
 
-// ============ MODO VOZ (hablar -> texto -> extraer palabras) ============
+// ============ MODO ESCENA (improvisar -> texto -> extraer palabras) ============
 const vozTexto=document.getElementById('voz-texto');
-const vozRec=document.getElementById('voz-rec');
 const vozEstado=document.getElementById('voz-estado');
-let reconocedor=null, grabando=false;
-
-// dictado por voz con Web Speech API (si el navegador lo soporta)
-const SpeechRec=window.SpeechRecognition||window.webkitSpeechRecognition;
-function initReconocedor(){
-  if(!SpeechRec)return null;
-  const r=new SpeechRec();
-  r.lang='es-AR';r.continuous=true;r.interimResults=true;
-  let baseTexto='';
-  r.onstart=()=>{baseTexto=vozTexto.value?vozTexto.value+' ':'';vozEstado.textContent='escuchando…';vozRec.classList.add('grabando');vozRec.textContent='■ Parar';};
-  r.onresult=(e)=>{
-    let final='',interim='';
-    for(let i=e.resultIndex;i<e.results.length;i++){
-      const t=e.results[i][0].transcript;
-      if(e.results[i].isFinal)final+=t;else interim+=t;
-    }
-    vozTexto.value=baseTexto+final+interim;
-    if(final)baseTexto+=final;
-  };
-  r.onerror=(e)=>{
-    if(e.error==='not-allowed'||e.error==='service-not-allowed'){
-      vozEstado.textContent='no se pudo acceder al micrófono — usá el micrófono del teclado';
-    } else if(e.error==='no-speech'){vozEstado.textContent='no escuché nada, probá de nuevo';}
-    else vozEstado.textContent='';
-    pararGrabacion();
-  };
-  r.onend=()=>{if(grabando){try{r.start();}catch(_){pararGrabacion();}}};
-  return r;
-}
-function empezarGrabacion(){
-  if(!SpeechRec){vozEstado.textContent='Tu navegador no tiene dictado. Usá el micrófono del teclado al escribir.';return;}
-  reconocedor=reconocedor||initReconocedor();
-  grabando=true;
-  try{reconocedor.start();}catch(_){}
-}
-function pararGrabacion(){
-  grabando=false;
-  if(reconocedor){try{reconocedor.stop();}catch(_){}}
-  vozRec.classList.remove('grabando');vozRec.textContent='● Empezar a hablar';
-  if(vozEstado.textContent==='escuchando…')vozEstado.textContent='';
-  // al terminar de dictar, colorear el descargo
-  try{if(campoDescargo&&campoDescargo.ta.value.trim())campoDescargo.salirEdicion();}catch(_){}
-}
-vozRec.onclick=()=>{
-  if(grabando){
-    pararGrabacion();
-    // al terminar de hablar con nuestro micrófono, sacar los versos solo
-    setTimeout(()=>{if(document.getElementById('voz-texto').value.trim())extraerVersos();},300);
-  } else empezarGrabacion();
-};
 
 // ============ COLOREO LIVIANO (reusable para los dos campos de Voz) ============
 // Agrupa las palabras del texto que riman entre sí (union-find) y devuelve un mapa
@@ -2265,17 +2345,17 @@ const campoDescargo=setupCampoColoreable('voz-texto','voz-texto-vista',false,()=
 // El descargo actual se guarda solo; los descargos viejos quedan en un historial.
 let descargosHistorial=cargarDescargos();
 function cargarDescargos(){
-  try{const raw=localStorage.getItem('descargosHistorial');if(raw)return JSON.parse(raw);}catch(e){}
+  try{const raw=localStorage.getItem(claveCancion('descargosHistorial'));if(raw)return JSON.parse(raw);}catch(e){}
   return [];
 }
 function guardarDescargosHist(){
-  try{localStorage.setItem('descargosHistorial',JSON.stringify(descargosHistorial));}catch(e){}
+  try{localStorage.setItem(claveCancion('descargosHistorial'),JSON.stringify(descargosHistorial));}catch(e){}
 }
 function guardarDescargoActual(){
-  try{localStorage.setItem('descargoActual',document.getElementById('voz-texto').value);}catch(e){}
+  try{localStorage.setItem(claveCancion('descargoActual'),document.getElementById('voz-texto').value);}catch(e){}
 }
 function cargarDescargoActual(){
-  try{const t=localStorage.getItem('descargoActual');if(t)document.getElementById('voz-texto').value=t;}catch(e){}
+  try{const t=localStorage.getItem(claveCancion('descargoActual'));if(t)document.getElementById('voz-texto').value=t;}catch(e){}
 }
 // archivar el descargo actual en el historial (al limpiar o empezar otro)
 function archivarDescargo(){
@@ -2461,13 +2541,13 @@ function tarjetaCandidato(c){
     return (tmp.textContent||'').split('\n').map(s=>s.trim()).filter(Boolean);
   }
   const acc=document.createElement('div');acc.className='voz-frase-acc';
-  const bMateria=document.createElement('button');bMateria.className='voz-frase-btn alt';bMateria.textContent='★ guardar';
+  const bMateria=document.createElement('button');bMateria.className='voz-frase-btn alt';bMateria.textContent='★ Materia prima';
   bMateria.onclick=()=>{
     const ls=lineasDe();if(!ls.length)return;
     // las líneas se guardan como UNA sola sección (verso multi-línea), unidas por salto
     guardarEnMateria(ls.join('\n'));
     bMateria.textContent='✓ guardado';bMateria.classList.add('enviado');
-    setTimeout(()=>{bMateria.textContent='★ guardar';bMateria.classList.remove('enviado');},1200);
+    setTimeout(()=>{bMateria.textContent='★ Materia prima';bMateria.classList.remove('enviado');},1200);
   };
   const bCancion=document.createElement('button');bCancion.className='voz-frase-btn';bCancion.textContent='→ Canción';
   bCancion.onclick=()=>{
@@ -2481,10 +2561,166 @@ function tarjetaCandidato(c){
   return card;
 }
 document.getElementById('voz-sacar-versos').onclick=extraerVersos;
+
+// ============ EL DADO: escenas con conflicto para improvisar ============
+const ESCENAS=[
+  // amor / desamor
+  "Estás en el casamiento de tu ex. Te tocó dar un discurso.",
+  "Le mentís a alguien que te ama, y se nota.",
+  "Es la última noche juntos y los dos hacen como que no lo saben.",
+  "Volvés a buscar algo a la casa de quien ya no te quiere.",
+  "Te enamoraste de la persona equivocada y no podés decirlo.",
+  "Le escribís un mensaje que sabés que no vas a mandar.",
+  "Te cruzás con un viejo amor y los dos están con otra persona.",
+  "Quien te dejó vuelve a buscarte, justo ahora que estabas bien.",
+  "Estás esperando una respuesta que ya sabés que no va a llegar.",
+  "Te das cuenta de que ya no lo querés mientras te abraza.",
+  "Le pedís perdón a alguien que ya no está para escucharte.",
+  "Encontraste una caja con cartas que no eran para vos.",
+  // familia
+  "Volvés a tu casa de la infancia y ya la habitaron otros.",
+  "Tu viejo te cuenta un secreto que cambia todo lo que creías.",
+  "Tenés que avisarle a alguien que no va a volver a verlo.",
+  "Estás ordenando las cosas de alguien que murió.",
+  "Tu hijo te pregunta algo que no sabés cómo responder.",
+  "Cuidás a quien te cuidó, y ya no te reconoce.",
+  "Llamás a tu casa y atiende una voz que no esperabas.",
+  "Vas a un lugar que tu familia evitaba nombrar.",
+  // pérdida / nostalgia
+  "Encontraste una foto tuya de hace veinte años.",
+  "Volvés a un lugar y ya no es como lo recordabas.",
+  "Escuchás una canción que te devuelve a alguien que ya no está.",
+  "Guardaste algo durante años y hoy decidís tirarlo.",
+  "Pasás por la puerta de un lugar que ya cerró.",
+  "Te despertás y por un segundo olvidaste que ya no están.",
+  "Encontrás un mensaje viejo de alguien que se fue.",
+  // deseo / tensión
+  "Hay alguien al otro lado de la habitación y no te animás.",
+  "Sabés que está mal y lo vas a hacer igual.",
+  "Te quedás callado cuando deberías haber dicho algo.",
+  "Compartís un secreto con un desconocido en un viaje de noche.",
+  "Hay una sola cosa que querés y no podés pedirla.",
+  // bronca / conflicto
+  "Tenés que sonreír en una mesa donde te traicionaron.",
+  "Alguien te debe una explicación y no te la va a dar.",
+  "Aguantás un insulto porque no es el momento de responder.",
+  "Te enteraste de algo y tenés que decidir si lo decís.",
+  "Mirás a quien te falló y te das cuenta de que ya no te importa.",
+  "Defendés a alguien que no haría lo mismo por vos.",
+  // existencial / soledad
+  "Es tu cumpleaños y nadie se acordó.",
+  "Estás en una ciudad donde no conocés a nadie.",
+  "Te das cuenta de que hace días que no hablás con nadie.",
+  "Mirás tu vida desde afuera, como si fuera de otro.",
+  "Tenés que empezar de cero y no sabés por dónde.",
+  "Llegaste a donde querías y no sentís nada.",
+  "Es de madrugada y no podés dormir pensando en una sola cosa.",
+  // decisiones / encrucijada
+  "Tenés que elegir entre quedarte o irte, hoy.",
+  "Está todo listo para que te vayas y no arrancás.",
+  "Te ofrecen lo que siempre quisiste, pero hay una trampa.",
+  "Podés volver atrás o seguir, y la puerta se cierra en un minuto.",
+  // cuerpo / tiempo
+  "Te mirás al espejo y no reconocés del todo a quien ves.",
+  "El médico tarda en hablar y vos ya entendiste.",
+  "Tu cuerpo ya no hace algo que antes hacías sin pensar.",
+  // encuentro / desconocidos
+  "Un desconocido te dice algo que necesitabas escuchar.",
+  "Compartís paraguas con alguien que no vas a volver a ver.",
+  "Alguien te confunde con otra persona y le seguís el juego.",
+  "En la sala de espera, alguien rompe en llanto al lado tuyo.",
+  // culpa / confesión
+  "Cargás con algo que nunca le contaste a nadie.",
+  "Tenés que confesar algo que va a doler.",
+  "Hiciste algo de lo que no estás orgulloso y hoy te lo cruzás.",
+];
+let ultimaEscena=-1;
+document.getElementById('dado-btn').onclick=()=>{
+  let i;
+  do{i=Math.floor(Math.random()*ESCENAS.length);}while(i===ultimaEscena&&ESCENAS.length>1);
+  ultimaEscena=i;
+  const cont=document.getElementById('dado-escena');
+  cont.textContent=ESCENAS[i];
+  cont.style.display='block';
+  if(navigator.vibrate)navigator.vibrate(15);
+};
 document.getElementById('btn-exportar').onclick=exportarTodo;
 document.getElementById('btn-importar').onclick=()=>document.getElementById('file-importar').click();
 document.getElementById('file-importar').onchange=(e)=>{if(e.target.files[0])importarTodo(e.target.files[0]);e.target.value='';};
 
+
+// ---- BARRA DE PROYECTO ----
+function renderBarraProyecto(){
+  const nom=document.getElementById('proyecto-nombre');
+  if(nom)nom.textContent=nombreProyectoActivo();
+}
+function renderListaProyectos(){
+  const cont=document.getElementById('proyecto-lista');if(!cont)return;
+  cont.innerHTML='';
+  PROYECTOS.lista.forEach(p=>{
+    const fila=document.createElement('div');fila.className='proyecto-item'+(p.id===proyectoActivo?' activo':'');
+    const nom=document.createElement('button');nom.className='proyecto-item-nom';nom.textContent=p.nombre;
+    nom.onclick=()=>{if(p.id!==proyectoActivo)cambiarA(p.id);cerrarPanelProyecto();};
+    fila.appendChild(nom);
+    // renombrar (lápiz)
+    const edit=document.createElement('button');edit.className='proyecto-item-edit';edit.textContent='✎';edit.title='renombrar';
+    edit.onclick=(e)=>{e.stopPropagation();pedirNombre('Renombrar canción',p.nombre,(nuevo)=>{p.nombre=nuevo;guardarProyectos();renderBarraProyecto();renderListaProyectos();});};
+    fila.appendChild(edit);
+    if(PROYECTOS.lista.length>1){
+      const del=document.createElement('button');del.className='proyecto-item-del';del.textContent='✕';
+      del.onclick=(e)=>{e.stopPropagation();pedirConfirmacion('¿Borrar "'+p.nombre+'"? Se pierde su escena, materia prima y canción.',()=>{borrarProyecto(p.id);renderListaProyectos();});};
+      fila.appendChild(del);
+    }
+    cont.appendChild(fila);
+  });
+}
+function abrirPanelProyecto(){renderListaProyectos();document.getElementById('proyecto-panel').style.display='block';}
+function cerrarPanelProyecto(){document.getElementById('proyecto-panel').style.display='none';}
+document.getElementById('proyecto-actual').onclick=()=>{
+  const panel=document.getElementById('proyecto-panel');
+  if(panel.style.display==='none')abrirPanelProyecto();else cerrarPanelProyecto();
+};
+// ---- MODAL para nombrar (prompt no anda en PWA iOS) ----
+let modalCallback=null;
+function pedirNombre(titulo,valorInicial,callback){
+  document.getElementById('modal-titulo').textContent=titulo;
+  const inp=document.getElementById('modal-input');
+  inp.value=valorInicial||'';
+  modalCallback=callback;
+  document.getElementById('modal-fondo').style.display='flex';
+  setTimeout(()=>{inp.focus();inp.select();},50);
+}
+function cerrarModal(){document.getElementById('modal-fondo').style.display='none';modalCallback=null;}
+// confirmación con el mismo modal (oculta el input)
+function pedirConfirmacion(mensaje,callback){
+  document.getElementById('modal-titulo').textContent=mensaje;
+  const inp=document.getElementById('modal-input');inp.style.display='none';
+  modalCallback=()=>{inp.style.display='';callback();};
+  document.getElementById('modal-fondo').style.display='flex';
+}
+document.getElementById('modal-ok').onclick=()=>{
+  const inp=document.getElementById('modal-input');
+  if(inp.style.display==='none'){ // modo confirmación
+    if(modalCallback)modalCallback();
+    cerrarModal();return;
+  }
+  const v=inp.value.trim();
+  if(v&&modalCallback)modalCallback(v);
+  cerrarModal();
+};
+document.getElementById('modal-cancelar').onclick=()=>{document.getElementById('modal-input').style.display='';cerrarModal();};
+document.getElementById('modal-input').addEventListener('keydown',(e)=>{if(e.key==='Enter'){e.preventDefault();document.getElementById('modal-ok').click();}});
+document.getElementById('modal-fondo').addEventListener('click',(e)=>{if(e.target.id==='modal-fondo')cerrarModal();});
+
+// doble toque en el nombre = renombrar
+document.getElementById('proyecto-actual').addEventListener('dblclick',(e)=>{
+  e.preventDefault();
+  pedirNombre('Nombre de la canción',nombreProyectoActivo(),(nuevo)=>renombrarProyecto(nuevo));
+});
+document.getElementById('proyecto-nueva').onclick=()=>{
+  pedirNombre('Nueva canción','',(nombre)=>{crearProyecto(nombre);cerrarPanelProyecto();});
+};
+renderBarraProyecto();
 
 document.querySelectorAll('.menu-item').forEach(btn=>{
   btn.onclick=()=>{
@@ -2493,7 +2729,8 @@ document.querySelectorAll('.menu-item').forEach(btn=>{
     document.querySelectorAll('.vista').forEach(v=>v.classList.remove('activa'));
     document.getElementById('vista-'+vista).classList.add('activa');
     if(vista!=='voz'&&typeof pararGrabacion==='function')pararGrabacion();
-    if(vista==='powerwords'){renderPowerWords();renderMateria();}
+    if(vista==='powerwords')renderMateria();
+    if(vista==='palabrario')renderPowerWords();
     // al entrar a Canción, re-dimensionar el campo (estaba oculto y el alto se calculaba mal)
     if(vista==='analizador'){requestAnimationFrame(()=>{try{autosize();}catch(_){}});}
     document.getElementById('nav-secciones').style.display=(vista==='analizador')?'flex':'none';
