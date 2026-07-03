@@ -448,12 +448,13 @@
 </head>
 <body class="show-rima show-acentos show-sinalefas show-figuras show-metrica show-silabas">
 <div class="wrap">
-  <!-- barra de proyecto: la canción en la que estás trabajando -->
+  <!-- barra mínima: canción actual + acceso al palabrario -->
   <div class="proyecto-barra" id="proyecto-barra">
     <button class="proyecto-actual" id="proyecto-actual">
       <span class="proyecto-nombre" id="proyecto-nombre">—</span>
       <span class="proyecto-chevron">⌄</span>
     </button>
+    <button class="barra-icono" id="btn-palabrario" title="Palabrario">✦</button>
   </div>
   <!-- panel desplegable de canciones -->
   <div class="proyecto-panel" id="proyecto-panel" style="display:none;">
@@ -473,20 +474,28 @@
     </div>
   </div>
 
-  <nav class="menu" id="menu">
-    <button class="menu-item active" data-vista="voz">Escena</button>
-    <button class="menu-item" data-vista="powerwords">Materia prima</button>
-    <button class="menu-item" data-vista="palabrario">Palabrario</button>
-    <button class="menu-item" data-vista="analizador">Canción</button>
-  </nav>
+  <!-- panel del palabrario (se despliega sobre el análisis) -->
+  <div class="panel-flotante" id="panel-palabrario" style="display:none;">
+    <div class="panel-flotante-head">
+      <span class="panel-flotante-titulo">Palabrario</span>
+      <button class="panel-flotante-cerrar" id="cerrar-palabrario">✕</button>
+    </div>
+    <div class="panel-flotante-sub">tus palabras de siempre · están en todas tus canciones</div>
+    <div id="powerwords"></div>
+    <div class="hint" id="pw-vacio-hint">
+      Todavía no marcaste ninguna palabra. Tocá dos veces una palabra en la letra para sumarla acá.
+    </div>
+    <div class="mat-paso-label" style="margin-top:1.5rem;">respaldo</div>
+    <div class="mat-respaldo">
+      <button id="btn-exportar" class="voz-btn-extraer">↓ Exportar mi trabajo</button>
+      <button id="btn-importar" class="voz-btn-limpiar">↑ Importar</button>
+      <input type="file" id="file-importar" accept="application/json,.json" style="display:none;">
+    </div>
+    <div class="mat-respaldo-hint">Tu trabajo se guarda solo en este teléfono. Exportá de vez en cuando para tener un respaldo aparte.</div>
+  </div>
 
-  <!-- VISTA: ANALIZADOR -->
-  <section id="vista-analizador" class="vista">
-    <header>
-      <h1>Canción</h1>
-      <div class="sub">métrica · rima · acentos · tu letra en construcción</div>
-    </header>
-
+  <!-- VISTA: ANALIZADOR (protagonista) -->
+  <section id="vista-analizador" class="vista activa">
     <div class="toggles" id="toggles"></div>
 
     <div class="legend" id="legend"></div>
@@ -515,91 +524,6 @@
     </div>
   </section>
 
-  <!-- VISTA: POWER WORDS -->
-  <section id="vista-powerwords" class="vista">
-    <header>
-      <h1>Materia prima</h1>
-      <div class="sub">tus frases pescadas en esta canción</div>
-    </header>
-
-    <div class="mat-paso-label">frases guardadas</div>
-    <div id="materia-frases"></div>
-    <div class="hint" id="mat-frases-vacio">
-      Todavía no guardaste frases. En la <b>Escena</b>, sacá versos y tocá <b>★ Materia prima</b> para juntarlos acá.
-    </div>
-
-    <div class="mat-paso-label" style="margin-top:2rem;">respaldo</div>
-    <div class="mat-respaldo">
-      <button id="btn-exportar" class="voz-btn-extraer">↓ Exportar mi trabajo</button>
-      <button id="btn-importar" class="voz-btn-limpiar">↑ Importar</button>
-      <input type="file" id="file-importar" accept="application/json,.json" style="display:none;">
-    </div>
-    <div class="mat-respaldo-hint">Tu trabajo se guarda solo en este teléfono. Exportá de vez en cuando para tener un respaldo aparte (en Archivos, Drive, o donde quieras).</div>
-  </section>
-
-  <!-- VISTA: PALABRARIO (palabras transversales, comunes a todas las canciones) -->
-  <section id="vista-palabrario" class="vista">
-    <header>
-      <h1>Palabrario</h1>
-      <div class="sub">tus palabras de siempre · están en todas tus canciones</div>
-    </header>
-    <div id="powerwords"></div>
-    <div class="hint" id="pw-vacio-hint">
-      Todavía no marcaste ninguna palabra. En la <b>Escena</b> o la <b>Canción</b>, tocá dos veces una palabra para sumarla acá.
-    </div>
-  </section>
-
-  <!-- VISTA: VOZ (hablar -> texto -> extraer palabras) -->
-  <section id="vista-voz" class="vista activa">
-    <header>
-      <h1>Escena</h1>
-      <div class="sub">soltá todo en prosa · después pescá las frases que ya son canción</div>
-    </header>
-
-    <!-- zona del dado: una escena con conflicto para improvisar -->
-    <div class="dado-zona">
-      <div class="dado-invita">¿No sabés sobre qué escribir? Dejá que el dado te tire una escena.</div>
-      <button id="dado-btn" class="dado-btn" title="Escena aleatoria">⚄ Escena aleatoria</button>
-      <div id="dado-escena" class="dado-escena" style="display:none;"></div>
-    </div>
-
-    <!-- CAMPO ÚNICO: improvisación en prosa, se colorea al salir -->
-    <div class="voz-paso-label">tu improvisación</div>
-    <div id="voz-campo1" class="voz-campo">
-      <textarea id="voz-texto" spellcheck="false" rows="5" placeholder="Improvisá la escena que se te ocurra…"></textarea>
-      <div id="voz-texto-vista" class="voz-vista" style="display:none;"></div>
-    </div>
-    <div id="voz-pesca-hint" class="voz-pesca-hint" style="display:none;">Tocá la primera y la última palabra de una frase para pescarla → va a Materia prima.</div>
-    <div class="voz-acciones">
-      <button id="voz-sacar-versos" class="voz-btn-extraer">Sacar versos ↓</button>
-      <button id="voz-editar" class="voz-btn-limpiar">Editar</button>
-      <button id="voz-limpiar" class="voz-btn-limpiar">Limpiar</button>
-    </div>
-
-    <!-- versos candidatos extraídos de la prosa -->
-    <div id="voz-candidatos-bloque" class="voz-frases-bloque" style="display:none;">
-      <div class="voz-paso-label">versos que ya están en tu prosa</div>
-      <div id="voz-candidatos"></div>
-    </div>
-
-    <!-- palabras desarmadas por categoría gramatical -->
-    <div id="voz-palabras-bloque" class="voz-frases-bloque" style="display:none;">
-      <div class="voz-paso-label">tus palabras, desarmadas</div>
-      <div id="voz-palabras"></div>
-    </div>
-
-    <!-- frases rescatadas -->
-    <div id="voz-frases-bloque" class="voz-frases-bloque" style="display:none;">
-      <div class="voz-paso-label">frases pescadas</div>
-      <div id="voz-frases"></div>
-    </div>
-
-    <!-- historial de descargos: todo tu flujo de trabajo, no se pierde -->
-    <div id="descargos-hist-bloque" class="voz-frases-bloque" style="display:none;margin-top:2rem;">
-      <div class="voz-paso-label">descargos anteriores</div>
-      <div id="descargos-hist"></div>
-    </div>
-  </section>
 
 </div>
 <script>
@@ -862,21 +786,14 @@ function crearProyecto(nombre){
 }
 function cambiarA(id){
   // guardar el estado actual antes de cambiar
-  try{guardarLetra();guardarDescargoActual();}catch(e){}
+  try{guardarLetra();}catch(e){}
   proyectoActivo=id;PROYECTOS.activo=id;guardarProyectos();
-  // recargar todo lo de la canción nueva
-  materiaFrases=cargarMateria();
-  descargosHistorial=cargarDescargos();
+  // recargar la letra de la canción nueva
   document.getElementById('input').value='';
   rhythmicOverrides={};cesuraOverrides={};brokenSinalefas=new Set();forcedSinalefas=new Set();
   cargarLetra();
-  document.getElementById('voz-texto').value='';
-  cargarDescargoActual();
-  try{if(campoDescargo){if(document.getElementById('voz-texto').value.trim())campoDescargo.salirEdicion();else campoDescargo.entrarEdicion();}}catch(e){}
-  renderMateria();renderDescargosHist();analyze();
+  analyze();
   renderBarraProyecto();
-  // limpiar candidatos/frases de la sesión anterior
-  ['voz-candidatos-bloque','voz-palabras-bloque','voz-frases-bloque'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none';});
 }
 function renombrarProyecto(nombre){
   const p=PROYECTOS.lista.find(x=>x.id===proyectoActivo);
@@ -894,53 +811,9 @@ function borrarProyecto(id){
 
 // Power words: catálogo personal del usuario. Persiste en localStorage.
 let powerWords=cargarPowerWords();
-// Materia prima: frases guardadas (con favoritas marcadas). Persiste POR CANCIÓN.
-let materiaFrases=cargarMateria(); // [{texto, fav}]
-function cargarMateria(){
-  try{const raw=localStorage.getItem(claveCancion('materiaFrases'));if(raw)return JSON.parse(raw);}catch(e){}
-  return [];
-}
-function guardarMateria(){
-  try{localStorage.setItem(claveCancion('materiaFrases'),JSON.stringify(materiaFrases));}catch(e){}
-}
-function guardarEnMateria(texto){
-  texto=texto.trim();if(!texto)return;
-  if(!materiaFrases.some(f=>f.texto===texto)){materiaFrases.unshift({texto,fav:false});guardarMateria();renderMateria();}
-}
-function renderMateria(){
-  const cont=document.getElementById('materia-frases');
-  const vacio=document.getElementById('mat-frases-vacio');
-  if(!cont)return;
-  cont.innerHTML='';
-  if(!materiaFrases.length){if(vacio)vacio.style.display='block';return;}
-  if(vacio)vacio.style.display='none';
-  // favoritas primero
-  const ordenadas=[...materiaFrases].sort((a,b)=>(b.fav?1:0)-(a.fav?1:0));
-  ordenadas.forEach(f=>{
-    const card=document.createElement('div');card.className='mat-frase-card'+(f.fav?' fav':'');
-    const estrella=document.createElement('button');estrella.className='mat-estrella'+(f.fav?' on':'');
-    estrella.textContent=f.fav?'★':'☆';estrella.title='favorita';
-    estrella.onclick=()=>{f.fav=!f.fav;guardarMateria();renderMateria();};
-    const txt=document.createElement('div');txt.className='mat-frase-texto';txt.textContent=f.texto;
-    txt.contentEditable='true';txt.spellcheck=false;
-    // al editar, guardar el texto nuevo (respetando saltos de línea = varios versos)
-    txt.addEventListener('blur',()=>{
-      const html=txt.innerHTML.replace(/<div>/gi,'\n').replace(/<br\s*\/?>/gi,'\n').replace(/<\/div>/gi,'');
-      const tmp=document.createElement('div');tmp.innerHTML=html;
-      const nuevo=(tmp.textContent||'').split('\n').map(s=>s.trim()).filter(Boolean).join('\n');
-      if(nuevo&&nuevo!==f.texto){f.texto=nuevo;guardarMateria();}
-      else if(!nuevo){txt.textContent=f.texto;}
-    });
-    const acc=document.createElement('div');acc.className='mat-frase-acc';
-    const bCancion=document.createElement('button');bCancion.className='voz-frase-btn';bCancion.textContent='→ Canción';
-    bCancion.onclick=()=>{agregarFraseAlAnalizador(f.texto);bCancion.textContent='✓ enviada';bCancion.classList.add('enviado');setTimeout(()=>{bCancion.textContent='→ Canción';bCancion.classList.remove('enviado');},1200);};
-    const bDel=document.createElement('button');bDel.className='voz-frase-btn del';bDel.textContent='✕';
-    bDel.onclick=()=>{materiaFrases=materiaFrases.filter(x=>x!==f);guardarMateria();renderMateria();};
-    acc.appendChild(bCancion);acc.appendChild(bDel);
-    card.appendChild(estrella);card.appendChild(txt);card.appendChild(acc);
-    cont.appendChild(card);
-  });
-}
+// (Materia prima se removió: ahora la pesca de versos se hace en tu GPT externo.)
+let materiaFrases=[];
+function renderMateria(){}
 // Correcciones manuales de categoría gramatical (palabra -> categoría). Persiste.
 let correccionesPOS=cargarCorrecciones();
 function cargarCorrecciones(){
@@ -983,10 +856,9 @@ function cargarLetra(){
 // EXPORTAR: baja un archivo con TODO el trabajo
 function exportarTodo(){
   const data={
-    version:1, fecha:new Date().toISOString(),
+    version:2, fecha:new Date().toISOString(),
     cancion:JSON.parse(localStorage.getItem(claveCancion('cancionEstado'))||'null'),
-    materiaFrases, powerWords:[...powerWords], correccionesPOS,
-    descargoActual:localStorage.getItem(claveCancion('descargoActual'))||'', descargosHistorial,
+    powerWords:[...powerWords], correccionesPOS,
   };
   const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
   const url=URL.createObjectURL(blob);
@@ -1003,14 +875,11 @@ function importarTodo(file){
     try{
       const data=JSON.parse(reader.result);
       if(data.cancion)localStorage.setItem(claveCancion('cancionEstado'),JSON.stringify(data.cancion));
-      if(data.materiaFrases){materiaFrases=data.materiaFrases;guardarMateria();}
       if(data.powerWords){powerWords=new Set(data.powerWords);guardarPowerWords();}
       if(data.correccionesPOS){correccionesPOS=data.correccionesPOS;guardarCorrecciones();}
-      if(data.descargoActual!==undefined){localStorage.setItem(claveCancion('descargoActual'),data.descargoActual);cargarDescargoActual();}
-      if(data.descargosHistorial){descargosHistorial=data.descargosHistorial;guardarDescargosHist();renderDescargosHist();}
       cargarLetra();
       if(typeof analyze==='function')analyze();
-      renderPowerWords();renderMateria();
+      renderPowerWords();
       alert('Trabajo importado. Todo cargado.');
     }catch(e){alert('No pude leer el archivo. ¿Es un export de esta app?');}
   };
@@ -2165,485 +2034,7 @@ function moldeDeVerso(texto){
   return {golpes:fused,silabas:fused.length+adjust,adjust};
 }
 
-// ============ MODO ESCENA (improvisar -> texto -> extraer palabras) ============
-const vozTexto=document.getElementById('voz-texto');
-const vozEstado=document.getElementById('voz-estado');
 
-// ============ COLOREO LIVIANO (reusable para los dos campos de Voz) ============
-// Agrupa las palabras del texto que riman entre sí (union-find) y devuelve un mapa
-// "linea-token" -> color. Reusa rhymeKeys y colorDeGrupo del motor.
-function mapaColorRima(lineas){
-  const palabras=[]; // {li, ti, cons, fam, aso}
-  lineas.forEach((linea,li)=>{
-    const toks=linea.match(/[a-záéíóúüñ]+/gi)||[];
-    toks.forEach((tok,ti)=>{
-      const core=tok.toLowerCase();
-      if(core.length<2||ATONAS.has(core))return;
-      const k=rhymeKeys(core);
-      if(k)palabras.push({li,ti,cons:k.cons,fam:k.fam,aso:k.aso});
-    });
-  });
-  const parent=palabras.map((_,i)=>i);
-  const find=x=>{while(parent[x]!==x){parent[x]=parent[parent[x]];x=parent[x];}return x;};
-  const union=(a,b)=>{const ra=find(a),rb=find(b);if(ra!==rb)parent[ra]=rb;};
-  const nivel=(p,q)=>{
-    if(p.cons&&p.cons===q.cons)return 3;
-    if(p.fam&&p.fam===q.fam)return 2;
-    if(p.aso&&p.aso===q.aso)return 1;
-    return 0;
-  };
-  for(let i=0;i<palabras.length;i++)
-    for(let j=i+1;j<palabras.length;j++)
-      if(nivel(palabras[i],palabras[j])>0)union(i,j);
-  const tam={};palabras.forEach((_,i)=>{const r=find(i);tam[r]=(tam[r]||0)+1;});
-  const colorRaiz={};let ci=0;
-  palabras.forEach((_,i)=>{const r=find(i);if(tam[r]>=2&&!(r in colorRaiz))colorRaiz[r]=colorDeGrupo(ci++);});
-  const mapa={};
-  palabras.forEach((p,i)=>{const r=find(i);if(colorRaiz[r])mapa[p.li+'-'+p.ti]=colorRaiz[r];});
-  return mapa;
-}
-// renderiza el texto coloreado. En modo "pesca", tocar dos palabras pesca la frase entre ellas.
-let pescaInicio=null; // {wordIdx, span}
-function renderColoreoLiviano(texto, cont, conMetrica, pesca){
-  cont.innerHTML='';
-  pescaInicio=null;
-  const lineas=texto.split('\n');
-  const mapa=mapaColorRima(lineas);
-  // recolectar todas las palabras en orden con su posición, para poder extraer rangos
-  const todasW=[]; // {texto, li, ti}
-  lineas.forEach((linea,li)=>{
-    let ti=0;
-    (linea.split(/([a-záéíóúüñ]+)/gi)).forEach(p=>{if(/^[a-záéíóúüñ]+$/i.test(p)){todasW.push({texto:p,li,ti});ti++;}});
-  });
-  let wordIdx=0; // índice global de palabra
-  // crear la palabra tocable (común a párrafo y a líneas)
-  function crearPalabra(parte, li, ti){
-    const sp=document.createElement('span');sp.className='voz-w';sp.textContent=parte;
-    // en modo pesca (descargo) NO se colorean rimas: prosa limpia. El color vive en el Analizador.
-    if(!pesca){const col=mapa[li+'-'+ti];if(col){sp.style.color=col;sp.classList.add('voz-w-rima');}}
-    const lower=parte.toLowerCase();
-    if(powerWords.has(lower))sp.classList.add('pw-on');
-    const miIdx=wordIdx;
-    if(pesca){
-      sp.dataset.idx=miIdx;
-      let clickTimer=null;
-      sp.onclick=(e)=>{e.stopPropagation();
-        if(clickTimer){clearTimeout(clickTimer);clickTimer=null;
-          if(powerWords.has(lower))powerWords.delete(lower);else powerWords.add(lower);
-          sp.classList.toggle('pw-on');guardarPowerWords();renderPowerWords();
-          if(navigator.vibrate)navigator.vibrate(15);
-          if(pescaInicio&&pescaInicio.span===sp){pescaInicio=null;sp.classList.remove('pesca-ini');}
-          return;
-        }
-        clickTimer=setTimeout(()=>{clickTimer=null;marcarPesca(miIdx, sp, todasW, cont);},230);
-      };
-    }
-    wordIdx++;
-    return sp;
-  }
-  if(pesca){
-    // DESCARGO: un párrafo corrido, se lee como prosa. Los saltos de línea son espacios.
-    const par=document.createElement('div');par.className='voz-parrafo';
-    lineas.forEach((linea,li)=>{
-      let ti=0;
-      const partes=linea.split(/([a-záéíóúüñ]+)/gi);
-      partes.forEach(parte=>{
-        if(/^[a-záéíóúüñ]+$/i.test(parte)){par.appendChild(crearPalabra(parte,li,ti));ti++;}
-        else if(parte)par.appendChild(document.createTextNode(parte));
-      });
-      // un espacio entre líneas (en vez de salto) para que fluya como prosa
-      if(li<lineas.length-1)par.appendChild(document.createTextNode(' '));
-    });
-    cont.appendChild(par);
-    return;
-  }
-  // (modo líneas con métrica, para otros usos)
-  lineas.forEach((linea,li)=>{
-    const row=document.createElement('div');row.className='voz-linea';
-    const cuerpo=document.createElement('div');cuerpo.className='voz-linea-texto';
-    if(!linea.trim()){
-      cuerpo.innerHTML='&nbsp;';row.appendChild(cuerpo);cont.appendChild(row);return;
-    }
-    let ti=0;
-    const partes=linea.split(/([a-záéíóúüñ]+)/gi);
-    partes.forEach(parte=>{
-      if(/^[a-záéíóúüñ]+$/i.test(parte)){cuerpo.appendChild(crearPalabra(parte,li,ti));ti++;}
-      else if(parte)cuerpo.appendChild(document.createTextNode(parte));
-    });
-    row.appendChild(cuerpo);
-    if(conMetrica){
-      const m=moldeDeVerso(linea);
-      const meta=document.createElement('div');meta.className='voz-linea-meta';
-      meta.textContent=m.silabas;row.appendChild(meta);
-    }
-    cont.appendChild(row);
-  });
-}
-// marcar inicio/fin de una frase a pescar
-function marcarPesca(idx, span, todasW, cont){
-  if(pescaInicio===null){
-    // limpiar marcas previas
-    cont.querySelectorAll('.pesca-ini,.pesca-sel').forEach(e=>e.classList.remove('pesca-ini','pesca-sel'));
-    pescaInicio={idx,span};
-    span.classList.add('pesca-ini');
-  } else {
-    let a=pescaInicio.idx, b=idx;
-    if(a>b){const t=a;a=b;b=t;}
-    // armar la frase con las palabras entre a y b (inclusive), respetando texto original
-    const frase=todasW.slice(a,b+1).map(w=>w.texto).join(' ');
-    // resaltar el rango
-    cont.querySelectorAll('.voz-w').forEach(sp=>{
-      const i=Number(sp.dataset.idx);
-      if(i>=a&&i<=b)sp.classList.add('pesca-sel');
-    });
-    if(frase.trim())guardarEnMateria(frase.trim());
-    pescaInicio=null;
-    setTimeout(()=>cont.querySelectorAll('.pesca-ini,.pesca-sel').forEach(e=>e.classList.remove('pesca-ini','pesca-sel')),600);
-  }
-}
-// mandar una frase pescada al ANALIZADOR real (sin duplicar el motor)
-function agregarFraseAlAnalizador(frase){
-  const inp=document.getElementById('input');
-  const previo=inp.value;
-  inp.value=(previo.trim()?previo.replace(/\s*$/,'')+'\n':'')+frase;
-  // reconciliar marcas viejas->nuevas y reanalizar (mismo ciclo que salir de edición)
-  if(typeof reconciliarMarcas==='function'){try{reconciliarMarcas(previo,inp.value);}catch(_){}}
-  if(typeof analyze==='function')analyze();
-  // asegurar que el analizador quede en modo "vista" (no edición) para mostrar el análisis
-  if(typeof editando!=='undefined'&&editando&&typeof salirEdicion==='function'){try{salirEdicion();}catch(_){}}
-  // feedback + guardar también como frase pescada (tarjeta)
-  if(!frasesSemilla.includes(frase)){frasesSemilla.unshift(frase);renderFrasesSemilla();mostrarFrasesBloque();}
-  if(navigator.vibrate)navigator.vibrate(25);
-}
-
-// ---- gestión de un campo editable que se colorea al salir (patrón edición/vista) ----
-function setupCampoColoreable(taId, vistaId, conMetrica, onBlurExtra, pesca){
-  const ta=document.getElementById(taId);
-  const vista=document.getElementById(vistaId);
-  function autosize(){ta.style.height='auto';ta.style.height=Math.max(ta.scrollHeight,60)+'px';}
-  function entrarEdicion(){
-    vista.style.display='none';ta.style.display='block';autosize();
-    document.getElementById('voz-pesca-hint').style.display='none';
-  }
-  function salirEdicion(){
-    if(!ta.value.trim()){vista.style.display='none';ta.style.display='block';autosize();return;}
-    renderColoreoLiviano(ta.value,vista,conMetrica,pesca);
-    ta.style.display='none';vista.style.display='block';
-    if(onBlurExtra)onBlurExtra();
-  }
-  ta.addEventListener('input',autosize);
-  ta.addEventListener('blur',salirEdicion);
-  // si es modo pesca, tocar la vista NO entra en edición (se usa el botón Editar);
-  // así tocar palabras pesca frases sin abrir el teclado.
-  if(!pesca)vista.addEventListener('click',entrarEdicion);
-  autosize();
-  return {entrarEdicion,salirEdicion,ta,vista};
-}
-const campoDescargo=setupCampoColoreable('voz-texto','voz-texto-vista',false,()=>{mostrarFrasesBloque();document.getElementById('voz-pesca-hint').style.display='block';guardarDescargoActual();},true);
-
-// ---- AUTO-GUARDADO DEL DESCARGO + HISTORIAL ----
-// El descargo actual se guarda solo; los descargos viejos quedan en un historial.
-let descargosHistorial=cargarDescargos();
-function cargarDescargos(){
-  try{const raw=localStorage.getItem(claveCancion('descargosHistorial'));if(raw)return JSON.parse(raw);}catch(e){}
-  return [];
-}
-function guardarDescargosHist(){
-  try{localStorage.setItem(claveCancion('descargosHistorial'),JSON.stringify(descargosHistorial));}catch(e){}
-}
-function guardarDescargoActual(){
-  try{localStorage.setItem(claveCancion('descargoActual'),document.getElementById('voz-texto').value);}catch(e){}
-}
-function cargarDescargoActual(){
-  try{const t=localStorage.getItem(claveCancion('descargoActual'));if(t)document.getElementById('voz-texto').value=t;}catch(e){}
-}
-// archivar el descargo actual en el historial (al limpiar o empezar otro)
-function archivarDescargo(){
-  const t=document.getElementById('voz-texto').value.trim();
-  if(!t)return;
-  if(!descargosHistorial.some(d=>d.texto===t)){
-    descargosHistorial.unshift({texto:t,fecha:new Date().toISOString()});
-    guardarDescargosHist();renderDescargosHist();
-  }
-}
-function renderDescargosHist(){
-  const cont=document.getElementById('descargos-hist');
-  const bloque=document.getElementById('descargos-hist-bloque');
-  if(!cont)return;
-  if(!descargosHistorial.length){if(bloque)bloque.style.display='none';return;}
-  if(bloque)bloque.style.display='block';
-  cont.innerHTML='';
-  descargosHistorial.forEach((d,i)=>{
-    const card=document.createElement('div');card.className='desc-hist-card';
-    const fecha=new Date(d.fecha);
-    const f=fecha.toLocaleDateString('es-AR',{day:'2-digit',month:'short'})+' '+fecha.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});
-    const meta=document.createElement('div');meta.className='desc-hist-meta';meta.textContent=f;
-    const txt=document.createElement('div');txt.className='desc-hist-texto';txt.textContent=d.texto.length>140?d.texto.slice(0,140)+'…':d.texto;
-    const acc=document.createElement('div');acc.className='desc-hist-acc';
-    const bAbrir=document.createElement('button');bAbrir.className='voz-frase-btn';bAbrir.textContent='abrir';
-    bAbrir.onclick=()=>{
-      archivarDescargo();
-      document.getElementById('voz-texto').value=d.texto;
-      campoDescargo.entrarEdicion();guardarDescargoActual();
-      window.scrollTo({top:0,behavior:'smooth'});
-    };
-    const bDel=document.createElement('button');bDel.className='voz-frase-btn del';bDel.textContent='✕';
-    bDel.onclick=()=>{descargosHistorial.splice(i,1);guardarDescargosHist();renderDescargosHist();};
-    acc.appendChild(bAbrir);acc.appendChild(bDel);
-    card.appendChild(meta);card.appendChild(txt);card.appendChild(acc);
-    cont.appendChild(card);
-  });
-}
-
-document.getElementById('voz-limpiar').onclick=()=>{
-  archivarDescargo();
-  campoDescargo.ta.value='';campoDescargo.entrarEdicion();guardarDescargoActual();
-  vozEstado.textContent='';frasesSemilla=[];renderFrasesSemilla();mostrarFrasesBloque();
-};
-
-// ---- FRASES RESCATADAS ----
-let frasesSemilla=[];
-function mostrarFrasesBloque(){
-  document.getElementById('voz-frases-bloque').style.display=frasesSemilla.length?'block':'none';
-}
-// botón Editar: vuelve el descargo a modo edición
-document.getElementById('voz-texto').addEventListener('input',guardarDescargoActual);
-document.getElementById('voz-editar').onclick=()=>{campoDescargo.entrarEdicion();document.getElementById('voz-texto').focus();};
-function renderFrasesSemilla(){
-  const cont=document.getElementById('voz-frases');
-  cont.innerHTML='';
-  frasesSemilla.forEach((f,i)=>{
-    const m=moldeDeVerso(f);
-    const circulos=m.golpes.map(g=>`<span class="vm-circ${g?' f':''}">${g?'●':'○'}</span>`).join('');
-    const card=document.createElement('div');card.className='voz-frase-card';
-    card.innerHTML=`<div class="voz-frase-texto">${f}</div>
-      <div class="voz-frase-metrica">${circulos}<span class="verso-metrica-num">${m.silabas} síl.</span></div>`;
-    const acc=document.createElement('div');acc.className='voz-frase-acc';
-    const bAnal=document.createElement('button');bAnal.className='voz-frase-btn';bAnal.textContent='→ Analizador';
-    bAnal.onclick=()=>{agregarFraseAlAnalizador(f);document.querySelector('.menu-item[data-vista="analizador"]').click();};
-    const bDel=document.createElement('button');bDel.className='voz-frase-btn del';bDel.textContent='✕';
-    bDel.onclick=()=>{frasesSemilla.splice(i,1);renderFrasesSemilla();mostrarFrasesBloque();};
-    acc.appendChild(bAnal);acc.appendChild(bDel);
-    card.appendChild(acc);
-    cont.appendChild(card);
-  });
-}
-
-
-// ============ EXTRACTOR DE VERSOS (gramatical, sin IA) ============
-// Corta la prosa en tramos por pausas naturales, se queda con los que tienen forma de
-// verso (6-11 sílabas, cierre en palabra con peso) y prioriza los pares que riman.
-// palabras que en el habla marcan pausa natural (sin necesidad de coma)
-const PAUSA_PALABRAS=new Set(['y','e','o','u','ni','que','pero','mas','sino','aunque','porque','pues','cuando','donde','mientras','si','para','con','como','cómo','sin','desde','hasta','aunque','entonces','así','también','quisiera','quiero']);
-function silabasDe(texto){try{return moldeDeVerso(texto).silabas;}catch(_){return (texto.match(/[aeiouáéíóúü]/gi)||[]).length;}}
-function tramosDeProsa(texto){
-  // cortar por puntuación fuerte si la hay
-  const bloques=texto.replace(/\s+/g,' ').split(/[.;:!?\n]+/);
-  const tramos=[];
-  bloques.forEach(bloque=>{
-    const palabras=bloque.trim().split(' ').filter(Boolean);
-    let actual=[];
-    palabras.forEach(p=>{
-      const limpia=p.replace(/[,]/g,'');
-      const corteDespues=/,/.test(p);
-      const esPausa=PAUSA_PALABRAS.has(limpia.toLowerCase());
-      const silActual=actual.length?silabasDe(actual.join(' ')):0;
-      // cortar ANTES de una palabra-pausa si ya tenemos un tramo con largo de verso
-      if(esPausa&&silActual>=5){
-        tramos.push(actual.join(' '));actual=[limpia];
-      } else {
-        actual.push(limpia);
-        const sil=silabasDe(actual.join(' '));
-        // cortar después de coma con largo mínimo, o cuando el tramo ya es largo (límite hablado)
-        if((corteDespues&&sil>=5)||sil>=11){
-          tramos.push(actual.join(' '));actual=[];
-        }
-      }
-    });
-    if(actual.length)tramos.push(actual.join(' '));
-  });
-  return tramos.map(t=>t.trim()).filter(t=>t.split(' ').length>=2);
-}
-function ultimaPalabra(tramo){
-  const toks=tramo.match(/[a-záéíóúüñ]+/gi)||[];
-  return toks.length?toks[toks.length-1].toLowerCase():'';
-}
-function extraerVersos(){
-  const cont=document.getElementById('voz-candidatos');
-  const bloque=document.getElementById('voz-candidatos-bloque');
-  const texto=document.getElementById('voz-texto').value;
-  if(!texto.trim()){cont.innerHTML='<div class="voz-vacio-msg">Primero soltá algo en el descargo.</div>';bloque.style.display='block';return;}
-  const tramos=tramosDeProsa(texto);
-  // evaluar cada tramo: sílabas (6-11), cierre en palabra con peso
-  const cands=[];
-  tramos.forEach(t=>{
-    const m=moldeDeVerso(t);
-    if(m.silabas<4||m.silabas>14)return;
-    const ult=ultimaPalabra(t);
-    const pos=posTag(ult);
-    // descartar cierre en palabra función (sin peso)
-    if(!pos)return;
-    const k=rhymeKeys(ult);
-    cands.push({texto:t,silabas:m.silabas,golpes:m.golpes,ult,aso:k?k.aso:'',cons:k?k.cons:'',fam:k?k.fam:''});
-  });
-  if(!cands.length){cont.innerHTML='<div class="voz-vacio-msg">No encontré tramos con forma de verso. Probá hablar con frases un poco más largas y sensoriales.</div>';bloque.style.display='block';extraerPalabras(texto);return;}
-  // render en orden cronológico (como salieron en la prosa). La rima viene después.
-  cont.innerHTML='';
-  cands.forEach(c=>cont.appendChild(tarjetaCandidato(c)));
-  bloque.style.display='block';
-  extraerPalabras(texto);
-}
-// desarma la prosa en sus piezas: sustantivos, verbos, adjetivos, adverbios
-function extraerPalabras(texto){
-  const cont=document.getElementById('voz-palabras');
-  const bloque=document.getElementById('voz-palabras-bloque');
-  if(!cont)return;
-  const grupos={sus:new Set(),ver:new Set(),adj:new Set(),adv:new Set()};
-  (texto.match(/[a-záéíóúüñ]+/gi)||[]).forEach(w=>{
-    const pos=posTag(w);
-    if(pos&&grupos[pos])grupos[pos].add(w.toLowerCase());
-  });
-  const total=grupos.sus.size+grupos.ver.size+grupos.adj.size+grupos.adv.size;
-  if(!total){bloque.style.display='none';return;}
-  const NOMBRES={sus:'sustantivos',ver:'verbos',adj:'adjetivos',adv:'adverbios'};
-  cont.innerHTML='';
-  ['sus','ver','adj','adv'].forEach(k=>{
-    if(!grupos[k].size)return;
-    const sec=document.createElement('div');sec.className='vp-grupo';
-    const tit=document.createElement('div');tit.className='vp-titulo vp-'+k;tit.textContent=NOMBRES[k];
-    sec.appendChild(tit);
-    const lista=document.createElement('div');lista.className='vp-lista';
-    [...grupos[k]].forEach(w=>{
-      const chip=document.createElement('span');chip.className='vp-chip';chip.textContent=w;
-      // doble toque: sumar a power words
-      chip.onclick=()=>{
-        if(powerWords.has(w))powerWords.delete(w);else powerWords.add(w);
-        chip.classList.toggle('pw');guardarPowerWords();renderPowerWords();
-      };
-      if(powerWords.has(w))chip.classList.add('pw');
-      lista.appendChild(chip);
-    });
-    sec.appendChild(lista);cont.appendChild(sec);
-  });
-  bloque.style.display='block';
-}
-function tarjetaCandidato(c){
-  const card=document.createElement('div');card.className='voz-frase-card voz-cand-card';
-  // texto editable y multilínea: podés retocar el verso y partirlo en dos con Enter
-  const txt=document.createElement('div');txt.className='voz-frase-texto voz-cand-edit';
-  txt.contentEditable='true';txt.spellcheck=false;txt.textContent=c.texto;
-  card.appendChild(txt);
-  // extraer las líneas del texto editable (cada línea = un verso)
-  function lineasDe(){
-    // contentEditable usa <div>/<br> para saltos; normalizar a \n
-    const html=txt.innerHTML.replace(/<div>/gi,'\n').replace(/<br\s*\/?>/gi,'\n').replace(/<\/div>/gi,'');
-    const tmp=document.createElement('div');tmp.innerHTML=html;
-    return (tmp.textContent||'').split('\n').map(s=>s.trim()).filter(Boolean);
-  }
-  const acc=document.createElement('div');acc.className='voz-frase-acc';
-  const bMateria=document.createElement('button');bMateria.className='voz-frase-btn alt';bMateria.textContent='★ Materia prima';
-  bMateria.onclick=()=>{
-    const ls=lineasDe();if(!ls.length)return;
-    // las líneas se guardan como UNA sola sección (verso multi-línea), unidas por salto
-    guardarEnMateria(ls.join('\n'));
-    bMateria.textContent='✓ guardado';bMateria.classList.add('enviado');
-    setTimeout(()=>{bMateria.textContent='★ Materia prima';bMateria.classList.remove('enviado');},1200);
-  };
-  const bCancion=document.createElement('button');bCancion.className='voz-frase-btn';bCancion.textContent='→ Canción';
-  bCancion.onclick=()=>{
-    const ls=lineasDe();if(!ls.length)return;
-    ls.forEach(l=>agregarFraseAlAnalizador(l));
-    bCancion.textContent='✓ enviado';bCancion.classList.add('enviado');
-    setTimeout(()=>{bCancion.textContent='→ Canción';bCancion.classList.remove('enviado');},1200);
-  };
-  acc.appendChild(bMateria);acc.appendChild(bCancion);
-  card.appendChild(acc);
-  return card;
-}
-document.getElementById('voz-sacar-versos').onclick=extraerVersos;
-
-// ============ EL DADO: escenas con conflicto para improvisar ============
-const ESCENAS=[
-  // amor / desamor
-  "Estás en el casamiento de tu ex. Te tocó dar un discurso.",
-  "Le mentís a alguien que te ama, y se nota.",
-  "Es la última noche juntos y los dos hacen como que no lo saben.",
-  "Volvés a buscar algo a la casa de quien ya no te quiere.",
-  "Te enamoraste de la persona equivocada y no podés decirlo.",
-  "Le escribís un mensaje que sabés que no vas a mandar.",
-  "Te cruzás con un viejo amor y los dos están con otra persona.",
-  "Quien te dejó vuelve a buscarte, justo ahora que estabas bien.",
-  "Estás esperando una respuesta que ya sabés que no va a llegar.",
-  "Te das cuenta de que ya no lo querés mientras te abraza.",
-  "Le pedís perdón a alguien que ya no está para escucharte.",
-  "Encontraste una caja con cartas que no eran para vos.",
-  // familia
-  "Volvés a tu casa de la infancia y ya la habitaron otros.",
-  "Tu viejo te cuenta un secreto que cambia todo lo que creías.",
-  "Tenés que avisarle a alguien que no va a volver a verlo.",
-  "Estás ordenando las cosas de alguien que murió.",
-  "Tu hijo te pregunta algo que no sabés cómo responder.",
-  "Cuidás a quien te cuidó, y ya no te reconoce.",
-  "Llamás a tu casa y atiende una voz que no esperabas.",
-  "Vas a un lugar que tu familia evitaba nombrar.",
-  // pérdida / nostalgia
-  "Encontraste una foto tuya de hace veinte años.",
-  "Volvés a un lugar y ya no es como lo recordabas.",
-  "Escuchás una canción que te devuelve a alguien que ya no está.",
-  "Guardaste algo durante años y hoy decidís tirarlo.",
-  "Pasás por la puerta de un lugar que ya cerró.",
-  "Te despertás y por un segundo olvidaste que ya no están.",
-  "Encontrás un mensaje viejo de alguien que se fue.",
-  // deseo / tensión
-  "Hay alguien al otro lado de la habitación y no te animás.",
-  "Sabés que está mal y lo vas a hacer igual.",
-  "Te quedás callado cuando deberías haber dicho algo.",
-  "Compartís un secreto con un desconocido en un viaje de noche.",
-  "Hay una sola cosa que querés y no podés pedirla.",
-  // bronca / conflicto
-  "Tenés que sonreír en una mesa donde te traicionaron.",
-  "Alguien te debe una explicación y no te la va a dar.",
-  "Aguantás un insulto porque no es el momento de responder.",
-  "Te enteraste de algo y tenés que decidir si lo decís.",
-  "Mirás a quien te falló y te das cuenta de que ya no te importa.",
-  "Defendés a alguien que no haría lo mismo por vos.",
-  // existencial / soledad
-  "Es tu cumpleaños y nadie se acordó.",
-  "Estás en una ciudad donde no conocés a nadie.",
-  "Te das cuenta de que hace días que no hablás con nadie.",
-  "Mirás tu vida desde afuera, como si fuera de otro.",
-  "Tenés que empezar de cero y no sabés por dónde.",
-  "Llegaste a donde querías y no sentís nada.",
-  "Es de madrugada y no podés dormir pensando en una sola cosa.",
-  // decisiones / encrucijada
-  "Tenés que elegir entre quedarte o irte, hoy.",
-  "Está todo listo para que te vayas y no arrancás.",
-  "Te ofrecen lo que siempre quisiste, pero hay una trampa.",
-  "Podés volver atrás o seguir, y la puerta se cierra en un minuto.",
-  // cuerpo / tiempo
-  "Te mirás al espejo y no reconocés del todo a quien ves.",
-  "El médico tarda en hablar y vos ya entendiste.",
-  "Tu cuerpo ya no hace algo que antes hacías sin pensar.",
-  // encuentro / desconocidos
-  "Un desconocido te dice algo que necesitabas escuchar.",
-  "Compartís paraguas con alguien que no vas a volver a ver.",
-  "Alguien te confunde con otra persona y le seguís el juego.",
-  "En la sala de espera, alguien rompe en llanto al lado tuyo.",
-  // culpa / confesión
-  "Cargás con algo que nunca le contaste a nadie.",
-  "Tenés que confesar algo que va a doler.",
-  "Hiciste algo de lo que no estás orgulloso y hoy te lo cruzás.",
-];
-let ultimaEscena=-1;
-document.getElementById('dado-btn').onclick=()=>{
-  let i;
-  do{i=Math.floor(Math.random()*ESCENAS.length);}while(i===ultimaEscena&&ESCENAS.length>1);
-  ultimaEscena=i;
-  const cont=document.getElementById('dado-escena');
-  cont.textContent=ESCENAS[i];
-  cont.style.display='block';
-  if(navigator.vibrate)navigator.vibrate(15);
-};
 document.getElementById('btn-exportar').onclick=exportarTodo;
 document.getElementById('btn-importar').onclick=()=>document.getElementById('file-importar').click();
 document.getElementById('file-importar').onchange=(e)=>{if(e.target.files[0])importarTodo(e.target.files[0]);e.target.value='';};
@@ -2722,28 +2113,20 @@ document.getElementById('proyecto-nueva').onclick=()=>{
 };
 renderBarraProyecto();
 
-document.querySelectorAll('.menu-item').forEach(btn=>{
-  btn.onclick=()=>{
-    const vista=btn.dataset.vista;
-    document.querySelectorAll('.menu-item').forEach(b=>b.classList.toggle('active',b===btn));
-    document.querySelectorAll('.vista').forEach(v=>v.classList.remove('activa'));
-    document.getElementById('vista-'+vista).classList.add('activa');
-    if(vista!=='voz'&&typeof pararGrabacion==='function')pararGrabacion();
-    if(vista==='powerwords')renderMateria();
-    if(vista==='palabrario')renderPowerWords();
-    // al entrar a Canción, re-dimensionar el campo (estaba oculto y el alto se calculaba mal)
-    if(vista==='analizador'){requestAnimationFrame(()=>{try{autosize();}catch(_){}});}
-    document.getElementById('nav-secciones').style.display=(vista==='analizador')?'flex':'none';
-  };
-});
+// ---- PANEL PALABRARIO (se despliega sobre el análisis) ----
+document.getElementById('btn-palabrario').onclick=()=>{
+  const p=document.getElementById('panel-palabrario');
+  const abierto=p.style.display!=='none';
+  if(abierto){p.style.display='none';}
+  else {renderPowerWords();p.style.display='block';cerrarPanelProyecto();}
+};
+document.getElementById('cerrar-palabrario').onclick=()=>{document.getElementById('panel-palabrario').style.display='none';};
 
 // placeholder en el output vacío
 outputEl.setAttribute('data-placeholder','Tocá acá para escribir o pegar una letra…');
 
 cargarLetra();
-cargarDescargoActual();renderDescargosHist();
-if(document.getElementById('voz-texto').value.trim())campoDescargo.salirEdicion();
-renderToggles();renderLegend();renderPowerWords();renderMateria();autosize();analyze();
+renderToggles();renderLegend();renderPowerWords();autosize();analyze();
 // si arranca vacío, entrar directo en edición para poder escribir
 if(!ta.value.trim())entrarEdicion();
 
