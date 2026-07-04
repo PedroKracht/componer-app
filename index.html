@@ -313,6 +313,8 @@
   /* área tocable invisible, mucho más grande que el arco visible (más fácil en el celular) */
   .bridge::after{content:'';position:absolute;bottom:-0.2rem;left:-14px;width:28px;height:2.2rem;}
   .bridge.broken .arc{border-bottom-style:dotted;border-color:var(--broken);}
+  .bridge.sineresis .arc{border-color:var(--figura);}
+  .bridge.sineresis.broken .arc{border-bottom-style:dotted;border-color:var(--faint);}
   .bridge:hover .arc{border-color:var(--ink);}
 
   /* marcas de figuras (subrayados de color en palabras) */
@@ -444,6 +446,33 @@
   #campo #output{min-height:2rem;}
   /* placeholder cuando está vacío y no se edita */
   #campo #output:empty::before{content:attr(data-placeholder);color:var(--faint);font-style:italic;font-size:1.1rem;}
+  /* COMPÁS: línea de tiempo rítmica */
+  .grilla-regla{position:sticky;background:var(--paper);z-index:49;padding:0.5rem 0 0.4rem;border-bottom:1.5px solid var(--ink);display:grid;margin-bottom:0.5rem;}
+  .regla-celda{text-align:center;font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--faint);}
+  .regla-celda.tiempo{color:var(--ink);font-weight:500;font-size:0.85rem;}
+  .regla-celda.fuerte{color:var(--rhythmic);}
+  .grilla-etiqueta{font-family:'IBM Plex Mono',monospace;font-size:0.6rem;color:var(--figura);text-transform:uppercase;letter-spacing:0.08em;padding:1rem 0 0.3rem;}
+  .grilla-fila{display:grid;position:relative;border-bottom:1px solid var(--rule);min-height:3rem;align-items:center;}
+  .grilla-fila.anacrusa-fila{background:rgba(74,122,110,0.05);}
+  .grilla-celda{position:relative;min-height:3rem;display:flex;align-items:center;justify-content:center;border-left:1px solid var(--rule);padding:0.4rem 0.05rem;min-width:0;overflow:visible;gap:0.15rem;}
+  .grilla-celda.compartida .gsil{font-size:0.78rem;}
+  .grilla-celda.compartida .gsil-mk{font-size:0.6rem;}
+  /* solo métrica en la grilla: se ocultan las sílabas, quedan solo las x/X del acento */
+  body.grilla-solometrica .gsil{display:none;}
+  body.grilla-solometrica .gsil-mk{font-size:0.9rem;margin-bottom:0;}
+  body.grilla-solometrica .gsil-wrap.sel .gsil-mk{background:var(--ink);color:var(--paper);border-radius:4px;padding:0.05rem 0.3rem;}
+  .grilla-celda.tiempo{border-left:1px solid var(--faint);background:rgba(163,156,140,0.07);}
+  .grilla-celda.fuerte{border-left:1.5px solid var(--ink);background:rgba(163,156,140,0.15);}
+  .grilla-celda:first-child{border-left:none;}
+  .gsil-wrap{display:inline-flex;flex-direction:column;align-items:center;}
+  .gsil-mk{font-family:'IBM Plex Mono',monospace;font-size:0.68rem;line-height:1;color:var(--faint);margin-bottom:0.1rem;}
+  .gsil-mk.fuerte{color:var(--rhythmic);font-weight:500;}
+  .gsil{font-family:'Fraunces',Georgia,serif;font-size:0.92rem;color:var(--ink);cursor:pointer;padding:0.1rem 0.15rem;border-radius:4px;white-space:nowrap;user-select:none;line-height:1.2;transition:all 0.1s;}
+  .gsil.sel{background:var(--ink);color:var(--paper);}
+  .grilla-mover{position:sticky;bottom:0;background:var(--paper);display:flex;gap:0.8rem;align-items:center;justify-content:center;padding:0.7rem 0;border-top:1px solid var(--rule);margin-top:0.5rem;}
+  .grilla-mover-lbl{font-family:'IBM Plex Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--faint);}
+  .grilla-flecha{width:2.8rem;height:2.8rem;border-radius:50%;border:1.5px solid var(--ink);background:transparent;color:var(--ink);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.12s;}
+  .grilla-flecha:active{background:var(--ink);color:var(--paper);transform:scale(0.92);}
 </style>
 </head>
 <body class="show-rima show-acentos show-sinalefas show-figuras show-metrica show-silabas">
@@ -512,6 +541,14 @@
       </div>
       <textarea id="input" spellcheck="false" placeholder="Pegá o escribí una letra (una estrofa por bloque, separadas por una línea en blanco)…"></textarea>
       <div id="output"></div>
+      <!-- vista de grilla de compás (alternativa al output clásico) -->
+      <div id="grilla-regla" class="grilla-regla" style="display:none;"></div>
+      <div id="grilla-output" style="display:none;"></div>
+      <div id="grilla-mover" class="grilla-mover" style="display:none;">
+        <button class="grilla-flecha" id="grilla-izq">◀</button>
+        <span class="grilla-mover-lbl">mover</span>
+        <button class="grilla-flecha" id="grilla-der">▶</button>
+      </div>
     </div>
     <div id="nav-secciones">
       <button id="nav-prev" title="sección anterior">↑</button>
@@ -627,14 +664,23 @@ function posTag(word){
 
 function syllabify(word){
   const chars=[...word],n=chars.length;
-  function vgl(start){let j=start;if(!isVowel(chars[j]))return 0;let len=1;
-    while(j+len<n&&isVowel(chars[j+len])){const a=chars[j+len-1],b=chars[j+len];
+  // "u" muda: en qu+e/i y gu+e/i la u no suena, no debe contar como vocal para el silabeo
+  // (ej. "aquí" = a-quí, no a-qu-í). La marcamos para que vgl la salte.
+  const uMuda=new Array(n).fill(false);
+  for(let i=0;i<n;i++){
+    const c=chars[i].toLowerCase();
+    if(c==='u'&&i>0&&(chars[i-1].toLowerCase()==='q'||chars[i-1].toLowerCase()==='g')
+       &&i+1<n&&'eiéíEIÉÍ'.includes(chars[i+1])){uMuda[i]=true;}
+  }
+  const esVocalReal=j=>isVowel(chars[j])&&!uMuda[j];
+  function vgl(start){let j=start;if(!esVocalReal(j))return 0;let len=1;
+    while(j+len<n&&esVocalReal(j+len)){const a=chars[j+len-1],b=chars[j+len];
       if(STRONG.includes(a)&&STRONG.includes(b))break;
       if('íúÍÚ'.includes(a)||'íúÍÚ'.includes(b))break;len++;}return len;}
   let pos=0;const cores=[];
-  while(pos<n){if(isVowel(chars[pos])){const len=vgl(pos);cores.push([pos,pos+len-1]);pos+=len;}else pos++;}
+  while(pos<n){if(esVocalReal(pos)){const len=vgl(pos);cores.push([pos,pos+len-1]);pos+=len;}else pos++;}
   if(cores.length===0)return[word];
-  const INSEP=new Set(['pr','br','tr','dr','cr','gr','fr','pl','bl','cl','gl','fl','tl','ll','rr','ch']);
+  const INSEP=new Set(['pr','br','tr','dr','cr','gr','fr','pl','bl','cl','gl','fl','tl','ll','rr','ch','qu','gu']);
   const bounds=[0];
   for(let k=0;k<cores.length-1;k++){const ev=cores[k][1],nv=cores[k+1][0];const cons=[];
     for(let c=ev+1;c<nv;c++)cons.push(chars[c]);const cc=cons.length;let sa;
@@ -745,6 +791,7 @@ function rhymeKeys(w){
 
 let brokenSinalefas=new Set();
 let forcedSinalefas=new Set(); // sinalefas creadas a mano donde el sistema no las detectó (clave "li-k")
+let sineresisForzadas=new Set(); // sinéresis activadas a mano dentro de una palabra (clave "li-k")
 let rhythmicOverrides={};
 let cesuraOverrides={}; // clave: índice de línea original (li) -> posición de cesura en el patrón merged
 let moviendoCesura=null; // li del verso cuya cesura se está moviendo (modo mover activo)
@@ -790,7 +837,7 @@ function cambiarA(id){
   proyectoActivo=id;PROYECTOS.activo=id;guardarProyectos();
   // recargar la letra de la canción nueva
   document.getElementById('input').value='';
-  rhythmicOverrides={};cesuraOverrides={};brokenSinalefas=new Set();forcedSinalefas=new Set();
+  rhythmicOverrides={};cesuraOverrides={};brokenSinalefas=new Set();forcedSinalefas=new Set();sineresisForzadas=new Set();
   cargarLetra();
   analyze();
   renderBarraProyecto();
@@ -837,7 +884,7 @@ function guardarLetra(){
     const estado={
       letra:document.getElementById('input').value,
       rhythmicOverrides, cesuraOverrides,
-      broken:[...brokenSinalefas], forced:[...forcedSinalefas],
+      broken:[...brokenSinalefas], forced:[...forcedSinalefas], sineresis:[...sineresisForzadas],
     };
     localStorage.setItem(claveCancion('cancionEstado'),JSON.stringify(estado));
   }catch(e){}
@@ -851,6 +898,7 @@ function cargarLetra(){
     if(e.cesuraOverrides)cesuraOverrides=e.cesuraOverrides;
     if(e.broken)brokenSinalefas=new Set(e.broken);
     if(e.forced)forcedSinalefas=new Set(e.forced);
+    if(e.sineresis)sineresisForzadas=new Set(e.sineresis);
   }catch(e){}
 }
 // EXPORTAR: baja un archivo con TODO el trabajo
@@ -947,6 +995,7 @@ function analyze(){
       let posComa=-1;
       flat.forEach((s,idx)=>{if(s.comaDespues&&posComa<0)posComa=idx+1;});
       const sinalefaAfter=[];
+      const sineresisPunto=[]; // k donde hay hiato dentro de palabra (posible sinéresis)
       for(let k=0;k<flat.length-1;k++){const a=flat[k],b=flat[k+1];
         if(a.lastOfWord&&b.firstOfWord){
           let aEnd=a.text.replace(/[^a-záéíóúüñ]/gi,'').toLowerCase().slice(-1);
@@ -955,7 +1004,19 @@ function analyze(){
           const bStart=bStr[0]==='h'?(bStr[1]||''):bStr[0];
           const detectada=isVowel(aEnd)&&isVowel(bStart);
           // forzada a mano: vale aunque no cumpla la regla de vocales
-          if(detectada||forcedSinalefas.has(`${li}-${k}`))sinalefaAfter[k]=true;}}
+          if(detectada||forcedSinalefas.has(`${li}-${k}`))sinalefaAfter[k]=true;}
+        else if(a.tok===b.tok && !a.lastOfWord){
+          // dos sílabas de la MISMA palabra: si el borde es vocal-vocal, es un punto de sinéresis
+          const aEnd=a.text.replace(/[^a-záéíóúüñ]/gi,'').toLowerCase().slice(-1);
+          const bStr=b.text.replace(/[^a-záéíóúüñ]/gi,'').toLowerCase();
+          const bStart=bStr[0]||'';
+          if(isVowel(aEnd)&&isVowel(bStart)){
+            sineresisPunto[k]=true;
+            // si el usuario la forzó, cuenta como fusión (igual que una sinalefa activa)
+            if(sineresisForzadas.has(`${li}-${k}`))sinalefaAfter[k]=true;
+          }
+        }
+      }
       const rhythmic=flat.map(syl=>(syl.key in rhythmicOverrides)?rhythmicOverrides[syl.key]:syl.lex);
 
       const verse=document.createElement('div');verse.className='verse';
@@ -1026,6 +1087,13 @@ function analyze(){
           const arc=document.createElement('span');arc.className='arc';br.appendChild(arc);
           br.onclick=(e)=>{e.stopPropagation();if(brokenSinalefas.has(bkey))brokenSinalefas.delete(bkey);else brokenSinalefas.add(bkey);analyze();};
           curWordEl.appendChild(br);
+        } else if(sineresisPunto[k]){
+          // punto de sinéresis dentro de palabra: arco desactivado (punteado), se activa al tocar
+          const activa=sineresisForzadas.has(bkey);
+          const br=document.createElement('span');br.className='bridge sineresis'+(activa?'':' broken');
+          const arc=document.createElement('span');arc.className='arc';br.appendChild(arc);
+          br.onclick=(e)=>{e.stopPropagation();if(sineresisForzadas.has(bkey))sineresisForzadas.delete(bkey);else sineresisForzadas.add(bkey);analyze();};
+          curWordEl.appendChild(br);
         }
       });
       verse.appendChild(lineEl);
@@ -1088,6 +1156,299 @@ function analyze(){
     });
   });
   renderInventario(inventario);
+  // si el modo grilla está activo, redibujar la grilla con el texto actual
+  if(modoGrilla)pintarGrillaCompleta();
+}
+
+// ====== MODO GRILLA DE COMPÁS (convive con el análisis clásico) ======
+const GRILLA_CFG={COLS:8, SEMIS:16, COL_TON:[0,4]}; // 8 corcheas visibles; 16 semicorcheas internas; fuertes en 1 y 3
+// posiciones guardadas por sílaba, por canción: { "li-k": {comp,col} }
+let grillaPos={};
+function claveGrilla(li,k){return li+'-'+k;}
+function cargarGrillaPos(){
+  try{const raw=localStorage.getItem(claveCancion('grillaPos2'));grillaPos=raw?JSON.parse(raw):{};}catch(e){grillaPos={};}
+}
+function guardarGrillaPos(){
+  try{localStorage.setItem(claveCancion('grillaPos2'),JSON.stringify(grillaPos));}catch(e){}
+}
+function aplicarModoGrilla(){
+  const out=document.getElementById('output');
+  const gr=document.getElementById('grilla-regla');
+  const go=document.getElementById('grilla-output');
+  if(modoGrilla){
+    out.style.display='none';
+    gr.style.display='';go.style.display='';
+    // la regla se pega justo debajo de la barra de toggles (que también es sticky arriba)
+    const togglesBar=document.getElementById('toggles');
+    const h=togglesBar?togglesBar.getBoundingClientRect().height:0;
+    gr.style.top=h+'px';
+    cargarGrillaPos();
+    pintarGrillaCompleta();
+  } else {
+    out.style.display='';
+    gr.style.display='none';go.style.display='none';
+  }
+}
+function pintarReglaGrilla(){
+  const gr=document.getElementById('grilla-regla');
+  const {COLS,COL_TON}=GRILLA_CFG;
+  gr.style.gridTemplateColumns=`repeat(${COLS},minmax(0,1fr))`;
+  gr.innerHTML='';
+  for(let c=0;c<COLS;c++){
+    const cel=document.createElement('div');cel.className='regla-celda';
+    if(c%2===0){cel.classList.add('tiempo');if(COL_TON.includes(c))cel.classList.add('fuerte');cel.textContent=(c/2)+1;}
+    else cel.textContent='·';
+    gr.appendChild(cel);
+  }
+}
+function pintarGrillaCompleta(){
+  const go=document.getElementById('grilla-output');
+  const {COLS,SEMIS,COL_TON}=GRILLA_CFG;
+  pintarReglaGrilla();
+  go.innerHTML='';
+  const text=document.getElementById('input').value
+    .replace(/\r\n/g,'\n').replace(/\r/g,'\n');
+  const lines=text.split('\n');
+  const esEtiqueta=l=>/^\s*\[.+\]\s*$/.test(l);
+
+  // ---- FASE 1: colocar cada sílaba en posición GLOBAL en semicorcheas (grilla continua) ----
+  // cada verso arranca DESPUÉS de la última sílaba real del verso anterior, para que
+  // ninguna sílaba de un verso quede después del comienzo del siguiente (orden estricto de la canción).
+  const items=[];
+  let baseSemiGlobal=0;      // semicorchea global donde arranca el verso actual (su comp 0, col 0)
+  let ultimaSemiUsada=-1;    // última semicorchea global ocupada por cualquier sílaba hasta ahora
+  lines.forEach((line,li)=>{
+    const t=line.trim();
+    if(!t)return;
+    if(esEtiqueta(t)){
+      items.push({tipo:'etiqueta',texto:t.replace(/^\s*\[|\]\s*$/g,'')});
+      // una etiqueta fuerza empezar en un compás nuevo y limpio
+      baseSemiGlobal=Math.ceil((ultimaSemiUsada+1)/SEMIS)*SEMIS;
+      return;
+    }
+    const sils=silabasDeVerso(t,li);
+    const colocadas=sils.map((s,k)=>{
+      const key=claveGrilla(li,k);
+      let comp,col;
+      if(grillaPos[key]){comp=grillaPos[key].comp;col=grillaPos[key].col;}
+      else{const totalSemi=k*2;comp=Math.floor(totalSemi/SEMIS);col=totalSemi%SEMIS;}
+      const semiRel=comp*SEMIS+col; // posición relativa del verso en semicorcheas (puede ser negativa: anacrusa)
+      return {s,k,li,semiRel};
+    });
+    // posición global = base del verso + relativa
+    colocadas.forEach(o=>{
+      o.semiGlobal=baseSemiGlobal+o.semiRel;
+      items.push({tipo:'silaba',...o});
+    });
+    // la próxima base: después de la última sílaba real de ESTE verso (garantiza orden)
+    const maxSemiGlobal=colocadas.length?Math.max(...colocadas.map(o=>o.semiGlobal)):baseSemiGlobal;
+    if(maxSemiGlobal>ultimaSemiUsada)ultimaSemiUsada=maxSemiGlobal;
+    // el próximo verso arranca en el compás siguiente al que contiene la última sílaba de este
+    baseSemiGlobal=Math.floor(maxSemiGlobal/SEMIS)*SEMIS+SEMIS;
+  });
+
+  // ---- FASE 2: dibujar en orden de compás global, con etiquetas intercaladas ----
+  // derivar de semiGlobal: compás global y columna visual (corchea)
+  items.forEach(it=>{
+    if(it.tipo==='silaba'){
+      it.compGlobal=Math.floor(it.semiGlobal/SEMIS);
+      it.semEnCompas=((it.semiGlobal%SEMIS)+SEMIS)%SEMIS; // 0..15
+      it.colVis=Math.floor(it.semEnCompas/2);             // 0..7 corchea visual
+    }
+  });
+  const porCompas={};
+  let maxCompG=0, minCompG=0;
+  items.forEach(it=>{
+    if(it.tipo==='silaba'){
+      (porCompas[it.compGlobal]=porCompas[it.compGlobal]||[]).push(it);
+      if(it.compGlobal>maxCompG)maxCompG=it.compGlobal;
+      if(it.compGlobal<minCompG)minCompG=it.compGlobal;
+    }
+  });
+  // etiquetas: al compás de la primera sílaba que las sigue
+  let etiquetaPendiente=null, compYaVisto=new Set();
+  const etiquetasEnCompas={};
+  items.forEach(it=>{
+    if(it.tipo==='etiqueta'){etiquetaPendiente=it.texto;}
+    else if(it.tipo==='silaba' && !compYaVisto.has(it.compGlobal)){
+      compYaVisto.add(it.compGlobal);
+      if(etiquetaPendiente!==null){etiquetasEnCompas[it.compGlobal]=etiquetaPendiente;etiquetaPendiente=null;}
+    }
+  });
+
+  function dibujarCompas(cg){
+    const fila=document.createElement('div');fila.className='grilla-fila';
+    fila.style.gridTemplateColumns=`repeat(${COLS},minmax(0,1fr))`;
+    const enEste=porCompas[cg]||[];
+    for(let c=0;c<COLS;c++){
+      const cel=document.createElement('div');cel.className='grilla-celda';
+      if(c%2===0)cel.classList.add('tiempo');
+      if(COL_TON.includes(c))cel.classList.add('fuerte');
+      // sílabas cuya corchea visual es esta columna c; ordenadas por semicorchea
+      const aqui=enEste.filter(it=>it.colVis===c).sort((a,b)=>a.semEnCompas-b.semEnCompas);
+      if(aqui.length>1)cel.classList.add('compartida');
+      aqui.forEach(it=>{
+        const wrap=document.createElement('span');wrap.className='gsil-wrap';
+        const mk=document.createElement('span');mk.className='gsil-mk'+(it.s.ton?' fuerte':'');
+        // en modo vocal, la marca es la vocal núcleo de la sílaba; si no, la x/X
+        if(marcaModo==='vocal'){
+          const v=sinTilde(nucleoVocalico(it.s.text))||(it.s.ton?'X':'x');
+          mk.textContent=it.s.ton?v.toUpperCase():v;
+        } else {
+          mk.textContent=it.s.ton?'X':'x';
+        }
+        const el=document.createElement('span');el.className='gsil'+(it.s.ton?' ton':'');el.textContent=it.s.text;
+        el.dataset.li=it.li;el.dataset.k=it.k;
+        if(gsilSel&&gsilSel.li===it.li&&gsilSel.k===it.k){el.classList.add('sel');wrap.classList.add('sel');}
+        wrap.onclick=()=>seleccionarGsil(it.li,it.k,el);
+        wrap.appendChild(mk);wrap.appendChild(el);
+        cel.appendChild(wrap);
+      });
+      fila.appendChild(cel);
+    }
+    go.appendChild(fila);
+  }
+  // dibujo todos los compases del rango, en orden, con sus etiquetas antes
+  const totalSil=items.filter(it=>it.tipo==='silaba').length;
+  if(totalSil===0){
+    go.innerHTML='<div style="padding:1rem;font-family:monospace;font-size:0.7rem;color:var(--faint)">La grilla no encontró versos. Escribí o pegá una letra en el modo normal primero.</div>';
+    return;
+  }
+  for(let cg=minCompG;cg<=maxCompG;cg++){
+    if(etiquetasEnCompas[cg]!==undefined){
+      const et=document.createElement('div');et.className='grilla-etiqueta';et.textContent=etiquetasEnCompas[cg];go.appendChild(et);
+    }
+    dibujarCompas(cg);
+  }
+}
+let gsilSel=null; // {li,k}
+function seleccionarGsil(li,k,el){
+  gsilSel={li,k};
+  document.querySelectorAll('.gsil.sel').forEach(e=>e.classList.remove('sel'));
+  el.classList.add('sel');
+  document.getElementById('grilla-mover').style.display='flex';
+}
+// posición lineal (en corcheas absolutas) de una sílaba: negativa = anacrusa
+function posLineal(li,k){
+  const {SEMIS}=GRILLA_CFG;
+  const key=claveGrilla(li,k);
+  let comp,col;
+  if(grillaPos[key]){comp=grillaPos[key].comp;col=grillaPos[key].col;}
+  else{comp=Math.floor((k*2)/SEMIS);col=(k*2)%SEMIS;} // default: cada sílaba una corchea (2 semis)
+  return comp*SEMIS+col;
+}
+function setLineal(li,k,lineal){
+  const {SEMIS}=GRILLA_CFG;
+  let comp=Math.floor(lineal/SEMIS), col=((lineal%SEMIS)+SEMIS)%SEMIS;
+  grillaPos[claveGrilla(li,k)]={comp,col};
+}
+// cuántas sílabas tiene el verso de la línea li
+function nSilabasVerso(li){
+  const lines=document.getElementById('input').value.replace(/\r\n/g,'\n').replace(/\r/g,'\n').split('\n');
+  const t=(lines[li]||'').trim();
+  if(!t||/^\s*\[.+\]\s*$/.test(t))return 0;
+  return silabasDeVerso(t,li).length;
+}
+// calcula la posición global (en semicorcheas) de cada sílaba de la canción.
+// devuelve mapa "li-k" -> semiGlobal, y por verso el rango [primeraSemiG, ultimaSemiG].
+function calcularGlobales(){
+  const {SEMIS}=GRILLA_CFG;
+  const lines=document.getElementById('input').value.replace(/\r\n/g,'\n').replace(/\r/g,'\n').split('\n');
+  const esEtiqueta=l=>/^\s*\[.+\]\s*$/.test(l);
+  const mapa={}; const versos={}; // versos[li]={base, ultimaSemiG}
+  let baseSemiGlobal=0;
+  lines.forEach((line,li)=>{
+    const t=line.trim();
+    if(!t)return;
+    if(esEtiqueta(t)){baseSemiGlobal=Math.ceil(baseSemiGlobal/SEMIS)*SEMIS;return;}
+    const sils=silabasDeVerso(t,li);
+    if(!sils.length)return;
+    let maxG=baseSemiGlobal;
+    sils.forEach((s,k)=>{
+      const key=claveGrilla(li,k);
+      let comp,col;
+      if(grillaPos[key]){comp=grillaPos[key].comp;col=grillaPos[key].col;}
+      else{const ts=k*2;comp=Math.floor(ts/SEMIS);col=ts%SEMIS;}
+      const g=baseSemiGlobal+comp*SEMIS+col;
+      mapa[key]=g; if(g>maxG)maxG=g;
+    });
+    versos[li]={base:baseSemiGlobal, ultima:maxG};
+    baseSemiGlobal=Math.floor(maxG/SEMIS)*SEMIS+SEMIS;
+  });
+  return {mapa,versos,lines};
+}
+function moverGsil(dir){
+  if(!gsilSel)return;
+  const {SEMIS}=GRILLA_CFG;
+  const li=gsilSel.li, k=gsilSel.k;
+  const nSil=nSilabasVerso(li);
+  const miPos=posLineal(li,k);
+  const destino=miPos+dir;
+  // tope de anacrusa: no más de un compás antes del inicio natural del verso
+  if(destino < -SEMIS)return;
+  // TOPE entre versos: al mover hacia atrás, ninguna sílaba puede alcanzar/pasar a la
+  // última sílaba del verso anterior (nunca se enciman ni se cruza el orden de la canción).
+  if(dir<0){
+    const g=calcularGlobales();
+    // buscar el verso anterior con sílabas (línea previa no vacía ni etiqueta)
+    let liPrev=-1;
+    for(let x=li-1;x>=0;x--){
+      const tx=(g.lines[x]||'').trim();
+      if(tx && !/^\s*\[.+\]\s*$/.test(tx)){liPrev=x;break;}
+    }
+    if(liPrev>=0 && g.versos[liPrev]){
+      const ultimaPrev=g.versos[liPrev].ultima;
+      // posición global que tendría la sílaba K en el destino
+      const baseEste=g.versos[li]?g.versos[li].base:0;
+      const destinoGlobal=baseEste+destino;
+      if(destinoGlobal<=ultimaPrev)return; // frenar solo si alcanza o pasa (misma semi o antes). Compartir corchea = semi siguiente, permitido.
+    }
+  }
+  // TOPE hacia adelante: la última sílaba de un verso no puede alcanzar/pasar a la
+  // primera sílaba del verso siguiente (el empuje derecha arrastra en cadena hasta la última).
+  if(dir>0){
+    const g=calcularGlobales();
+    // buscar el verso siguiente con sílabas
+    let liNext=-1;
+    for(let x=li+1;x<g.lines.length;x++){
+      const tx=(g.lines[x]||'').trim();
+      if(tx && !/^\s*\[.+\]\s*$/.test(tx)){liNext=x;break;}
+    }
+    if(liNext>=0 && g.versos[liNext]){
+      const primeraNext=g.mapa[claveGrilla(liNext,0)];
+      const nSilLocal=nSilabasVerso(li);
+      const baseEste=g.versos[li]?g.versos[li].base:0;
+      const posUltimaTrasEmpuje=Math.max(posLineal(li,nSilLocal-1), destino+(nSilLocal-1-k));
+      const ultimaGlobalNueva=baseEste+posUltimaTrasEmpuje;
+      // permitir compartir la MISMA corchea que la primera del verso siguiente (da en 1ª semi, Yo en 2ª),
+      // pero frenar si da pasaría a una posición >= la de Yo (se cruzarían) o a una corchea posterior.
+      if(primeraNext!==undefined){
+        const corcheaDa=Math.floor(ultimaGlobalNueva/2), corcheaYo=Math.floor(primeraNext/2);
+        // frenar si: da pasa a corchea posterior, o en la misma corchea da alcanza/pasa la semi de Yo
+        if(corcheaDa>corcheaYo)return;
+        if(ultimaGlobalNueva>=primeraNext)return;
+      }
+    }
+  }
+  if(dir>0){
+    // empuje DERECHA: muevo K al destino; si pisa a K+1, la empujo, y así en cadena (mismo verso)
+    setLineal(li,k,destino);
+    for(let j=k+1;j<nSil;j++){
+      const posJ=posLineal(li,j), posAnt=posLineal(li,j-1);
+      if(posJ<=posAnt)setLineal(li,j,posAnt+1);
+      else break;
+    }
+  } else {
+    // empuje IZQUIERDA: muevo K al destino; si pisa a K-1, la empujo hacia atrás, y así en cadena
+    setLineal(li,k,destino);
+    for(let j=k-1;j>=0;j--){
+      const posJ=posLineal(li,j), posSig=posLineal(li,j+1);
+      if(posJ>=posSig)setLineal(li,j,posSig-1);
+      else break;
+    }
+  }
+  guardarGrillaPos();
+  pintarGrillaCompleta();
 }
 
 function renderInventario(inv){
@@ -1784,6 +2145,7 @@ function detectFiguras(stanza){
 // 3) selector de marca: x | vocal (solo si métrica está activa)
 let analisisOn=true;
 let soloMetricaOn=false;
+let modoGrilla=false;
 const CAPAS=[
   {key:'metrica',label:'métrica',on:true},
   {key:'rima',label:'rima',on:true},
@@ -1829,16 +2191,21 @@ function renderToggles(){
   if(analisisOn){
     const sm=document.createElement('span');sm.className='tog tog-vista'+(soloMetricaOn?' on':'');
     sm.textContent='solo métrica';
-    sm.onclick=()=>{soloMetricaOn=!soloMetricaOn;sm.classList.toggle('on',soloMetricaOn);aplicarVista();};
+    sm.onclick=()=>{soloMetricaOn=!soloMetricaOn;sm.classList.toggle('on',soloMetricaOn);document.body.classList.toggle('grilla-solometrica',soloMetricaOn);aplicarVista();};
     fila1.appendChild(sm);
-    // selector x|vocal (solo si métrica activa), sin la palabra "marca:"
+    // botón grilla de compás
+    const gb=document.createElement('span');gb.className='tog tog-vista'+(modoGrilla?' on':'');
+    gb.textContent='♪ grilla';
+    gb.onclick=()=>{modoGrilla=!modoGrilla;gb.classList.toggle('on',modoGrilla);aplicarModoGrilla();};
+    fila1.appendChild(gb);
+    // selector x|vocal (solo si métrica activa), compacto, a la derecha de grilla
     const metricaOn=CAPAS.find(c=>c.key==='metrica').on;
     if(metricaOn){
       const sel=document.createElement('div');sel.className='marca-sel';
-      ['x','vocal'].forEach(modo=>{
+      [['x','x'],['vocal','v']].forEach(([modo,label])=>{
         const op=document.createElement('span');op.className='marca-op'+(marcaModo===modo?' on':'');
-        op.textContent=modo;
-        op.onclick=()=>{marcaModo=modo;aplicarVista();renderToggles();};
+        op.textContent=label;op.title=modo;
+        op.onclick=()=>{marcaModo=modo;aplicarVista();if(modoGrilla)pintarGrillaCompleta();renderToggles();};
         sel.appendChild(op);
       });
       fila1.appendChild(sel);
@@ -1857,6 +2224,11 @@ function renderToggles(){
     c.appendChild(fila2);
   }
   aplicarVista();
+  // si la grilla está activa, recalcular dónde se pega la regla (los toggles pueden haber cambiado de alto)
+  if(modoGrilla){
+    const gr=document.getElementById('grilla-regla');const tb=document.getElementById('toggles');
+    if(gr&&tb)gr.style.top=tb.getBoundingClientRect().height+'px';
+  }
 }
 function renderLegend(){
   const c=document.getElementById('legend');if(c)c.innerHTML='';
@@ -2033,6 +2405,49 @@ function moldeDeVerso(texto){
     if(fe===0)adjust=1;else if(fe>=2)adjust=-1;}
   return {golpes:fused,silabas:fused.length+adjust,adjust};
 }
+// como moldeDeVerso pero devuelve también el TEXTO de cada sílaba fonética (fusionada por sinalefa).
+// Sirve para la línea de tiempo rítmica: [{text, ton}]
+function silabasDeVerso(texto,li){
+  const tokens=(texto.match(/\S+/g)||[]);
+  if(!tokens.length)return [];
+  const flat=[];
+  tokens.forEach((tok,ti)=>{
+    const core=tok.replace(/[^a-záéíóúüñ]/gi,'')||tok;
+    if(!core)return;
+    const sylls=syllabify(core);const sIdx=stressIndex(sylls,core);
+    sylls.forEach((s,si)=>{flat.push({text:s,lex:si===sIdx,first:si===0,last:si===sylls.length-1,tok:ti});});
+  });
+  // determinar en qué bordes (k -> k+1) hay fusión (sinalefa entre palabras o sinéresis dentro)
+  const usarMods=(li!==undefined);
+  const fusionAfter=[];
+  for(let k=0;k<flat.length-1;k++){
+    const a=flat[k],b=flat[k+1];
+    const aEnd0=a.text.replace(/[^a-záéíóúüñ]/gi,'').toLowerCase().slice(-1);
+    const aEnd=aEnd0==='y'?'i':aEnd0;
+    const bStr=b.text.replace(/[^a-záéíóúüñ]/gi,'').toLowerCase();
+    const bStart=bStr[0]==='h'?(bStr[1]||''):bStr[0];
+    const vocalVocal=isVowel(aEnd)&&isVowel(bStart);
+    if(a.last&&b.first){
+      // borde entre palabras: sinalefa
+      let sin=vocalVocal;
+      if(usarMods){
+        if(forcedSinalefas.has(`${li}-${k}`))sin=true;
+        if(brokenSinalefas.has(`${li}-${k}`))sin=false;
+      }
+      fusionAfter[k]=sin;
+    } else if(a.tok===b.tok && !a.last){
+      // borde dentro de palabra: sinéresis (solo si el usuario la activó)
+      fusionAfter[k]=usarMods && vocalVocal && sineresisForzadas.has(`${li}-${k}`);
+    } else fusionAfter[k]=false;
+  }
+  const fused=[];let i=0;
+  while(i<flat.length){
+    let strong=flat[i].lex,j=i,txt=flat[i].text;
+    while(j<flat.length-1&&fusionAfter[j]){j++;strong=strong||flat[j].lex;txt+=flat[j].text;}
+    fused.push({text:txt,ton:strong});i=j+1;
+  }
+  return fused;
+}
 
 
 document.getElementById('btn-exportar').onclick=exportarTodo;
@@ -2126,7 +2541,11 @@ document.getElementById('cerrar-palabrario').onclick=()=>{document.getElementByI
 outputEl.setAttribute('data-placeholder','Tocá acá para escribir o pegar una letra…');
 
 cargarLetra();
+document.getElementById('grilla-izq').onclick=()=>moverGsil(-1);
+document.getElementById('grilla-der').onclick=()=>moverGsil(1);
 renderToggles();renderLegend();renderPowerWords();autosize();analyze();
+
+// ============ COMPÁS: línea de tiempo rítmica por verso (integrada) ============
 // si arranca vacío, entrar directo en edición para poder escribir
 if(!ta.value.trim())entrarEdicion();
 
