@@ -2,7 +2,8 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <title>Componer</title>
 <meta name="theme-color" content="#f3efe6">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -469,9 +470,9 @@
   .gsil-mk.fuerte{color:var(--rhythmic);font-weight:500;}
   .gsil{font-family:'Fraunces',Georgia,serif;font-size:0.92rem;color:var(--ink);cursor:pointer;padding:0.1rem 0.15rem;border-radius:4px;white-space:nowrap;user-select:none;line-height:1.2;transition:all 0.1s;}
   .gsil.sel{background:var(--ink);color:var(--paper);}
-  .grilla-mover{position:sticky;bottom:0;background:var(--paper);display:flex;gap:0.8rem;align-items:center;justify-content:center;padding:0.7rem 0;border-top:1px solid var(--rule);margin-top:0.5rem;}
+  .grilla-mover{position:sticky;bottom:2.5rem;background:var(--paper);display:flex;gap:0.8rem;align-items:center;justify-content:center;padding:0.7rem 0;border-top:1px solid var(--rule);margin-top:0.5rem;border-radius:0 0 12px 12px;box-shadow:0 2px 10px rgba(28,26,22,0.08);}
   .grilla-mover-lbl{font-family:'IBM Plex Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--faint);}
-  .grilla-flecha{width:2.8rem;height:2.8rem;border-radius:50%;border:1.5px solid var(--ink);background:transparent;color:var(--ink);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.12s;}
+  .grilla-flecha{width:3.2rem;height:3.2rem;border-radius:50%;border:1.5px solid var(--ink);background:var(--paper);color:var(--ink);font-size:1.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.12s;touch-action:manipulation;}
   .grilla-flecha:active{background:var(--ink);color:var(--paper);transform:scale(0.92);}
 </style>
 </head>
