@@ -498,6 +498,17 @@
   .molde-valid .badge.ok{background:rgba(47,143,110,0.15);color:var(--rima);}
   .molde-valid .badge.no{background:rgba(140,47,47,0.12);color:var(--rhythmic);}
   .molde-cnt,.molde-hint{color:var(--faint);}
+  .molde-celda.hueco{cursor:pointer;}
+  .molde-celda.sel-rango{background:rgba(74,122,110,0.18);box-shadow:inset 0 0 0 1.5px var(--sinalefa);}
+  .molde-sug-hint{font-family:'IBM Plex Mono',monospace;font-size:0.6rem;color:var(--faint);margin:0.6rem 0 0.3rem;}
+  .molde-sugerencias{display:flex;flex-direction:column;gap:0.5rem;margin-bottom:0.3rem;}
+  .sug-grupo{display:flex;flex-wrap:wrap;gap:0.35rem;align-items:center;}
+  .sug-lbl{font-family:'IBM Plex Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--faint);margin-right:0.3rem;}
+  .sug-pal{font-family:'Fraunces',Georgia,serif;font-size:0.92rem;padding:0.2rem 0.6rem;border:1px solid var(--rule);border-radius:14px;cursor:pointer;background:var(--paper);transition:all 0.12s;}
+  .sug-pal:active{background:var(--ink);color:var(--paper);}
+  .sug-pal.rima{border-color:var(--rima);color:var(--rima);}
+  .sug-pal.rima:active{background:var(--rima);color:var(--paper);}
+  .sug-vacio{font-family:'IBM Plex Mono',monospace;font-size:0.62rem;color:var(--faint);font-style:italic;}
   .molde-agregar{width:100%;font-family:'IBM Plex Mono',monospace;font-size:0.72rem;padding:0.7rem;margin-top:0.9rem;border:1.5px solid var(--sinalefa);border-radius:8px;background:transparent;color:var(--sinalefa);cursor:pointer;touch-action:manipulation;transition:all 0.15s;}
   .molde-agregar:active{background:var(--sinalefa);color:var(--paper);}
   .molde-agregar.hecho{background:var(--rima);border-color:var(--rima);color:var(--paper);}
@@ -593,6 +604,8 @@
       <div class="molde-fila" id="molde-fila"></div>
       <input class="molde-campo" id="molde-campo" placeholder="Escribí tu verso nuevo con esta métrica…" autocomplete="off">
       <div class="molde-valid" id="molde-valid"></div>
+      <div class="molde-sug-hint" id="molde-sug-hint">Tocá dos huecos (de dónde a dónde) para ver power words que encajan.</div>
+      <div class="molde-sugerencias" id="molde-sugerencias"></div>
       <button class="molde-agregar" id="molde-agregar">→ agregar a la canción</button>
     </div>
     <div id="nav-secciones">
@@ -878,13 +891,17 @@ function crearProyecto(nombre){
 }
 function cambiarA(id){
   // guardar el estado actual antes de cambiar
-  try{guardarLetra();}catch(e){}
+  try{guardarLetra();guardarGrillaPos();}catch(e){}
   proyectoActivo=id;PROYECTOS.activo=id;guardarProyectos();
   // recargar la letra de la canción nueva
   document.getElementById('input').value='';
   rhythmicOverrides={};cesuraOverrides={};brokenSinalefas=new Set();forcedSinalefas=new Set();sineresisForzadas=new Set();
+  grillaPos={};              // limpiar posiciones de grilla en memoria
   cargarLetra();
+  cargarGrillaPos();         // cargar las de ESTA canción (vacías si es nueva)
+  gsilSel=null;moldeSelIdx=[]; // limpiar selección de grilla y molde
   analyze();
+  if(modoGrilla)pintarGrillaCompleta();
   renderBarraProyecto();
 }
 function renombrarProyecto(nombre){
@@ -2554,15 +2571,17 @@ outputEl.setAttribute('data-placeholder','Tocá acá para escribir o pegar una l
 cargarLetra();
 // mover con mantener-apretado: un toque = 1 paso; mantener = avance continuo que acelera
 function activarBotonMover(btn,dir){
-  let timer=null, delay=320, primero=true;
+  let timer=null, delay=320, pasos=0;
+  const MAX_PASOS=24; // tope: no más de ~3 compases seguidos al mantener apretado
   const paso=()=>{
-    moverGsil(dir);
-    delay=Math.max(70,delay*0.82); // acelera mientras mantenés
+    if(pasos>=MAX_PASOS){parar();return;}
+    moverGsil(dir);pasos++;
+    delay=Math.max(110,delay*0.86); // acelera, pero con piso más alto (menos descontrolado)
     timer=setTimeout(paso,delay);
   };
   const arrancar=(e)=>{
     e.preventDefault();
-    delay=320;primero=true;
+    delay=320;pasos=1;
     moverGsil(dir);              // primer paso inmediato
     timer=setTimeout(paso,delay); // luego repite si seguís apretando
   };
@@ -2596,9 +2615,70 @@ function extraerMolde(li){
   });
   return {cols, texto:t, n:sils.length};
 }
+let moldeSelIdx=[]; // índices de sílaba seleccionados (rango)
+function seleccionarHueco(idx){
+  if(moldeSelIdx.length===0){moldeSelIdx=[idx];}
+  else if(moldeSelIdx.length===1){
+    // segundo toque: marca el rango entre el primero y este
+    const a=Math.min(moldeSelIdx[0],idx), b=Math.max(moldeSelIdx[0],idx);
+    moldeSelIdx=[];for(let i=a;i<=b;i++)moldeSelIdx.push(i);
+  } else {moldeSelIdx=[idx];} // ya había rango: reinicia con este
+  rellenarMolde();
+  sugerirPalabrario();
+}
+// patrón métrico de una palabra: nº de sílabas y qué sílaba es tónica
+function metricaPalabra(w){
+  const sils=silabasDeVerso(w);
+  const n=sils.length;
+  let ton=-1;sils.forEach((s,i)=>{if(s.ton)ton=i;});
+  return {n, ton, sils};
+}
+// terminación para rima (desde la vocal tónica): reusa la lógica de asonancia/consonancia simple
+function terminacionRima(w){
+  const m=metricaPalabra(w);
+  if(m.ton<0)return '';
+  // consonante: desde la vocal tónica al final, sin tildes
+  const cola=m.sils.slice(m.ton).map(s=>s.text).join('');
+  return sinTilde(cola.toLowerCase());
+}
+function sugerirPalabrario(){
+  const cont=document.getElementById('molde-sugerencias');
+  if(!cont)return;
+  if(moldeSelIdx.length===0){cont.innerHTML='';return;}
+  // patrón objetivo: cuántas sílabas y dónde el acento (según el molde)
+  const nHuecos=moldeSelIdx.length;
+  // acento esperado: mirar cuál de los huecos seleccionados es tónico en el molde
+  let tonRel=-1;
+  moldeSelIdx.forEach((idx,i)=>{const p=moldeActual.cols[idx];if(p&&p.ton)tonRel=i;});
+  // rima: terminación de la última palabra del verso modelo
+  const modeloTxt=moldeActual.texto;
+  const ultimaPalMod=(modeloTxt.match(/[a-záéíóúüñ]+/gi)||[]).pop()||'';
+  const rimaObjetivo=terminacionRima(ultimaPalMod);
+  // recorrer power words, calcular métrica, clasificar
+  const riman=[], entran=[];
+  [...powerWords].forEach(w=>{
+    const m=metricaPalabra(w);
+    if(m.n!==nHuecos)return; // debe tener exactamente ese nº de sílabas
+    // acento: si el molde marca una tónica, la palabra debe tener la tónica en esa posición
+    if(tonRel>=0 && m.ton!==tonRel)return;
+    const rimaW=terminacionRima(w);
+    if(rimaObjetivo && rimaW && rimaW===rimaObjetivo)riman.push(w);
+    else entran.push(w);
+  });
+  let html='';
+  if(riman.length){html+='<div class="sug-grupo"><span class="sug-lbl">riman</span>'+riman.map(w=>'<span class="sug-pal rima" data-w="'+w+'">'+w+'</span>').join('')+'</div>';}
+  if(entran.length){html+='<div class="sug-grupo"><span class="sug-lbl">entran</span>'+entran.map(w=>'<span class="sug-pal" data-w="'+w+'">'+w+'</span>').join('')+'</div>';}
+  if(!riman.length&&!entran.length){html='<div class="sug-vacio">Ninguna power word de '+nHuecos+' sílaba'+(nHuecos>1?'s':'')+(tonRel>=0?' con ese acento':'')+'. Agregá más al palabrario ✦</div>';}
+  cont.innerHTML=html;
+  // al tocar una sugerencia, la escribe en el campo
+  cont.querySelectorAll('.sug-pal').forEach(el=>{
+    el.onclick=()=>{const campo=document.getElementById('molde-campo');campo.value=(campo.value+' '+el.dataset.w).trim();rellenarMolde();};
+  });
+}
 function abrirMolde(li){
   moldeActual=extraerMolde(li);
   if(!moldeActual)return;
+  moldeSelIdx=[];
   document.getElementById('molde-modelo').textContent='de: "'+moldeActual.texto+'" · '+moldeActual.n+' sílabas';
   // regla
   const reg=document.getElementById('molde-regla');reg.innerHTML='';reg.style.gridTemplateColumns='repeat(8,1fr)';
@@ -2632,7 +2712,11 @@ function rellenarMolde(){
       // ¿hay una posición del molde en esta col y compás?
       const pos=moldeActual.cols.find(p=>p.colVis===c&&p.comp===comp);
       if(pos){
+        const miIdx=idxSil; // capturar el valor actual (no la variable que se incrementa)
         cel.classList.add('hueco');
+        cel.dataset.idx=miIdx;
+        if(moldeSelIdx.includes(miIdx))cel.classList.add('sel-rango');
+        cel.onclick=()=>seleccionarHueco(miIdx);
         const mk=document.createElement('div');mk.className='molde-mk'+(pos.ton?' fuerte':'');
         if(marcaModo==='vocal'){
           const v=sinTilde(nucleoVocalico(pos.orig||''))||(pos.ton?'X':'x');
@@ -2641,7 +2725,7 @@ function rellenarMolde(){
           mk.textContent=pos.ton?'X':'x';
         }
         cel.appendChild(mk);
-        const sil=nuevasSil[idxSil];
+        const sil=nuevasSil[miIdx];
         const txtEl=document.createElement('div');txtEl.className='molde-sil';
         if(sil){txtEl.textContent=sil.text;txtEl.classList.add('lleno');}
         else{txtEl.innerHTML='<span class="molde-slot"></span>';}
