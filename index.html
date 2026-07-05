@@ -2607,7 +2607,9 @@ function abrirMolde(li){
     if(c%2===0){cel.classList.add('tiempo');if(COL_TON.includes(c))cel.classList.add('fuerte');cel.textContent=(c/2)+1;}else cel.textContent='·';reg.appendChild(cel);}
   document.getElementById('molde-campo').value='';
   rellenarMolde();
-  document.getElementById('molde-panel').style.display='block';
+  const panel=document.getElementById('molde-panel');
+  panel.style.display='block';
+  panel.scrollIntoView({behavior:'smooth',block:'center'});
 }
 function rellenarMolde(){
   if(!moldeActual)return;
@@ -2660,8 +2662,14 @@ function rellenarMolde(){
   else val.innerHTML='<span class="badge no">'+(-diff)+' de menos</span> <span class="molde-cnt">'+n+' / '+obj+' sílabas</span>';
 }
 document.getElementById('molde-btn').onclick=()=>{
-  if(!gsilSel){alert('Tocá una sílaba del verso que querés usar de molde.');return;}
-  abrirMolde(gsilSel.li);
+  let li = gsilSel ? gsilSel.li : null;
+  if(li===null){
+    // sin selección: usar el primer verso con contenido de la canción
+    const lines=document.getElementById('input').value.replace(/\r\n/g,'\n').replace(/\r/g,'\n').split('\n');
+    for(let x=0;x<lines.length;x++){const t=lines[x].trim();if(t && !/^\s*\[.+\]\s*$/.test(t)){li=x;break;}}
+  }
+  if(li===null){pedirConfirmacion('Escribí una letra primero para usar un verso como molde.',()=>{});return;}
+  abrirMolde(li);
 };
 document.getElementById('molde-cerrar').onclick=()=>{document.getElementById('molde-panel').style.display='none';};
 document.getElementById('molde-campo').oninput=rellenarMolde;
